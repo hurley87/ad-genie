@@ -250,6 +250,9 @@ class NewCampaign extends React.Component {
       pageId: this.state.page.value
     }
 
+
+    
+
     const context = this;                             
     Meteor.call('adset.new', user.profile.campaignId, ad, pageId, Meteor.userId(), function(err, result){
       if(err) {
