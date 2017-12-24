@@ -4,8 +4,8 @@
     "MAIL_URL": "",
     "OAuth": {
       "facebook": {
-        "appId": "",
-        "secret": "",
+        "appId": "2029273400421368",
+        "secret": "2d5e6288c3aa1a575a485f8dd0e5f03b",
         "loginStyle": "popup"
       },
       "google": {
@@ -19,5 +19,10 @@
         "loginStyle": "popup"
       }
     }
-  }
+  },
+  "AWSAccessKeyId": "AKIAJ5T33Z26ODN3U6YQ",
+  "AWSSecretAccessKey": "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",
+  "FBAccess": "EAAWwo0KR3o8BAICGIoqkNvfKdpAwjJuvsFXSIDBpZCFWMnPf1Or2GHzJ3SZAJgykhY9oBsIYzdZBsjik8z1vX9WfB06y9WX1MRKqJzSLLVZCQ4mTdojkZBs7lWSSxo4tpTzWikNas3J0O6ZCmVvswPAPBVs3t12ZA2S1oLfNMVa5AZDZD",
+  "FBAccountID": "act_1921492931512222"
 }
+

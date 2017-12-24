@@ -13,11 +13,16 @@ import Public from '../../components/Public/Public';
 import Index from '../../pages/Index/Index';
 import Documents from '../../pages/Documents/Documents';
 import NewDocument from '../../pages/NewDocument/NewDocument';
+import NewCampaign from '../../pages/NewCampaign/NewCampaign';
+import NewAd from '../../pages/NewAd/NewAd';
+import NewVideo from '../../pages/NewVideo/NewVideo';
 import ViewDocument from '../../pages/ViewDocument/ViewDocument';
+import ViewProperty from '../../pages/ViewProperty/ViewProperty';
 import EditDocument from '../../pages/EditDocument/EditDocument';
 import Signup from '../../pages/Signup/Signup';
 import Login from '../../pages/Login/Login';
 import Logout from '../../pages/Logout/Logout';
+import AdsContainer from '../../pages/AdsContainer/AdsContainer';
 import VerifyEmail from '../../pages/VerifyEmail/VerifyEmail';
 import RecoverPassword from '../../pages/RecoverPassword/RecoverPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
@@ -29,6 +34,9 @@ import Privacy from '../../pages/Privacy/Privacy';
 import ExamplePage from '../../pages/ExamplePage/ExamplePage';
 import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert';
 import getUserName from '../../../modules/get-user-name';
+import NewAudience from '../../pages/NewAudience/NewAudience';
+import NewImage from '../../pages/NewImage/NewImage';
+
 
 import './App.scss';
 
@@ -49,8 +57,15 @@ const App = props => (
             <Route exact name="index" path="/" component={Index} />
             <Authenticated exact path="/documents" component={Documents} {...props} />
             <Authenticated exact path="/documents/new" component={NewDocument} {...props} />
+            <Authenticated exact path="/campaigns/new" component={NewCampaign} {...props} />
+            <Authenticated exact path="/properties/new" component={NewAd} {...props} />
+            <Authenticated exact path="/properties" component={AdsContainer} {...props} />
+            <Authenticated exact path="/videos/new" component={NewVideo} {...props} />
+            <Authenticated exact path="/properties/:_id" component={ViewProperty} {...props} />
             <Authenticated exact path="/documents/:_id" component={ViewDocument} {...props} />
             <Authenticated exact path="/documents/:_id/edit" component={EditDocument} {...props} />
+            <Authenticated exact path="/audiences/new" component={NewAudience} {...props} />
+            <Authenticated exact path="/images/new" component={NewImage} {...props} />
             <Authenticated exact path="/profile" component={Profile} {...props} />
             <Public path="/signup" component={Signup} {...props} />
             <Public path="/login" component={Login} {...props} />
@@ -66,7 +81,7 @@ const App = props => (
         </Grid>
         <Footer />
       </div>
-    ) : ''}
+      ) : ''}
   </Router>
 );
 

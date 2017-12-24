@@ -4,6 +4,17 @@
   margin-top: 0;
 }
 
+.navbar {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+.navbar.navbar-default {
+	background-color: "#fff";
+	border: none;
+}
+
 @include breakpoint(tablet) {
   .page-header {
     margin-top: 20px;

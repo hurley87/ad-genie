@@ -9,7 +9,7 @@ import './OAuthLoginButton.scss';
 const handleLogin = (service, callback) => {
   const options = {
     facebook: {
-      requestPermissions: ['email'],
+      requestPermissions: ['email', 'manage_pages', 'ads_management', 'ads_read', 'pages_show_list'],
       loginStyle: 'popup',
     },
     github: {
