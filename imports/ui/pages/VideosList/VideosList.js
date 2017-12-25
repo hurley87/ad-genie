@@ -46,7 +46,7 @@ VideosList.propTypes = {
 };
 
 export default createContainer((props) => {
-	const subscription = Meteor.subscribe('videos');
+	const subscription = Meteor.subscribe('videos.user', Meteor.userId());
 	let videos = Videos.find().fetch();
 	let loading = !subscription.ready();
 

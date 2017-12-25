@@ -7,3 +7,7 @@ Meteor.publish('videos', function videos() {
   return Videos.find();
 });
 
+Meteor.publish('videos.user', function videos(userId) {
+	check(userId, String)
+	return Videos.find({owner_id: userId});
+});

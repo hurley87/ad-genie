@@ -75,7 +75,7 @@ AdsIndex.propTypes = {
 };
 
 export default createContainer((props) => {
-	const subscription = Meteor.subscribe('ads');
+	const subscription = Meteor.subscribe('ads.user', Meteor.userId());
 
 	let ads = Ads.find().fetch();
 

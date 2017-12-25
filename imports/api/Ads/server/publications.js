@@ -24,3 +24,8 @@ Meteor.publish('ad.view', function ads(adId) {
 	check(adId, String)
 	return Ads.find({ _id: adId});
 });
+
+Meteor.publish('ads.user', function adsUser(userId) {
+	check(userId, String);
+	return Ads.find({ userId: userId});
+});
