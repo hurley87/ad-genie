@@ -17,9 +17,12 @@ const VideosList = ({ videos, loading, imgChange, match, history }) => ( !loadin
   videos.length > 0 ? 
   <div>
 	<div className="page-header clearfix">
-	  <h4 className="pull-left">Choose a Video</h4>
+	  <h4 className="pull-left">Upload a Video</h4>
 	</div>
 	<NewVideo />
+	<div className="page-header clearfix">
+	  <h4>Choose a Video</h4>
+	</div>
   	<Row>
 	{videos.reverse().map((vid, i) => (
 	  <Col md={6} xs={6} key={i}>
@@ -33,10 +36,10 @@ const VideosList = ({ videos, loading, imgChange, match, history }) => ( !loadin
   </div> :
   <div>
 	<div className="page-header clearfix">
-	  <h4 className="pull-left">Choose a Video</h4>
-	  <Link className="btn btn-success pull-right" to={`/videos/new`}>Upload Video</Link>
+	  <h4>Choose a Video</h4>
 	</div>
-	<p>Please upload a video.</p>
+	<p>TODO: Copy explaining the value of using video in an ad.</p>
+	<NewVideo />
   </div>
 ): <Loading />);
 

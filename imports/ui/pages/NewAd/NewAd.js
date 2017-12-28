@@ -38,12 +38,14 @@ class NewCampaign extends React.Component {
       first: 'Newly Renovated Finished Basement',
       second: 'Newly Built Back Two-Level Deck',
       third: 'Open Concept Kitchen',
-      page: ''
+      page: '',
+      price: '1000000'
   	}
   	this.imgChange = this.imgChange.bind(this)
     this.vidChange = this.vidChange.bind(this)
   	this.handleTextareaChange = this.handleTextareaChange.bind(this)
   	this.handleHeadlineChange = this.handleHeadlineChange.bind(this)
+    this.handlePriceChange = this.handlePriceChange.bind(this)
   	this.handleRefChange = this.handleRefChange.bind(this)
   	this.handleBudgetChange = this.handleBudgetChange.bind(this)
   	this.handleChange = this.handleChange.bind(this)
@@ -68,6 +70,12 @@ class NewCampaign extends React.Component {
   handlePageChange(page) {
     this.setState({ 
       page: page
+    });
+  }
+
+  handlePriceChange(evt) {
+    this.setState({ 
+      price: evt.target.value
     });
   }
 
@@ -247,7 +255,8 @@ class NewCampaign extends React.Component {
       address: this.state.address,
       propertyType: this.state.propertyType,
       imgUrl: this.state.imgUrl,
-      pageId: this.state.page.value
+      pageId: this.state.page.value,
+      price: this.state.price.value
     }
 
     const context = this;                             
@@ -255,10 +264,12 @@ class NewCampaign extends React.Component {
       if(err) {
         console.log(err)
       } else {
-        context.setState({
-          loading: false
-        })
-        history.push('/properties');
+        setTimeout(function(){ 
+          context.setState({
+            loading: false
+          })
+          history.push('/properties');
+        }, 5000);
       }
     })
   }
@@ -339,6 +350,17 @@ class NewCampaign extends React.Component {
                         ref={third => (this.third = third)}
                         className="form-control"
                         onChange={this.handleThirdChange}
+                      />
+                    </FormGroup> 
+                    <FormGroup>
+                      <ControlLabel>Price</ControlLabel>
+                      <input
+                        type="text"
+                        name="price"
+                        value={this.state.price}
+                        ref={price => (this.price = price)}
+                        className="form-control"
+                        onChange={this.handlePriceChange}
                       />
                     </FormGroup> 
                     <FormGroup>

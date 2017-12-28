@@ -48,20 +48,19 @@ class NewVideo extends React.Component {
     const { history } = this.props;
 
     reader.readAsDataURL(file);
-    console.log('start')
     this.setState({
       loading: true
     })
     reader.onloadend = (event) => {
-      console.log('middle')
       const context = this;
       Meteor.call('video.new', { data: reader.result, file: { name: file.name, type: file.type } }, function(err, result){
         if (err) console.warn(err);
         if (result) console.log(result);
-        context.setState({
-          loading: false
-        })
-        context.state.history.push('/properties/new')
+        setTimeout(function(){ 
+          context.setState({
+            loading: false
+          })
+        }, 4000);
       })
     };
   }
@@ -79,7 +78,6 @@ class NewVideo extends React.Component {
           <Col xs={12}>
             <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
                 <FormGroup>
-                  <ControlLabel>Video Upload</ControlLabel>
                   <input
                     type="file"
                     name="imageFile"

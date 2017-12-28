@@ -50,7 +50,12 @@ class NewImage extends React.Component {
     reader.onloadend = (event) => {
       Meteor.call('image.new', { data: reader.result, file: { name: file.name, type: file.type } }, function(err, result){
         if (err) console.warn(err);
-        if (result) context.setState({ loading: false })
+        if (result) console.log(result)
+        setTimeout(function(){ 
+          context.setState({
+            loading: false
+          })
+        }, 4000);
       })
     };
   }
@@ -64,10 +69,8 @@ class NewImage extends React.Component {
         <div className="NewImage">
           <Row>
             <Col xs={12}>
-              <h4 className="page-header">Images</h4>
               <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
                   <FormGroup>
-                    <ControlLabel>Image Upload</ControlLabel>
                     <input
                       type="file"
                       name="imageFile"

@@ -14,17 +14,26 @@ import 'react-image-picker/dist/index.css';
 import NewImage from '../NewImage/NewImage';
 
 const ImagesList = ({ images, loading, imgChange, match, history }) => ( !loading ? (
-  images.length >1 ? 
+  images.length > 0 ? 
   <div>
+	<div className="page-header clearfix">
+	  <h4>Upload an Image</h4>
+	</div>
   	<NewImage />
-  	<h3>Choose an image</h3>
+	<div className="page-header clearfix">
+	  <h4>Choose an Image</h4>
+	</div>
 	<ImagePicker 
 	  images={images.map((image, i) => ({src: image.url, value: i, hash: image.hash }))}
 	  onPick={imgChange}
 	/>
   </div> :
   <div>
-  	<Alert bsStyle="warning">Create an image</Alert>
+	<div className="page-header clearfix">
+	  <h4>Upload an Image</h4>
+	</div>
+	<p>TODO: explain importance of using the right image in an ad.</p>
+	<NewImage />
   </div>
 ): <Loading />);
 
