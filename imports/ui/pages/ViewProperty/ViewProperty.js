@@ -9,7 +9,9 @@ import Loading from '../../components/Loading/Loading';
 
 const ViewProperty = ({ loading, ad, deleteAd, match, history }) => ( !loading ? (
   <div>
-  	hey
+  	<h3>{ad.ad.address}</h3>
+  	<img style={{height: "200px"}} src={ad.ad.imgUrl} />
+  	<p>{ad.ad.description}</p>
   	<button onClick={deleteAd.bind(this, ad._id, history)}>Delete</button>
   </div>
 ): <Loading />);
@@ -28,10 +30,7 @@ export default createContainer(({ match, history }) => {
 
 	let ad = Ads.find().fetch()[0];
 
-	console.log(ad)
-
 	let loading = !subscription.ready()
-
 
 	const deleteAd = function(adId, history) {
 		history.push('/properties')
