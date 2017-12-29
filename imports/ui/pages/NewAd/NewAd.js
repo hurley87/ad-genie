@@ -333,6 +333,7 @@ class NewCampaign extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     if(this.state.loading) {
       return <Loading />
     } else {
@@ -446,21 +447,40 @@ class NewCampaign extends React.Component {
 
         )
       } else {
+          let description = `🔥 Stunning ${this.state.propertyType} Located At ${this.state.address} 🔥
+
+        ✅ ${this.state.first} 
+        ✅ ${this.state.second}
+        ✅ ${this.state.third}
+
+        You need to see this one for yourself!
+
+        To get more information on this property or to book a viewing  hit the "Send Message" button below!`
         return (
           <div className="NewCampaign">
             <Row>
-              <Col xs={12} sm={6} md={5} lg={4}>
+              <Col sm={6} md={5} lg={4}>
                 <br />
                 <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-                <video width="200" height="200" controls>
+                <video width="200" height="100" controls>
                   <source src={this.state.vidUrl} type="video/mp4"/>
                 </video> 
                 <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                <img style={{height: '100px'}} src={this.state.imgUrl}/>
                 <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
+                <p>{this.state.propertyType}</p>
                 <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+                <p>{this.state.region.label}</p>
                 <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
+                <p>{this.state.address}</p>
                 <p><button onClick={this.chooseAnotherPrice}>Change price</button></p>
+                <p>{this.state.price}</p>
                 <p><button onClick={this.chooseSellingPoints}>Change selling points</button></p>
+                <p>{this.state.first}</p>
+                <p>{this.state.second}</p>
+                <p>{this.state.third}</p>
+                </Col>
+                <Col sm={6} md={5} lg={4}>
                 <h4 className="page-header">Create Ad</h4>
                 <form ref={form => (this.form = form)} onSubmit={this.handleSubmit.bind(this)}>
                     <FormGroup style={{display: 'none'}}>
@@ -543,6 +563,9 @@ class NewCampaign extends React.Component {
                         ]}
                       />
                     </FormGroup>
+                    <div>
+                      {nl2br(description)}
+                    </div>
                   <Button type="submit" bsStyle="success">Create Ad</Button>
                 </form>
               </Col>
