@@ -28,13 +28,14 @@ export default createContainer(({ match, history }) => {
 
 	let ad = Ads.find().fetch()[0];
 
+	console.log(ad)
+
 	let loading = !subscription.ready()
 
 
 	const deleteAd = function(adId, history) {
 		history.push('/properties')
 		Meteor.call('delete.ad', adId, function(err, result){
-			if(err)
 			if(err) console.log(err)
 			if(result) history.push('/properties')
 		})
