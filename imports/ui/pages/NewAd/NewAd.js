@@ -31,15 +31,18 @@ class NewCampaign extends React.Component {
   		chooseVid: true,
   		headline: 'GET INSTANTLY',
   		ref: "FB",
-      address: '123 Fake Street',
-      propertyType: 'Bugalow',
+      address: '',
+      propertyType: '',
       loading: false,
       imgUrl: '',
       first: 'Newly Renovated Finished Basement',
       second: 'Newly Built Back Two-Level Deck',
       third: 'Open Concept Kitchen',
       page: '',
-      price: '1000000'
+      price: '',
+      showAddress: true,
+      showPrice: true,
+      showSellingPoints: true
   	}
   	this.imgChange = this.imgChange.bind(this)
     this.vidChange = this.vidChange.bind(this)
@@ -58,8 +61,15 @@ class NewCampaign extends React.Component {
   	this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAddressChange = this.handleAddressChange.bind(this)
     this.handlePropertyTypeChange = this.handlePropertyTypeChange.bind(this)
+    this.chooseAnotherRegion = this.chooseAnotherRegion.bind(this)
+    this.chooseAnotherPropertyType = this.chooseAnotherPropertyType.bind(this)
+    this.updateAddress = this.updateAddress.bind(this)
+    this.chooseAnotherAddress = this.chooseAnotherAddress.bind(this)
+    this.chooseAnotherPrice = this.chooseAnotherPrice.bind(this)
+    this.updatePrice = this.updatePrice.bind(this)
+    this.updateSellingPoints = this.updateSellingPoints.bind(this)
+    this.chooseSellingPoints = this.chooseSellingPoints.bind(this)
   }
-
 
   handleChange(region) {
     this.setState({ 
@@ -213,6 +223,54 @@ class NewCampaign extends React.Component {
     });
   }
 
+  chooseAnotherPropertyType(){
+    this.setState({
+      propertyType: ''
+    })
+  }
+
+  chooseAnotherPrice(){
+    this.setState({
+      showPrice: true
+    })
+  }
+
+  updatePrice(){
+    this.setState({
+      showPrice: false
+    })
+  }
+
+  chooseSellingPoints(){
+    this.setState({
+      showSellingPoints: true
+    })
+  }
+
+  updateSellingPoints(){
+    this.setState({
+      showSellingPoints: false
+    })
+  }
+
+  updateAddress(){
+    this.setState({
+      showAddress: false
+    })
+  }
+
+  chooseAnotherAddress(){
+    this.setState({
+      showAddress: true
+    })
+  }
+
+  chooseAnotherRegion(){
+    this.setState({
+      region: ''
+    })
+  }
+
   chooseAnotherImg() {
     this.setState({ 
       imgUrl: ''
@@ -290,25 +348,130 @@ class NewCampaign extends React.Component {
         );
       } else if(this.state.imgUrl == '') {
         return <ImagesList imgChange={this.imgChange} />
+      } else if(this.state.page == '') {
+        return <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.page} />
+      } else if(this.state.region == '') {
+        return <AudiencesList handleChange={this.handleChange} currentRegion={this.state.region} />
+      } else if(this.state.propertyType == '') {
+        return (
+          <div>
+            <div className="page-header clearfix">
+              <h4>What type of property is this?</h4>
+            </div>
+            <Select
+              name="propertyType"
+              value={this.state.propertyType}
+              onChange={this.handlePropertyTypeChange}
+              options={[
+                { value: 'loft', label: 'Loft' },
+                { value: 'detached', label: 'Detached'},
+                { value: 'condo', label: 'Condo'},
+                { value: 'detached', label: 'Detached'},
+                { value: 'bungalow', label: 'Bugalow'},
+                { value: 'townhome', label: 'Townhome'},
+                { value: 'semidetachedtownhome', label: 'Semi Detached Townhome'},
+              ]}
+            />
+          </div>
+        )
+      } else if(this.state.showAddress) {
+        return (
+            <div>
+              <div className="page-header clearfix">
+                <h4>What is the address of the property?</h4>
+              </div>
+              <input
+                type="text"
+                name="address"
+                value={this.state.address}
+                ref={address => (this.address = address)}
+                className="form-control"
+                onChange={this.handleAddressChange}
+              />
+              <p><button onClick={this.updateAddress}>Update address</button></p>
+            </div>
+        )
+      } else if(this.state.showPrice){
+        return (
+          <div>
+              <div className="page-header clearfix">
+                <h4>What is the price of the property?</h4>
+              </div>
+              <input
+                type="text"
+                name="price"
+                value={this.state.price}
+                ref={price => (this.price = price)}
+                className="form-control"
+                onChange={this.handlePriceChange}
+              />
+            <p><button onClick={this.updatePrice}>Update price</button></p>
+          </div>
+        )
+      } else if(this.state.showSellingPoints){
+        return (
+          <div>
+              <div className="page-header clearfix">
+                <h4>What are the top 3 selling points of this property?</h4>
+              </div>
+              <ControlLabel>#1 Selling Point</ControlLabel>
+              <input
+                type="text"
+                name="first"
+                value={this.state.first}
+                ref={first => (this.first = first)}
+                className="form-control"
+                onChange={this.handleFirstChange}
+              />
+              <ControlLabel>#2 Selling Point</ControlLabel>
+              <input
+                type="text"
+                name="second"
+                value={this.state.second}
+                ref={second => (this.second = second)}
+                className="form-control"
+                onChange={this.handleSecondChange}
+              />
+              <ControlLabel>#3 Selling Point</ControlLabel>
+              <input
+                type="text"
+                name="third"
+                value={this.state.third}
+                ref={third => (this.third = third)}
+                className="form-control"
+                onChange={this.handleThirdChange}
+              />
+            <p><button onClick={this.updateSellingPoints}>Update selling points</button></p>
+          </div>
+
+        )
       } else {
         return (
           <div className="NewCampaign">
             <Row>
               <Col xs={12} sm={6} md={5} lg={4}>
                 <br />
-                <button onClick={this.chooseAnotherVid}>Choose another video</button>
-                <button onClick={this.chooseAnotherImg}>Choose another image</button>
+                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+                <video width="200" height="200" controls>
+                  <source src={this.state.vidUrl} type="video/mp4"/>
+                </video> 
+                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
+                <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+                <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
+                <p><button onClick={this.chooseAnotherPrice}>Change price</button></p>
+                <p><button onClick={this.chooseSellingPoints}>Change selling points</button></p>
                 <h4 className="page-header">Create Ad</h4>
                 <form ref={form => (this.form = form)} onSubmit={this.handleSubmit.bind(this)}>
-                    <FormGroup>
+                    <FormGroup style={{display: 'none'}}>
                       <ControlLabel>Page</ControlLabel>
                       <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.page} />
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup style={{display: 'none'}}>
                       <ControlLabel>City</ControlLabel>
                       <AudiencesList handleChange={this.handleChange} currentRegion={this.state.region} />
                     </FormGroup>
-                    <FormGroup>
+                    <FormGroup style={{display: 'none'}}>
                       <ControlLabel>Address</ControlLabel>
                       <input
                         type="text"
@@ -319,7 +482,7 @@ class NewCampaign extends React.Component {
                         onChange={this.handleAddressChange}
                       />
                     </FormGroup>  
-                    <FormGroup>
+                    <FormGroup style={{display: 'none'}}>
                       <ControlLabel>#1 Selling Point</ControlLabel>
                       <input
                         type="text"
@@ -330,7 +493,7 @@ class NewCampaign extends React.Component {
                         onChange={this.handleFirstChange}
                       />
                     </FormGroup>   
-                    <FormGroup>
+                    <FormGroup style={{display: 'none'}}>
                       <ControlLabel>#2 Selling Point</ControlLabel>
                       <input
                         type="text"
@@ -341,7 +504,7 @@ class NewCampaign extends React.Component {
                         onChange={this.handleSecondChange}
                       />
                     </FormGroup>  
-                    <FormGroup>
+                    <FormGroup style={{display: 'none'}}>
                       <ControlLabel>#3 Selling Point</ControlLabel>
                       <input
                         type="text"
@@ -352,7 +515,7 @@ class NewCampaign extends React.Component {
                         onChange={this.handleThirdChange}
                       />
                     </FormGroup> 
-                    <FormGroup>
+                    <FormGroup style={{display: 'none'}}>
                       <ControlLabel>Price</ControlLabel>
                       <input
                         type="text"
@@ -363,7 +526,7 @@ class NewCampaign extends React.Component {
                         onChange={this.handlePriceChange}
                       />
                     </FormGroup> 
-                    <FormGroup>
+                    <FormGroup style={{display: 'none'}}>
                       <ControlLabel>Property Type</ControlLabel>
                       <Select
                         name="propertyType"

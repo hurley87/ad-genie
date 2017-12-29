@@ -14,6 +14,10 @@ import Select from 'react-select';
 const AudiencesList = ({ loading, regions, select, handleChange, currentRegion, match, history }) => (
   !loading ? 
     <div className="AudiencesList">
+      <div className="page-header clearfix">
+        <h4>Choose an audience to target</h4>
+      </div>
+      <p>What city do you want to advertise in?</p>
       <Select
         name="region"
         value={currentRegion}

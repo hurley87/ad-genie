@@ -14,6 +14,10 @@ import Select from 'react-select';
 const PagesList = ({ loading, select, handlePageChange, currentPage, match, history }) => (
   !loading ? 
     <div className="PagesList">
+      <div className="page-header clearfix">
+        <h4>Choose a Page</h4>
+      </div>
+      <p>This is page you will use to chat with prospects.</p>
       <Select
         name="page"
         value={currentPage}
