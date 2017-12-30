@@ -125,7 +125,8 @@ Meteor.methods({
 						      "title": ad.address,
 						      "message": ad.description
 						    }
-						}
+						},
+						"url_tags": "ref=" + userId
 					}
 				}
 			)

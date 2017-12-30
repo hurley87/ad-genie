@@ -69,6 +69,7 @@ class NewCampaign extends React.Component {
     this.updatePrice = this.updatePrice.bind(this)
     this.updateSellingPoints = this.updateSellingPoints.bind(this)
     this.chooseSellingPoints = this.chooseSellingPoints.bind(this)
+    this.chooseAnotherPage = this.chooseAnotherPage.bind(this)
   }
 
   handleChange(region) {
@@ -229,6 +230,12 @@ class NewCampaign extends React.Component {
     })
   }
 
+  chooseAnotherPage(){
+    this.setState({
+      page: ''
+    })
+  }
+
   chooseAnotherPrice(){
     this.setState({
       showPrice: true
@@ -341,110 +348,179 @@ class NewCampaign extends React.Component {
         return (
           <div className="NewCampaign">
             <Row>
-              <Col md={12} xs={12}>
+              <Col sm={6} md={5} lg={3}>
+                TODO: add index here
+              </Col>
+              <Col sm={6} md={5} lg={8}>
                 <VideosList imgChange={this.vidChange} />
               </Col>
             </Row>
           </div>
         );
       } else if(this.state.imgUrl == '') {
-        return <ImagesList imgChange={this.imgChange} />
+        return (
+          <div>
+            <Col sm={6} md={5} lg={3}>
+              <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+            </Col>
+            <Col sm={6} md={5} lg={8}>
+              <ImagesList imgChange={this.imgChange} />
+            </Col>
+          </div>
+        )
       } else if(this.state.page == '') {
-        return <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.page} />
+        return (
+          <div>  
+            <Col sm={6} md={5} lg={3}>
+              <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+              <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+            </Col>
+            <Col sm={6} md={5} lg={8}>
+              <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.page} />
+            </Col>
+          </div>
+        )
       } else if(this.state.region == '') {
-        return <AudiencesList handleChange={this.handleChange} currentRegion={this.state.region} />
+        return (
+          <div>
+            <Col sm={6} md={5} lg={3}>
+              <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+              <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+              <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+            </Col>
+            <Col sm={6} md={5} lg={8}>
+              <AudiencesList handleChange={this.handleChange} currentRegion={this.state.region} />
+            </Col>
+          </div>
+        )
       } else if(this.state.propertyType == '') {
         return (
           <div>
-            <div className="page-header clearfix">
-              <h4>What type of property is this?</h4>
-            </div>
-            <Select
-              name="propertyType"
-              value={this.state.propertyType}
-              onChange={this.handlePropertyTypeChange}
-              options={[
-                { value: 'loft', label: 'Loft' },
-                { value: 'detached', label: 'Detached'},
-                { value: 'condo', label: 'Condo'},
-                { value: 'detached', label: 'Detached'},
-                { value: 'bungalow', label: 'Bugalow'},
-                { value: 'townhome', label: 'Townhome'},
-                { value: 'semidetachedtownhome', label: 'Semi Detached Townhome'},
-              ]}
-            />
+            <Col sm={6} md={5} lg={3}>
+              <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+              <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+              <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+              <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+            </Col>
+            <Col sm={6} md={5} lg={4}>
+              <div className="page-header clearfix">
+                <h4>What type of property is this?</h4>
+              </div>
+              <Select
+                name="propertyType"
+                value={this.state.propertyType}
+                onChange={this.handlePropertyTypeChange}
+                options={[
+                  { value: 'loft', label: 'Loft' },
+                  { value: 'detached', label: 'Detached'},
+                  { value: 'condo', label: 'Condo'},
+                  { value: 'detached', label: 'Detached'},
+                  { value: 'bungalow', label: 'Bugalow'},
+                  { value: 'townhome', label: 'Townhome'},
+                  { value: 'semidetachedtownhome', label: 'Semi Detached Townhome'},
+                ]}
+              />
+            </Col>
           </div>
         )
       } else if(this.state.showAddress) {
         return (
             <div>
-              <div className="page-header clearfix">
-                <h4>What is the address of the property?</h4>
-              </div>
-              <input
-                type="text"
-                name="address"
-                value={this.state.address}
-                ref={address => (this.address = address)}
-                className="form-control"
-                onChange={this.handleAddressChange}
-              />
-              <p><button onClick={this.updateAddress}>Update address</button></p>
+              <Col sm={6} md={5} lg={3}>
+                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+                <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+                <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
+              </Col>
+              <Col sm={6} md={5} lg={8}>
+                <div className="page-header clearfix">
+                  <h4>What is the address of the property?</h4>
+                </div>
+                <input
+                  type="text"
+                  name="address"
+                  value={this.state.address}
+                  ref={address => (this.address = address)}
+                  className="form-control"
+                  onChange={this.handleAddressChange}
+                />
+                <p><button onClick={this.updateAddress}>Update address</button></p>
+              </Col>
             </div>
         )
       } else if(this.state.showPrice){
         return (
           <div>
-              <div className="page-header clearfix">
-                <h4>What is the price of the property?</h4>
-              </div>
-              <input
-                type="text"
-                name="price"
-                value={this.state.price}
-                ref={price => (this.price = price)}
-                className="form-control"
-                onChange={this.handlePriceChange}
-              />
-            <p><button onClick={this.updatePrice}>Update price</button></p>
+              <Col sm={6} md={5} lg={3}>
+                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+                <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+                <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
+                <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
+              </Col>
+              <Col sm={6} md={5} lg={9}>
+                  <div className="page-header clearfix">
+                    <h4>What is the price of the property?</h4>
+                  </div>
+                  <input
+                    type="text"
+                    name="price"
+                    value={this.state.price}
+                    ref={price => (this.price = price)}
+                    className="form-control"
+                    onChange={this.handlePriceChange}
+                  />
+                <p><button onClick={this.updatePrice}>Update price</button></p>
+              </Col>
           </div>
         )
       } else if(this.state.showSellingPoints){
         return (
           <div>
-              <div className="page-header clearfix">
-                <h4>What are the top 3 selling points of this property?</h4>
-              </div>
-              <ControlLabel>#1 Selling Point</ControlLabel>
-              <input
-                type="text"
-                name="first"
-                value={this.state.first}
-                ref={first => (this.first = first)}
-                className="form-control"
-                onChange={this.handleFirstChange}
-              />
-              <ControlLabel>#2 Selling Point</ControlLabel>
-              <input
-                type="text"
-                name="second"
-                value={this.state.second}
-                ref={second => (this.second = second)}
-                className="form-control"
-                onChange={this.handleSecondChange}
-              />
-              <ControlLabel>#3 Selling Point</ControlLabel>
-              <input
-                type="text"
-                name="third"
-                value={this.state.third}
-                ref={third => (this.third = third)}
-                className="form-control"
-                onChange={this.handleThirdChange}
-              />
-            <p><button onClick={this.updateSellingPoints}>Update selling points</button></p>
+              <Col sm={6} md={5} lg={3}>
+                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+                <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+                <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
+                <p><button onClick={this.chooseAnotherPrice}>Change price</button></p>
+              </Col>
+              <Col sm={6} md={5} lg={8}>
+                <div className="page-header clearfix">
+                  <h4>What are the top 3 selling points of this property?</h4>
+                </div>
+                <ControlLabel>#1 Selling Point</ControlLabel>
+                <input
+                  type="text"
+                  name="first"
+                  value={this.state.first}
+                  ref={first => (this.first = first)}
+                  className="form-control"
+                  onChange={this.handleFirstChange}
+                />
+                <ControlLabel>#2 Selling Point</ControlLabel>
+                <input
+                  type="text"
+                  name="second"
+                  value={this.state.second}
+                  ref={second => (this.second = second)}
+                  className="form-control"
+                  onChange={this.handleSecondChange}
+                />
+                <ControlLabel>#3 Selling Point</ControlLabel>
+                <input
+                  type="text"
+                  name="third"
+                  value={this.state.third}
+                  ref={third => (this.third = third)}
+                  className="form-control"
+                  onChange={this.handleThirdChange}
+                />
+              <p><button onClick={this.updateSellingPoints}>Update selling points</button></p>
+              </Col>
           </div>
-
         )
       } else {
           let description = `🔥 Stunning ${this.state.propertyType} Located At ${this.state.address} 🔥
@@ -459,7 +535,7 @@ class NewCampaign extends React.Component {
         return (
           <div className="NewCampaign">
             <Row>
-              <Col sm={6} md={5} lg={4}>
+              <Col sm={6} md={5} lg={3}>
                 <br />
                 <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
                 <video width="200" height="100" controls>
@@ -469,6 +545,8 @@ class NewCampaign extends React.Component {
                 <img style={{height: '100px'}} src={this.state.imgUrl}/>
                 <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
                 <p>{this.state.propertyType}</p>
+                <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+                <p>{this.state.pageId}</p>
                 <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
                 <p>{this.state.region.label}</p>
                 <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
@@ -480,8 +558,7 @@ class NewCampaign extends React.Component {
                 <p>{this.state.second}</p>
                 <p>{this.state.third}</p>
                 </Col>
-                <Col sm={6} md={5} lg={4}>
-                <h4 className="page-header">Create Ad</h4>
+                <Col sm={6} md={5} lg={9}>
                 <form ref={form => (this.form = form)} onSubmit={this.handleSubmit.bind(this)}>
                     <FormGroup style={{display: 'none'}}>
                       <ControlLabel>Page</ControlLabel>
