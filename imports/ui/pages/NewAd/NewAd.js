@@ -349,7 +349,22 @@ class NewCampaign extends React.Component {
           <div className="NewCampaign">
             <Row>
               <Col sm={6} md={5} lg={3}>
-                TODO: add index here
+                <h4>Video</h4>
+                <p>No video yet</p> 
+                <h4>Image</h4>
+                <p>No image yet</p>
+                <h4>Page</h4>
+                <p>Not choosen yet</p>
+                <h4>Region</h4>
+                <p>Not choosen yet</p>
+                <h4>Property Type</h4>
+                <p>Not choosen yet</p>
+                <h4>Address</h4>
+                <p>Not choosen yet</p>
+                <h4>Price</h4>
+                <p>Not choosen yet</p>
+                <h4>Selling points</h4>
+                <p>Not choosen yet</p>
               </Col>
               <Col sm={6} md={5} lg={8}>
                 <VideosList imgChange={this.vidChange} />
@@ -361,7 +376,22 @@ class NewCampaign extends React.Component {
         return (
           <div>
             <Col sm={6} md={5} lg={3}>
-              <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+                <h4>Video <small onClick={this.chooseAnotherVid}><i className="fa fa-pencil"></i></small></h4>
+                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
+                <h4>Image</h4>
+                <p>No image yet</p>
+                <h4>Page</h4>
+                <p>Not choosen yet</p>
+                <h4>Region</h4>
+                <p>Not choosen yet</p>
+                <h4>Property Type</h4>
+                <p>Not choosen yet</p>
+                <h4>Address</h4>
+                <p>Not choosen yet</p>
+                <h4>Price</h4>
+                <p>Not choosen yet</p>
+                <h4>Selling points</h4>
+                <p>Not choosen yet</p>
             </Col>
             <Col sm={6} md={5} lg={8}>
               <ImagesList imgChange={this.imgChange} />
@@ -372,8 +402,24 @@ class NewCampaign extends React.Component {
         return (
           <div>  
             <Col sm={6} md={5} lg={3}>
-              <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-              <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                <h4>Video</h4>
+                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
+                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+                <h4>Image</h4>
+                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
+                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                <h4>Page</h4>
+                <p>Not choosen yet</p>
+                <h4>Region</h4>
+                <p>Not choosen yet</p>
+                <h4>Property Type</h4>
+                <p>Not choosen yet</p>
+                <h4>Address</h4>
+                <p>Not choosen yet</p>
+                <h4>Price</h4>
+                <p>Not choosen yet</p>
+                <h4>Selling points</h4>
+                <p>Not choosen yet</p>
             </Col>
             <Col sm={6} md={5} lg={8}>
               <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.page} />
@@ -384,9 +430,26 @@ class NewCampaign extends React.Component {
         return (
           <div>
             <Col sm={6} md={5} lg={3}>
-              <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-              <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
               <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+              <h4>Video</h4>
+              <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
+              <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+              <h4>Image</h4>
+              <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
+              <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+              <h4>Page</h4>
+              <p>{this.state.page.label}</p>
+              <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+              <h4>Region</h4>
+              <p>Not choosen yet</p>
+              <h4>Property Type</h4>
+              <p>Not choosen yet</p>
+              <h4>Address</h4>
+              <p>Not choosen yet</p>
+              <h4>Price</h4>
+                <p>Not choosen yet</p>
+              <h4>Selling points</h4>
+              <p>Not choosen yet</p>
             </Col>
             <Col sm={6} md={5} lg={8}>
               <AudiencesList handleChange={this.handleChange} currentRegion={this.state.region} />
@@ -397,10 +460,26 @@ class NewCampaign extends React.Component {
         return (
           <div>
             <Col sm={6} md={5} lg={3}>
+              <h4>Video</h4>
+              <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
               <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+              <h4>Image</h4>
+              <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
               <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+              <h4>Page</h4>
+              <p>{this.state.page.label}</p>
               <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+              <h4>Region</h4>
+              <p>{this.state.region.label}</p>
               <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+              <h4>Property Type</h4>
+              <p>Not choosen yet</p>
+              <h4>Address</h4>
+              <p>Not choosen yet</p>
+              <h4>Price</h4>
+                <p>Not choosen yet</p>
+              <h4>Selling points</h4>
+              <p>Not choosen yet</p>
             </Col>
             <Col sm={6} md={5} lg={4}>
               <div className="page-header clearfix">
@@ -427,11 +506,27 @@ class NewCampaign extends React.Component {
         return (
             <div>
               <Col sm={6} md={5} lg={3}>
+                <h4>Video</h4>
+                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
                 <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+                <h4>Image</h4>
+                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
                 <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                <h4>Page</h4>
+                <p>{this.state.page.label}</p>
                 <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+                <h4>Region</h4>
+                <p>{this.state.region.label}</p>
                 <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+                <h4>Property Type</h4>
+                <p>{this.state.propertyType}</p>
                 <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
+                <h4>Address</h4>
+                <p>Not choosen yet</p>
+                <h4>Price</h4>
+                <p>Not choosen yet</p>
+                <h4>Selling points</h4>
+                <p>Not choosen yet</p>
               </Col>
               <Col sm={6} md={5} lg={8}>
                 <div className="page-header clearfix">
@@ -453,12 +548,28 @@ class NewCampaign extends React.Component {
         return (
           <div>
               <Col sm={6} md={5} lg={3}>
+                <h4>Video</h4>
+                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
                 <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+                <h4>Image</h4>
+                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
                 <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                <h4>Page</h4>
+                <p>{this.state.page.label}</p>
                 <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+                <h4>Region</h4>
+                <p>{this.state.region.label}</p>
                 <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
-                <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
+                <h4>Property Type</h4>
+                <p>{this.state.propertyType}</p>
                 <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
+                <h4>Address</h4>
+                <p>{this.state.address}</p>
+                <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
+                <h4>Price</h4>
+                <p>Not choosen yet</p>
+                <h4>Selling points</h4>
+                <p>Not choosen yet</p>
               </Col>
               <Col sm={6} md={5} lg={9}>
                   <div className="page-header clearfix">
@@ -480,12 +591,29 @@ class NewCampaign extends React.Component {
         return (
           <div>
               <Col sm={6} md={5} lg={3}>
+                <h4>Video</h4>
+                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
                 <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+                <h4>Image</h4>
+                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
                 <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                <h4>Page</h4>
+                <p>{this.state.page.label}</p>
                 <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
+                <h4>Region</h4>
+                <p>{this.state.region.label}</p>
                 <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+                <h4>Property Type</h4>
+                <p>{this.state.propertyType}</p>
+                <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
+                <h4>Address</h4>
+                <p>{this.state.address}</p>
                 <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
+                <h4>Price</h4>
+                <p>{this.state.price}</p>
                 <p><button onClick={this.chooseAnotherPrice}>Change price</button></p>
+                <h4>Selling points</h4>
+                <p>Not choosen yet</p>
               </Col>
               <Col sm={6} md={5} lg={8}>
                 <div className="page-header clearfix">
@@ -536,27 +664,31 @@ class NewCampaign extends React.Component {
           <div className="NewCampaign">
             <Row>
               <Col sm={6} md={5} lg={3}>
-                <br />
-                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-                <video width="200" height="100" controls>
-                  <source src={this.state.vidUrl} type="video/mp4"/>
-                </video> 
+                <h4>Video <button onClick={this.chooseAnotherVid}>edit</button></h4>
+                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
+                <h4>Image</h4>
+                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
                 <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
-                <img style={{height: '100px'}} src={this.state.imgUrl}/>
-                <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
-                <p>{this.state.propertyType}</p>
+                <h4>Page</h4>
+                <p>{this.state.page.label}</p>
                 <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
-                <p>{this.state.pageId}</p>
-                <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+                <h4>Region</h4>
                 <p>{this.state.region.label}</p>
-                <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
+                <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
+                <h4>Property Type</h4>
+                <p>{this.state.propertyType}</p>
+                <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
+                <h4>Address</h4>
                 <p>{this.state.address}</p>
-                <p><button onClick={this.chooseAnotherPrice}>Change price</button></p>
+                <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
+                <h4>Price</h4>
                 <p>{this.state.price}</p>
-                <p><button onClick={this.chooseSellingPoints}>Change selling points</button></p>
+                <p><button onClick={this.chooseAnotherPrice}>Change price</button></p>
+                <h4>Selling points</h4>
                 <p>{this.state.first}</p>
                 <p>{this.state.second}</p>
                 <p>{this.state.third}</p>
+                <p><button onClick={this.chooseSellingPoints}>Change selling points</button></p>
                 </Col>
                 <Col sm={6} md={5} lg={9}>
                 <form ref={form => (this.form = form)} onSubmit={this.handleSubmit.bind(this)}>

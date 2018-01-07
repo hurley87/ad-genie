@@ -9,7 +9,9 @@ const Index = () => (
       src="https://s3.us-east-2.amazonaws.com/snapmortgages/cool.jpg"
       alt="Clever Beagle"
     />
-    <p>A boilerplate for products.</p>
+    <p>Prospecting is tedious, time-consuming and inefficient.</p>
+    <h3>Get More Viewings with Your Ideal Clients - Guaranteed</h3>
+    <p>We find your prospects, and drive qualified interest right to your inbox. You step in to close the deal.</p>
     <div>
       <Button href="/signup">Get Started</Button>
     </div>

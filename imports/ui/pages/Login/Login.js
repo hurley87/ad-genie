@@ -7,6 +7,8 @@ import OAuthLoginButtons from '../../components/OAuthLoginButtons/OAuthLoginButt
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import validate from '../../../modules/validate';
 
+import './Login.scss';
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -53,8 +55,8 @@ class Login extends React.Component {
     return (
       <div className="Login">
         <Row>
-          <Col xs={12} sm={6} md={5} lg={4}>
-            <h4 className="page-header">Log In</h4>
+          <Col xs={12} sm={6} md={5} lg={4} lgOffset={4}>
+            <h4>Log In</h4>
             <Row>
               <Col xs={12}>
                 <OAuthLoginButtons

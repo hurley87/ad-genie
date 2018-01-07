@@ -10,6 +10,8 @@ import InputHint from '../../components/InputHint/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import validate from '../../../modules/validate';
 
+import './Signup.scss';
+
 class Signup extends React.Component {
   constructor(props) {
     super(props);
@@ -83,8 +85,8 @@ class Signup extends React.Component {
     return (
       <div className="Signup">
         <Row>
-          <Col xs={12} sm={6} md={5} lg={4}>
-            <h4 className="page-header">Sign Up</h4>
+          <Col xs={12} sm={6} md={5} lg={4} lgOffset={4}>
+            <h4>Sign Up</h4>
             <Row>
               <Col xs={12}>
                 <OAuthLoginButtons

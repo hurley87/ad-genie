@@ -49,8 +49,6 @@ Meteor.methods({
 		const AdSet = adsSdk.AdSet;
 		const account = new AdAccount(accountId)
 
-		console.log(ad)
-
 		account.createAdSet(
 			[AdSet.Fields.Id],
 			{
@@ -69,7 +67,7 @@ Meteor.methods({
 			        },
 			        "age_min": 25,
 			        "age_max": 45,
-			        "device_platforms": ['mobile', "desktop"],
+			        "device_platforms": ['mobile'],
 			        "publisher_platforms": ['facebook'],
 			        "facebook_positions": ["feed"]
 				},
