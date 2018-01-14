@@ -17,61 +17,68 @@ class Profile extends React.Component {
   constructor(props) {
     super(props);
 
+    const pagesList = props.user.profile.pagesList;
+    const subs = pagesList.filter((page) => { return pagesList.indexOf(page.id) == -1 })
+    const unsubs = pagesList.filter((page) => { return pagesList.indexOf(page.id) > -1 })
+
+    this.state = { pagesList, subs, unsubs }
+
     this.getUserType = this.getUserType.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderOAuthUser = this.renderOAuthUser.bind(this);
     this.renderPasswordUser = this.renderPasswordUser.bind(this);
     this.renderProfileForm = this.renderProfileForm.bind(this);
+    this.toggleSubscribe = this.toggleSubscribe.bind(this);
+    this.toggleUnsubscribe = this.toggleUnsubscribe.bind(this);
+  }
+
+  toggleSubscribe(evt){
+    let subs = this.state.subs;
+    let pagesList = this.state.pagesList;
+    const pageId =  evt.target.value;
+    const index = subs.indexOf(pageId)
+    const index2 = pagesList.indexOf(pageId)
+
+    if( index == -1) {
+      subs.push(pageId)
+    } else {
+      subs.splice(index, 1)
+    }
+    
+    if( index2 == -1) {
+      pagesList.push(pageId)
+    } else {
+      pagesList.splice(index, 1)
+    }
+    this.setState({ pagesList, subs })
+  }
+
+  toggleUnsubscribe(evt){
+    let unsubs = this.state.unsubs;
+    const pageId =  evt.target.value;
+    const index = unsubs.indexOf(pageId)
+    let pagesList = this.state.pagesList;
+    const index2 = pagesList.indexOf(pageId)
+
+    if( index == -1) {
+      unsubs.push(pageId)
+    } else {
+      unsubs.splice(index, 1)
+    }
+
+    if( index2 == -1) {
+      pagesList.push(pageId)
+    } else {
+      pagesList.splice(index, 1)
+    }
+    this.setState({ unsubs, pagesList })
   }
 
   componentDidMount() {
     const component = this;
 
-    validate(component.form, {
-      rules: {
-        firstName: {
-          required: true,
-        },
-        lastName: {
-          required: true,
-        },
-        emailAddress: {
-          required: true,
-          email: true,
-        },
-        currentPassword: {
-          required() {
-            // Only required if newPassword field has a value.
-            return component.newPassword.value.length > 0;
-          },
-        },
-        newPassword: {
-          required() {
-            // Only required if currentPassword field has a value.
-            return component.currentPassword.value.length > 0;
-          },
-        },
-      },
-      messages: {
-        firstName: {
-          required: 'What\'s your first name?',
-        },
-        lastName: {
-          required: 'What\'s your last name?',
-        },
-        emailAddress: {
-          required: 'Need an email address here.',
-          email: 'Is this email address correct?',
-        },
-        currentPassword: {
-          required: 'Need your current password if changing.',
-        },
-        newPassword: {
-          required: 'Need your new password if changing.',
-        },
-      },
-      submitHandler() { component.handleSubmit(); },
-    });
+    validate(component.form, { submitHandler() { component.handleSubmit(); }});
+    validate(component.form2, { submitHandler() { component.handleSubmit2(); }});
   }
 
   getUserType(user) {
@@ -82,56 +89,37 @@ class Profile extends React.Component {
   }
 
   handleSubmit() {
-    const profile = {
-      emailAddress: this.emailAddress.value,
-      profile: {
-        name: {
-          first: this.firstName.value,
-          last: this.lastName.value,
-        },
-      },
-    };
+    const { history } = this.props;
 
-    Meteor.call('users.editProfile', profile, (error) => {
+    Meteor.call('users.subscribe', this.state.subs, this.props.user.profile.pages, this.state.pagesList, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
         Bert.alert('Profile updated!', 'success');
+        history.push('/properties/new');
       }
     });
+  }
 
-    if (this.newPassword.value) {
-      Accounts.changePassword(this.currentPassword.value, this.newPassword.value, (error) => {
-        if (error) {
-          Bert.alert(error.reason, 'danger');
-        } else {
-          this.currentPassword.value = '';
-          this.newPassword.value = '';
-        }
-      });
-    }
+  handleSubmit2() {
+    const { history } = this.props;
+
+    Meteor.call('users.unsubscribe', this.state.unsubs, this.props.user.profile.pages, this.state.pagesList, (error) => {
+      if (error) {
+        Bert.alert(error.reason, 'danger');
+      } else {
+        Bert.alert('Profile updated!', 'success');
+        history.push('/properties/new');
+      }
+    });
   }
 
   renderOAuthUser(loading, user) {
     return !loading ? (
       <div className="OAuthProfile">
-        {Object.keys(user.services).map(service => (
-          <div key={service} className={`LoggedInWith ${service}`}>
-            <img src={`/${service}.svg`} alt={service} />
-            <p>{`You're logged in with ${_.capitalize(service)} using the email address ${user.services[service].email}.`}</p>
-            <Button
-              className={`btn btn-${service}`}
-              href={{
-                facebook: 'https://www.facebook.com/settings',
-                google: 'https://myaccount.google.com/privacy#personalinfo',
-                github: 'https://github.com/settings/profile',
-              }[service]}
-              target="_blank"
-            >
-              Edit Profile on {_.capitalize(service)}
-            </Button>
-          </div>
-        ))}
+        <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+          {this.renderProfileForm(loading, user)}
+        </form>
       </div>) : <div />;
   }
 
@@ -146,7 +134,6 @@ class Profile extends React.Component {
                 type="text"
                 name="firstName"
                 defaultValue={user.profile.name.first}
-                ref={firstName => (this.firstName = firstName)}
                 className="form-control"
               />
             </FormGroup>
@@ -207,13 +194,56 @@ class Profile extends React.Component {
 
   render() {
     const { loading, user } = this.props;
+    const pages = user.profile.pages;
+    const pagesList = user.profile.pagesList;
     return (
       <div className="Profile">
         <Row>
           <Col xs={12} sm={6} md={4}>
-            <h4 className="page-header">Edit Profile</h4>
+            <h4 className="page-header">Subscribe</h4>
             <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-              {this.renderProfileForm(loading, user)}
+              <div>
+                  <Row>
+                    {pages.filter((page) => { return pagesList.indexOf(page.id) == -1 }).map((page, i) => (
+                      <Col key={i} xs={12}>
+                        <FormGroup>
+                          <ControlLabel>{page.name}</ControlLabel>
+                          <input
+                            type="checkbox"
+                            name="pageId"
+                            defaultValue={page.id}
+                            defaultChecked={pagesList.indexOf(page.id) > -1}
+                            onChange={this.toggleSubscribe}
+                          />
+                        </FormGroup>
+                      </Col>
+                    ))}
+                  </Row>
+                  <Button type="submit" bsStyle="success">Save Profile</Button>
+                </div>
+            </form>
+          </Col>
+          <Col xs={12} sm={6} md={4}>
+            <h4 className="page-header">Unsubscribe</h4>
+            <form ref={form2 => (this.form2 = form2)} onSubmit={event => event.preventDefault()}>
+              <div>
+                  <Row>
+                    {pages.filter((page) => { return pagesList.indexOf(page.id) > -1 }).map((page, i) => (
+                      <Col key={i} xs={12}>
+                        <FormGroup>
+                          <ControlLabel>{page.name}</ControlLabel>
+                          <input
+                            type="checkbox"
+                            name="pageId"
+                            defaultValue={page.id}
+                            onChange={this.toggleUnsubscribe}
+                          />
+                        </FormGroup>
+                      </Col>
+                    ))}
+                  </Row>
+                  <Button type="submit" bsStyle="success">Save Profile</Button>
+                </div>
             </form>
           </Col>
         </Row>
