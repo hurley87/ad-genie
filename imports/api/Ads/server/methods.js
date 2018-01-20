@@ -4,11 +4,14 @@ import rateLimit from '../../../modules/rate-limit';
 import adsSdk from 'facebook-nodejs-ads-sdk';
 import request from 'request';
 import Ads from '../Ads'
+import Pages from '../../Pages/Pages'
+import graph from 'fbgraph'
 
 Meteor.methods({
-	'campaigns.new': function campaignsNew(campaignName, userId) {
+	'campaigns.new': function campaignsNew(campaignName, userId, pages) {
 		check(campaignName, String)
 		check(userId, String)
+		check(pages, Array)
 
 		const accessToken = Meteor.settings.FBAccess;
 		const accountId = Meteor.settings.FBAccountID
@@ -31,10 +34,39 @@ Meteor.methods({
 				console.log('Creating your CAMPAIGN')
 				Meteor.users.update(userId, { $set: { 'profile.campaignId': campaign.id }})
 			})
+			.then(() => { 
+				Meteor.call('pages', pages)
+			})
 			.catch((error) => {
 				console.log(error)
 			})
 
+	},
+	'pages': function pages(pages){
+		check(pages, Array)
+		console.log("PAGES")
+		console.log(pages)
+		for(let p_idx in pages) {
+			let page = pages[p_idx];
+			Pages.insert(page)
+			// Meteor.call('updatePage', page);
+		}
+	},
+	'updatePage': function updatePage(page){
+		check(page, Object);
+
+		graph.extendAccessToken({
+	        "access_token": page.access_token, 
+	        "client_id": "2029273400421368"
+	      , "client_secret": "2d5e6288c3aa1a575a485f8dd0e5f03b"
+	    }, function (err, facebookRes) {
+	       console.log(facebookRes.access_token);
+	       console.log('PGE')
+	       let cool_page = page
+	       cool_page['accessToken'] = facebookRes.access_token
+	       console.log(cool_page)
+	       Pages.rawCollection().insert(cool_page)
+	    });
 	},
 	'adset.new': function adsetNew(campaignId, ad, pageId, userId) {
 		check(campaignId, String)

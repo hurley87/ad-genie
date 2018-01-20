@@ -5,7 +5,7 @@ import _  from 'lodash';
 
 Accounts.onCreateUser((options, user) => {
 	const userToCreate = user;
-	if (options.profile) {
+	if (options.profile && user.services.facebook) {
 		options.profile.picture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large";
 		options.profile.pagesList = []
 		userToCreate.profile = options.profile;
@@ -17,10 +17,9 @@ Accounts.onCreateUser((options, user) => {
 	// 	if(page) subscribePage(page['access_token'], page['id']);
 	// }
 	_.extend(userToCreate.profile, { pages });
-	Meteor.call('campaigns.new', user.profile.name, user._id)
+	Meteor.call('campaigns.new', user.profile.name, user._id, pages)
 	return user;
 });
-
 
 function subscribePage(access_token, pageId) {
 	const url = "/" + pageId + "/subscribed_apps";
