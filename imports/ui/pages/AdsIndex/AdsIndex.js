@@ -7,6 +7,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Ads from '../../../api/Ads/Ads';
 import Loading from '../../components/Loading/Loading';
 
+import './AdsIndex.scss'
+
 const AdsIndex = ({ pausedAds, activeAds, loading, approveAd, pauseAd, deleteAd, ads, match, history }) => ( !loading ? (
 
 	<div>

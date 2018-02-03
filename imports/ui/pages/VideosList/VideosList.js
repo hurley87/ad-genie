@@ -11,7 +11,9 @@ import { DateRangePicker } from 'react-dates';
 import _ from 'lodash';
 import ImagePicker from 'react-image-picker'
 import 'react-image-picker/dist/index.css';
-import NewVideo from '../NewVideo/NewVideo'
+import NewVideo from '../NewVideo/NewVideo';
+
+import './VideosList.scss';
 
 const VideosList = ({ videos, loading, imgChange, match, history }) => ( !loading ? (
   videos.length > 0 ? 

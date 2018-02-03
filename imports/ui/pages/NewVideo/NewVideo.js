@@ -10,6 +10,8 @@ import validate from '../../../modules/validate';
 import Loading from '../../components/Loading/Loading';
 import VideoList from '../VideosList/VideosList'
 
+import './NewVideo.scss'
+
 class NewVideo extends React.Component {
   constructor(props) {
     super(props);

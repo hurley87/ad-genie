@@ -11,6 +11,9 @@ import Audiences from '../../../api/Audiences/Audiences';
 import _ from 'lodash';
 import Select from 'react-select';
 
+
+import './AudiencesList'
+
 const AudiencesList = ({ loading, regions, select, handleChange, currentRegion, match, history }) => (
   !loading ? 
     <div className="AudiencesList">

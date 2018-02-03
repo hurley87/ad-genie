@@ -17,7 +17,7 @@ class Logout extends React.Component {
           alt="Clever Beagle"
         />
         <h1>Stay safe out there.</h1>
-        <p>{'Don\'t forget to like and follow Clever Beagle elsewhere on the web:'}</p>
+        <p>Come back soon.</p>
         <ul className="FollowUsElsewhere">
           <li><a href="https://facebook.com/cleverbeagle"><Icon icon="facebook-official" /></a></li>
           <li><a href="https://twitter.com/clvrbgl"><Icon icon="twitter" /></a></li>

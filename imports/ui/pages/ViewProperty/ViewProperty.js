@@ -7,6 +7,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Ads from '../../../api/Ads/Ads';
 import Loading from '../../components/Loading/Loading';
 
+import './ViewProperty.scss'
+
 const ViewProperty = ({ loading, ad, deleteAd, match, history }) => ( !loading ? (
   <div>
   	<h3>{ad.ad.address}</h3>

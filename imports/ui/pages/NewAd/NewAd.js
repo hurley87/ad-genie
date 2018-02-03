@@ -18,6 +18,8 @@ import NewImage from '../NewImage/NewImage';
 import ImagesList from '../ImagesList/ImagesList';
 import PagesList from '../PagesList/PagesList'
 
+import './NewAd'
+
 class NewCampaign extends React.Component {
   constructor(props) {
     super(props);

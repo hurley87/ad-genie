@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
+import './AuthenticatedNavigation.scss';
+
 const AuthenticatedNavigation = ({ name, history }) => (
   <div>
     <Nav>
@@ -13,9 +15,12 @@ const AuthenticatedNavigation = ({ name, history }) => (
     </Nav>
     <Nav pullRight>
       <NavDropdown eventKey={2} title={name} id="user-nav-dropdown">
-        <LinkContainer to="/profile">
-          <NavItem eventKey={2.1} href="/profile">Profile</NavItem>
-        </LinkContainer>
+  {       
+         // <LinkContainer to="/profile">
+         //    <NavItem eventKey={2.1} href="/profile">Profile</NavItem>
+         //  </LinkContainer>
+
+    }
         <MenuItem divider />
         <MenuItem eventKey={2.2} onClick={() => history.push('/logout')}>Logout</MenuItem>
       </NavDropdown>

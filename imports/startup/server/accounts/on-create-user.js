@@ -11,13 +11,12 @@ Accounts.onCreateUser((options, user) => {
 		userToCreate.profile = options.profile;
 
 	}
-	const pages = getPages(user)
-	// for(let p_idx in pages) {
-	// 	const page = pages[p_idx];
-	// 	if(page) subscribePage(page['access_token'], page['id']);
-	// }
-	_.extend(userToCreate.profile, { pages });
-	Meteor.call('campaigns.new', user.profile.name, user._id, pages)
+	if(user.services && user.profile){
+		const pages = getPages(user)
+		_.extend(userToCreate.profile, { pages });
+		Meteor.call('campaigns.new', user.profile.name, user._id, pages)
+	}
+
 	return user;
 });
 
