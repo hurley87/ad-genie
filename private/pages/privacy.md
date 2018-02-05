@@ -1,6 +1,6 @@
 Your privacy is important to us.
 
-It is Clever Beagle's policy to respect your privacy regarding any information we may collect while operating our website. Accordingly, we have developed this privacy policy in order for you to understand how we collect, use, communicate, disclose and otherwise make use of personal information. We have outlined our privacy policy below.
+It is Ad Genie's policy to respect your privacy regarding any information we may collect while operating our website. Accordingly, we have developed this privacy policy in order for you to understand how we collect, use, communicate, disclose and otherwise make use of personal information. We have outlined our privacy policy below.
 
 We will collect personal information by lawful and fair means and, where appropriate, with the knowledge or consent of the individual concerned.
 Before or at the time of collecting personal information, we will identify the purposes for which information is being collected.
