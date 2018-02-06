@@ -1,7 +1,11 @@
 @import '../../stylesheets/mixins';
 @import '../../stylesheets/colors';
 
+
 .Index {
+  
+  /* .Index is set to full-view height and display-flex in order to vertically align items. might be better to do this in the global stylesheet depending on the layout of other pages*/
+
   padding: 20px;
   text-align: center;
   border-radius: 3px;
