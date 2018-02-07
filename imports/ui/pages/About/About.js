@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './About.scss';
+
 const About = () => (
   <div className="About">
     <h3>How It Works</h3>
