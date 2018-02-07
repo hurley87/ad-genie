@@ -4,12 +4,19 @@
 
 .About {
 
-  h1 {
+  h3 {
     font-size: 28px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid $gray-lighter;
   }
 
   p {
     font-size: 18px;
+  }
+
+  .list-num {
+
   }
 
 }
