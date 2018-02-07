@@ -16,13 +16,22 @@
   align-items: center;
   justify-content: center;
 
-  img {
-    width: 100px;
-    height: auto;
+  .contentWrapper {
+    text-align: left;
+    display: block;
   }
 
-  h1 {
-    font-size: 28px;
+  img {
+    display: inline-block;
+    width: 80px;
+    height: auto;
+    vertical-align: baseline;
+    padding: 0px 0px 10px 20px;
+  }
+
+  h3 {
+    display: inline-block;
+    font-size: 36px;
   }
 
   p {
