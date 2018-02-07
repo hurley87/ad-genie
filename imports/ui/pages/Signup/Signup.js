@@ -84,18 +84,12 @@ class Signup extends React.Component {
   render() {
     return (
       <div className="Signup">
-        <Row>
-          <Col xs={12} sm={6} md={5} lg={4} lgOffset={4}>
-            <h4>Sign Up</h4>
-            <Row>
-              <Col xs={12}>
-                <OAuthLoginButtons
-                  services={['facebook']}
-                />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
+        <div className= "contentWrapper">
+          <h4>Sign Up</h4>
+            <OAuthLoginButtons
+              services={['facebook']}
+            />
+        </div>
       </div>
     );
   }

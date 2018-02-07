@@ -3,8 +3,14 @@
 
 
 .Signup {
+	height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
 	h4 {
-		text-align: center;	
+		text-align: center;
 	}
 
 	p {
