@@ -1,0 +1,23 @@
+@import '../../stylesheets/mixins';
+@import '../../stylesheets/colors';
+
+.NewCampaign {
+
+  .page-header {
+    margin-top: 0px !important;
+  }
+
+
+}
+
+@include breakpoint(tablet) {
+  .Logout {
+    padding: 30px;
+  }
+}
+
+@include breakpoint(desktop) {
+  .Logout {
+    padding: 40px;
+  }
+}

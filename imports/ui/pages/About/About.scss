@@ -3,14 +3,19 @@
 
 
 .About {
-  height: 75vh;
+  background-image: url("https://cdn.pixabay.com/photo/2017/09/03/06/12/abstract-2709402_1280.png");
+  text-align: left;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: #ffffff;
 
   h3 {
-    font-size: 28px;
+    font-size: 36px;
     text-align: center;
     padding-bottom: 10px;
     margin-bottom: 10px;

@@ -1,79 +1,80 @@
 @import '../../stylesheets/mixins';
 @import '../../stylesheets/colors';
 
+  .Index {
 
-.Index {
+    /* .Index is set to full-view height and display-flex in order to vertically align items. might be better to do this in the global stylesheet depending on the layout of other pages*/
+    background-image: url("https://cdn.pixabay.com/photo/2017/09/03/06/12/abstract-2709402_1280.png");
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-  /* .Index is set to full-view height and display-flex in order to vertically align items. might be better to do this in the global stylesheet depending on the layout of other pages*/
-
-  /*padding: 20px;*/
-  text-align: center;
-  border-radius: 3px;
-  height: 75vh;
-  max-height: 700px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  .contentWrapper {
-    text-align: left;
-    display: block;
-  }
-
-  img {
-    display: inline-block;
-    width: 80px;
-    height: auto;
-    vertical-align: baseline;
-    padding: 0px 0px 10px 20px;
-  }
-
-  h3 {
-    display: inline-block;
-    font-size: 36px;
-  }
-
-  p {
-    font-size: 18px;
-  }
-
-  > div {
-    display: inline-block;
-    margin: 10px 0 0;
-
-    .btn:first-child {
-      margin-right: 10px;
+    .contentWrapper {
+      text-align: center;
+      display: block;
     }
 
-    .btn {
-      border: none;
-      background-color: lighten($cb-blue, 25%);
+    img {
+      display: block;
+      width: 80px;
+      height: auto;
+      vertical-align: baseline;
+      margin: 0 auto 0 auto;
     }
-  }
 
-  footer {
-    margin: 20px -20px -20px;
-    border-top: 1px solid darken($cb-blue, 10%);
-    padding: 20px;
+    h3 {
+      display: inline-block;
+      font-size: 36px;
+      color: #ffffff;
+    }
 
     p {
-      font-size: 14px;
-      line-height: 22px;
-      color: lighten($cb-blue, 35%);
-      margin: 0;
+      font-size: 18px;
+      color: #ffffff;
     }
 
-    p a {
-      color: lighten($cb-blue, 35%);
-      text-decoration: underline;
+    > div {
+      display: inline-block;
+      margin: 10px 0 0;
+
+      .btn:first-child {
+        margin-right: 10px;
+      }
+
+      .btn {
+        border: none;
+        background-color: lighten($cb-blue, 25%);
+      }
+    }
+
+    footer {
+      margin: 20px -20px -20px;
+      border-top: 1px solid darken($cb-blue, 10%);
+      padding: 20px;
+
+      p {
+        font-size: 14px;
+        line-height: 22px;
+        color: lighten($cb-blue, 35%);
+        margin: 0;
+      }
+
+      p a {
+        color: lighten($cb-blue, 35%);
+        text-decoration: underline;
+      }
     }
   }
-}
+
 
 @include breakpoint(tablet) {
   .Index {
-    padding: 30px;
+    padding: 0px;
 
     footer {
       margin: 30px -30px -30px;
@@ -83,7 +84,7 @@
 
 @include breakpoint(desktop) {
   .Index {
-    padding: 40px;
+    padding: 0px;
 
     footer {
       margin: 40px -40px -40px;
