@@ -1,0 +1,58 @@
+@import '../../stylesheets/colors';
+
+.NewCampaign {
+  height: 100vh;
+
+  .create-ad-parent {
+    height: 100%;
+
+    .create-ad {
+      background-color: #000000;
+      height: 100%;
+      padding: 40px;
+
+        img {
+          display: inline-block;
+          padding-right: 5px;
+          height: 22px;
+          width: 22px;
+          background-image: url("/icons/grey/video.svg");
+          background-size: cover;
+        }
+
+        h4 {
+          display: block;
+          padding-right: 30px;
+          font-size: 18px;
+          padding: 10px;
+          color: $ad-genie-grey;
+
+          &.active {
+            color: #ffffff;
+          }
+
+          small {
+            display: inline-block;
+            float: right;
+            height: 25px;
+            width: 25px;
+            background-color: #ffffff;
+            color: blue;
+          }
+
+        }
+    }
+  }
+
+  .ad-content {
+    padding: 30px 60px;
+
+    .ad-content__title {
+    
+    }
+
+    .ad-content__description {
+
+    }
+  }
+}

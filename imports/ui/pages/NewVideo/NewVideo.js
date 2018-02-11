@@ -12,6 +12,8 @@ import VideoList from '../VideosList/VideosList'
 
 import './NewVideo.scss'
 
+
+
 class NewVideo extends React.Component {
   constructor(props) {
     super(props);
@@ -58,7 +60,7 @@ class NewVideo extends React.Component {
       Meteor.call('video.new', { data: reader.result, file: { name: file.name, type: file.type } }, function(err, result){
         if (err) console.warn(err);
         if (result) console.log(result);
-        setTimeout(function(){ 
+        setTimeout(function(){
           context.setState({
             loading: false
           })
@@ -87,7 +89,7 @@ class NewVideo extends React.Component {
                     className="form-control"
                   />
                 </FormGroup>
-              <Button type="submit" bsStyle="success">Upload Video</Button>
+              <Button type="submit" bsStyle="success" className="main-button">Upload</Button>
             </form>
           </Col>
         </Row>

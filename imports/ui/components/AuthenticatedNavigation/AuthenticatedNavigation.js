@@ -9,13 +9,13 @@ import './AuthenticatedNavigation.scss';
 const AuthenticatedNavigation = ({ name, history }) => (
   <div>
     <Nav>
+    </Nav>
+    <Nav pullRight>
       <LinkContainer to="/properties">
         <NavItem eventKey={1} href="/proporties">Properties</NavItem>
       </LinkContainer>
-    </Nav>
-    <Nav pullRight>
       <NavDropdown eventKey={2} title={name} id="user-nav-dropdown">
-  {       
+  {
          // <LinkContainer to="/profile">
          //    <NavItem eventKey={2.1} href="/profile">Profile</NavItem>
          //  </LinkContainer>

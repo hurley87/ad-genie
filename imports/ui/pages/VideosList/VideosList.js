@@ -18,13 +18,6 @@ import './VideosList.scss';
 const VideosList = ({ videos, loading, imgChange, match, history }) => ( !loading ? (
   videos.length > 0 ?
   <div>
-	<div className="page-header clearfix">
-	  <h4 className="pull-left">Upload a Video</h4>
-	</div>
-	<NewVideo />
-	<div className="page-header clearfix">
-	  <h4>Choose a Video</h4>
-	</div>
   	<Row>
 	{videos.reverse().map((vid, i) => (
 	  <Col md={6} xs={6} key={i}>

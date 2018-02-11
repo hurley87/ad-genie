@@ -43,7 +43,7 @@
       margin: 10px 0 0;
 
       .btn:first-child {
-        /*margin-right: 10px;*/
+        margin: auto;
       }
     }
 
@@ -63,6 +63,7 @@
         color: lighten($cb-blue, 35%);
         text-decoration: underline;
       }
+
     }
   }
 

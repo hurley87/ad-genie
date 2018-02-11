@@ -1,2 +1,10 @@
 @import '../../stylesheets/mixins';
 @import '../../stylesheets/colors';
+
+@media (min-width: 1200px){
+  .container {
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}

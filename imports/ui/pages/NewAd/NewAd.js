@@ -18,12 +18,12 @@ import NewImage from '../NewImage/NewImage';
 import ImagesList from '../ImagesList/ImagesList';
 import PagesList from '../PagesList/PagesList'
 
-import './NewAd'
+import './NewAd.scss'
 
 class NewCampaign extends React.Component {
   constructor(props) {
     super(props);
-    
+
   	this.state = {
   		region: '',
   		description: '',
@@ -75,37 +75,37 @@ class NewCampaign extends React.Component {
   }
 
   handleChange(region) {
-    this.setState({ 
+    this.setState({
       region: region
     });
   }
 
   handlePageChange(page) {
-    this.setState({ 
+    this.setState({
       page: page
     });
   }
 
   handlePriceChange(evt) {
-    this.setState({ 
+    this.setState({
       price: evt.target.value
     });
   }
 
   handleFirstChange(evt) {
-    this.setState({ 
+    this.setState({
       first: evt.target.value
     });
   }
 
   handleSecondChange(evt) {
-    this.setState({ 
+    this.setState({
       second: evt.target.value
     });
   }
 
   handleThirdChange(evt) {
-    this.setState({ 
+    this.setState({
       third: evt.target.value
     });
   }
@@ -165,13 +165,13 @@ class NewCampaign extends React.Component {
   }
 
   handleTextareaChange(evt) {
-    this.setState({ 
+    this.setState({
       description: evt.target.value
     });
   }
 
   handleBudgetChange(budget) {
-    this.setState({ 
+    this.setState({
       budget: budget
     });
   }
@@ -207,7 +207,7 @@ class NewCampaign extends React.Component {
   }
 
   vidChange(vid, videoId) {
-    this.setState({ 
+    this.setState({
       videoId: videoId,
       vidUrl: vid,
       chooseVid: false
@@ -215,13 +215,13 @@ class NewCampaign extends React.Component {
   }
 
   imgChange(img) {
-    this.setState({ 
+    this.setState({
       imgUrl: img.src
     });
   }
 
   chooseAnotherVid() {
-    this.setState({ 
+    this.setState({
       vidUrl: ''
     });
   }
@@ -281,7 +281,7 @@ class NewCampaign extends React.Component {
   }
 
   chooseAnotherImg() {
-    this.setState({ 
+    this.setState({
       imgUrl: ''
     });
   }
@@ -304,7 +304,7 @@ class NewCampaign extends React.Component {
 
     const description = `🔥 Stunning ${this.state.propertyType} Located At ${this.state.address} 🔥
 
-  ✅ ${this.state.first} 
+  ✅ ${this.state.first}
   ✅ ${this.state.second}
   ✅ ${this.state.third}
 
@@ -326,12 +326,12 @@ class NewCampaign extends React.Component {
       price: this.state.price.value
     }
 
-    const context = this;                             
+    const context = this;
     Meteor.call('adset.new', user.profile.campaignId, ad, pageId, Meteor.userId(), function(err, result){
       if(err) {
         console.log(err)
       } else {
-        setTimeout(function(){ 
+        setTimeout(function(){
           context.setState({
             loading: false
           })
@@ -349,26 +349,21 @@ class NewCampaign extends React.Component {
       if(this.state.vidUrl == ''){
         return (
           <div className="NewCampaign">
-            <Row>
-              <Col sm={6} md={5} lg={3}>
-                <h4>Video</h4>
-                <p>No video yet</p> 
-                <h4>Image</h4>
-                <p>No image yet</p>
-                <h4>Page</h4>
-                <p>Not choosen yet</p>
-                <h4>Region</h4>
-                <p>Not choosen yet</p>
-                <h4>Property Type</h4>
-                <p>Not choosen yet</p>
-                <h4>Address</h4>
-                <p>Not choosen yet</p>
-                <h4>Price</h4>
-                <p>Not choosen yet</p>
-                <h4>Selling points</h4>
-                <p>Not choosen yet</p>
+            <Row className="create-ad-parent">
+              <Col sm={6} md={5} lg={3} className="create-ad">
+                  <h4><img src="/icons/grey/Video.svg"/>Video</h4>
+                  <h4><img src="/icons/grey/Image.svg"/>Image</h4>
+                  <h4><img src="/icons/grey/Page.svg"/>Page</h4>
+                  <h4><img src="/icons/grey/Region.svg"/>Region</h4>
+                  <h4><img src="/icons/grey/Property.svg"/>Property Type</h4>
+                  <h4><img src="/icons/grey/Address.svg"/>Address</h4>
+                  <h4><img src="/icons/grey/Price.svg"/>Price</h4>
+                  <h4><img src="/icons/grey/Selling.svg"/>Selling points</h4>
               </Col>
-              <Col sm={6} md={5} lg={8}>
+              <Col sm={6} md={5} lg={8} className="ad-content">
+                <h4 className="ad-content__title">Upload a Video</h4>
+                <p className="ad-content__description">Video ads reach customers!</p>
+                <NewVideo />
                 <VideosList imgChange={this.vidChange} />
               </Col>
             </Row>
@@ -376,53 +371,50 @@ class NewCampaign extends React.Component {
         );
       } else if(this.state.imgUrl == '') {
         return (
-          <div>
-            <Col sm={6} md={5} lg={3}>
-                <h4>Video <small onClick={this.chooseAnotherVid}><i className="fa fa-pencil"></i></small></h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
-                <h4>Image</h4>
-                <p>No image yet</p>
-                <h4>Page</h4>
-                <p>Not choosen yet</p>
-                <h4>Region</h4>
-                <p>Not choosen yet</p>
-                <h4>Property Type</h4>
-                <p>Not choosen yet</p>
-                <h4>Address</h4>
-                <p>Not choosen yet</p>
-                <h4>Price</h4>
-                <p>Not choosen yet</p>
-                <h4>Selling points</h4>
-                <p>Not choosen yet</p>
-            </Col>
-            <Col sm={6} md={5} lg={8}>
-              <ImagesList imgChange={this.imgChange} />
-            </Col>
+          <div className="NewCampaign">
+            <Row className="create-ad-parent">
+              <Col sm={6} md={5} lg={3} className="create-ad">
+                  <h4><img src="/icons/grey/Video.svg"/>Video <small onClick={this.chooseAnotherVid}><i className="fa fa-pencil"></i></small></h4>
+                  <h4><img src="/icons/grey/Image.svg"/>Image</h4>
+                  <h4><img src="/icons/grey/Page.svg"/>Page</h4>
+                  <h4><img src="/icons/grey/Region.svg"/>Region</h4>
+                  <h4><img src="/icons/grey/Property.svg"/>Property Type</h4>
+                  <h4><img src="/icons/grey/Address.svg"/>Address</h4>
+                  <h4><img src="/icons/grey/Price.svg"/>Price</h4>
+                  <h4><img src="/icons/grey/Selling.svg"/>Selling points</h4>
+              </Col>
+              <Col sm={6} md={5} lg={8}>
+                <ImagesList imgChange={this.imgChange} />
+              </Col>
+            </Row>
+
           </div>
         )
       } else if(this.state.page == '') {
         return (
-          <div>  
-            <Col sm={6} md={5} lg={3}>
-                <h4>Video</h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
-                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-                <h4>Image</h4>
-                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
-                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
-                <h4>Page</h4>
-                <p>Not choosen yet</p>
-                <h4>Region</h4>
-                <p>Not choosen yet</p>
-                <h4>Property Type</h4>
-                <p>Not choosen yet</p>
-                <h4>Address</h4>
-                <p>Not choosen yet</p>
-                <h4>Price</h4>
-                <p>Not choosen yet</p>
-                <h4>Selling points</h4>
-                <p>Not choosen yet</p>
-            </Col>
+          <div>
+            <Row className="create-ad-parent">
+              <Col sm={6} md={5} lg={3}>
+                  <h4>Video</h4>
+                  <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p>
+                  <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
+                  <h4>Image</h4>
+                  <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
+                  <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
+                  <h4>Page</h4>
+                  <p>Not choosen yet</p>
+                  <h4>Region</h4>
+                  <p>Not choosen yet</p>
+                  <h4>Property Type</h4>
+                  <p>Not choosen yet</p>
+                  <h4>Address</h4>
+                  <p>Not choosen yet</p>
+                  <h4>Price</h4>
+                  <p>Not choosen yet</p>
+                  <h4>Selling points</h4>
+                  <p>Not choosen yet</p>
+              </Col>
+            </Row>
             <Col sm={6} md={5} lg={8}>
               <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.page} />
             </Col>
@@ -434,7 +426,7 @@ class NewCampaign extends React.Component {
             <Col sm={6} md={5} lg={3}>
               <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
               <h4>Video</h4>
-              <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
+              <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p>
               <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
               <h4>Image</h4>
               <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
@@ -463,7 +455,7 @@ class NewCampaign extends React.Component {
           <div>
             <Col sm={6} md={5} lg={3}>
               <h4>Video</h4>
-              <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
+              <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p>
               <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
               <h4>Image</h4>
               <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
@@ -509,7 +501,7 @@ class NewCampaign extends React.Component {
             <div>
               <Col sm={6} md={5} lg={3}>
                 <h4>Video</h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
+                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p>
                 <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
                 <h4>Image</h4>
                 <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
@@ -551,7 +543,7 @@ class NewCampaign extends React.Component {
           <div>
               <Col sm={6} md={5} lg={3}>
                 <h4>Video</h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
+                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p>
                 <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
                 <h4>Image</h4>
                 <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
@@ -594,7 +586,7 @@ class NewCampaign extends React.Component {
           <div>
               <Col sm={6} md={5} lg={3}>
                 <h4>Video</h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
+                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p>
                 <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
                 <h4>Image</h4>
                 <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
@@ -655,7 +647,7 @@ class NewCampaign extends React.Component {
       } else {
           let description = `🔥 Stunning ${this.state.propertyType} Located At ${this.state.address} 🔥
 
-        ✅ ${this.state.first} 
+        ✅ ${this.state.first}
         ✅ ${this.state.second}
         ✅ ${this.state.third}
 
@@ -667,7 +659,7 @@ class NewCampaign extends React.Component {
             <Row>
               <Col sm={6} md={5} lg={3}>
                 <h4>Video <button onClick={this.chooseAnotherVid}>edit</button></h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
+                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p>
                 <h4>Image</h4>
                 <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
                 <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
@@ -712,7 +704,7 @@ class NewCampaign extends React.Component {
                         className="form-control"
                         onChange={this.handleAddressChange}
                       />
-                    </FormGroup>  
+                    </FormGroup>
                     <FormGroup style={{display: 'none'}}>
                       <ControlLabel>#1 Selling Point</ControlLabel>
                       <input
@@ -723,7 +715,7 @@ class NewCampaign extends React.Component {
                         className="form-control"
                         onChange={this.handleFirstChange}
                       />
-                    </FormGroup>   
+                    </FormGroup>
                     <FormGroup style={{display: 'none'}}>
                       <ControlLabel>#2 Selling Point</ControlLabel>
                       <input
@@ -734,7 +726,7 @@ class NewCampaign extends React.Component {
                         className="form-control"
                         onChange={this.handleSecondChange}
                       />
-                    </FormGroup>  
+                    </FormGroup>
                     <FormGroup style={{display: 'none'}}>
                       <ControlLabel>#3 Selling Point</ControlLabel>
                       <input
@@ -745,7 +737,7 @@ class NewCampaign extends React.Component {
                         className="form-control"
                         onChange={this.handleThirdChange}
                       />
-                    </FormGroup> 
+                    </FormGroup>
                     <FormGroup style={{display: 'none'}}>
                       <ControlLabel>Price</ControlLabel>
                       <input
@@ -756,7 +748,7 @@ class NewCampaign extends React.Component {
                         className="form-control"
                         onChange={this.handlePriceChange}
                       />
-                    </FormGroup> 
+                    </FormGroup>
                     <FormGroup style={{display: 'none'}}>
                       <ControlLabel>Property Type</ControlLabel>
                       <Select
