@@ -1,0 +1,17 @@
+@import "../stylesheets/colors.scss";
+
+.main-button {
+  display: block;
+  color: #ffffff;
+  max-width: 100px;
+  background-color: $ad-genie-blue;
+  border-radius: 3px;
+  padding: 10px 15px;
+  margin: auto;
+  border: none;
+
+  &:hover {
+    color: #ffffff;
+    background-color: $ad-genie-lighter-blue;
+  }
+}

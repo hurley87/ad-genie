@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 import './Index.scss';
+import '../../components/buttons.scss'
 
 const Index = () => (
   <div className="Index">
@@ -13,7 +14,7 @@ const Index = () => (
       <h3>Prospecting is tedious, and inefficient.</h3>
       <p>We find your prospects, and drive qualified interest right to your inbox.<br/>You step in to close the deal.</p>
       <div>
-        <Button href="/signup">Get Started</Button>
+        <Button href="/signup" className="main-button">Get Started</Button>
       </div>
     </div>
   </div>

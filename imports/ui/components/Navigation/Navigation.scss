@@ -6,8 +6,21 @@
   z-index: 3;
   width: 100%;
   border-radius: 0;
+
 }
 .navbar.navbar-default {
-	background-color: #fff;
+	background-color: #000000;
 	border: none;
+}
+
+.navbar-nav > .active > a {
+  background-color: green !important;
+
+  &:hover{
+    background-color: green !important;
+  }
+
+  &:focus {
+    background-color: green !important;
+  }
 }

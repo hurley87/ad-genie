@@ -2,6 +2,8 @@ import React from 'react';
 import Page from '../Page/Page';
 import AdsIndex from '../AdsIndex/AdsIndex';
 
+import './AdsContainer.scss';
+
 class MyAds extends React.Component {
 
   approveAd(adId, myId){
@@ -27,7 +29,7 @@ class MyAds extends React.Component {
   }
 
   render() {
-    
+
     return (
         <div>
          <AdsIndex approveAd={this.approveAd} pauseAd={this.pauseAd} deleteAd={this.deleteAd}/>
@@ -38,7 +40,9 @@ class MyAds extends React.Component {
 
 const AdsContainer = () => (
   <div className="AdsContainer">
-    <MyAds />
+    <div className="contentWrapper">
+      <MyAds />
+    </div>  
   </div>
 );
 
