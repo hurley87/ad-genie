@@ -3,6 +3,8 @@ import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import updateSubs from './updateSubs';
 import updateUnsubs from './updateUnsubs'; 
+import updateEmail from './updateEmail';
+import updatePhone from './updatePhone'
 import rateLimit from '../../../modules/rate-limit';
 import graph from 'fbgraph';
 
@@ -46,6 +48,24 @@ Meteor.methods({
     }
 
     return updateUnsubs({ userId: this.userId, pagesList, subs })
+      .then(response => response)
+      .catch((exception) => {
+        throw new Meteor.Error('500', exception);
+      });
+  },
+  'users.updateEmail': function usersUpdateEmail(email) {
+    check(email, String);
+
+    return updateEmail({ userId: this.userId, email })
+      .then(response => response)
+      .catch((exception) => {
+        throw new Meteor.Error('500', exception);
+      });
+  },
+  'users.updatePhone': function usersUpdatePhone(phone) {
+    check(phone, String);
+
+    return updatePhone({ userId: this.userId, phone })
       .then(response => response)
       .catch((exception) => {
         throw new Meteor.Error('500', exception);

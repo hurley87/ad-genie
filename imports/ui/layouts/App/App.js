@@ -19,6 +19,9 @@ import NewVideo from '../../pages/NewVideo/NewVideo';
 import ViewDocument from '../../pages/ViewDocument/ViewDocument';
 import ViewProperty from '../../pages/ViewProperty/ViewProperty';
 import EditDocument from '../../pages/EditDocument/EditDocument';
+import Email from '../../pages/Email/Email'
+import Phone from '../../pages/Phone/Phone'
+import Credit from '../../pages/Credit/Credit'
 import Signup from '../../pages/Signup/Signup';
 import About from '../../pages/About/About';
 import Login from '../../pages/Login/Login';
@@ -68,6 +71,9 @@ const App = props => (
             <Authenticated exact path="/audiences/new" component={NewAudience} {...props} />
             <Authenticated exact path="/images/new" component={NewImage} {...props} />
             <Authenticated exact path="/profile" component={Profile} {...props} />
+            <Authenticated exact path="/email" component={Email} {...props} />
+            <Authenticated exact path="/phone" component={Phone} {...props} />
+            <Authenticated exact path="/credit" component={Credit} {...props} />
             <Public path="/signup" component={Signup} {...props} />
             <Public path="/about" component={About} {...props} />
             <Public path="/login" component={Login} {...props} />
