@@ -13,7 +13,7 @@ const Public = ({
         (React.createElement(component, {
           ...props, ...rest, loggingIn, authenticated,
         })) :
-        (<Redirect to="/properties/new" />)
+        (<Redirect to="/ads/new" />)
     )}
   />
 );

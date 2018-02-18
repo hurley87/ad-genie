@@ -13,8 +13,8 @@ const AdsIndex = ({ pausedAds, activeAds, loading, approveAd, pauseAd, deleteAd,
 
 	<div>
 	    <div className="page-header clearfix">
-	      <h4 className="pull-left">Properties</h4>
-	      <Link className="btn btn-success pull-right" to={`properties/new`}>Add Property</Link>
+	      <h4 className="pull-left">Ads</h4>
+	      <Link className="btn btn-success pull-right" to={`ads/new`}>Create Ad</Link>
 	    </div>
 		{
 		  ads.length > 0 ? 
@@ -65,7 +65,7 @@ const AdsIndex = ({ pausedAds, activeAds, loading, approveAd, pauseAd, deleteAd,
 			    </tbody>
 		  	</Table>
 		  </Row> 
-		  : <Alert bsStyle="warning">No properties yet!</Alert>
+		  : <Alert bsStyle="warning">No ads yet!</Alert>
 		}
 	</div>
 

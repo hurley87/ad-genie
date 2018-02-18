@@ -7,25 +7,13 @@ import { Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import './AuthenticatedNavigation.scss';
 
 const AuthenticatedNavigation = ({ name, history }) => (
-  <div>
-    <Nav>
-      <LinkContainer to="/properties">
-        <NavItem eventKey={1} href="/proporties">Properties</NavItem>
-      </LinkContainer>
-    </Nav>
-    <Nav pullRight>
-      <NavDropdown eventKey={2} title={name} id="user-nav-dropdown">
-  {       
-         // <LinkContainer to="/profile">
-         //    <NavItem eventKey={2.1} href="/profile">Profile</NavItem>
-         //  </LinkContainer>
-
-    }
-        <MenuItem divider />
-        <MenuItem eventKey={2.2} onClick={() => history.push('/logout')}>Logout</MenuItem>
-      </NavDropdown>
-    </Nav>
-  </div>
+  <Nav pullRight>
+  	<MenuItem eventKey={1} onClick={() => history.push('/ads')}>Ads</MenuItem>
+    <NavDropdown eventKey={2} title='Dave' id="user-nav-dropdown">
+      <MenuItem eventKey={2.1} onClick={() => history.push('/settings')}>Settings</MenuItem>
+      <MenuItem eventKey={2.2} onClick={() => history.push('/logout')}>Logout</MenuItem>
+    </NavDropdown>
+  </Nav>
 );
 
 AuthenticatedNavigation.propTypes = {

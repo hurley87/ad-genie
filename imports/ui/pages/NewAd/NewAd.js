@@ -9,105 +9,57 @@ import InputHint from '../../components/InputHint/InputHint';
 import validate from '../../../modules/validate';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-import AudiencesList from '../AudiencesList/AudiencesList'
 import VideosList from '../VideosList/VideosList';
 import NewVideo from '../NewVideo/NewVideo';
 import nl2br from 'react-nl2br';
 import Loading from '../../components/Loading/Loading';
-import NewImage from '../NewImage/NewImage';
-import ImagesList from '../ImagesList/ImagesList';
 import PagesList from '../PagesList/PagesList'
+import Email from '../Email/Email'
+import Phone from '../Phone/Phone'
+import PageId from '../PageId/PageId'
+import ContentEditable from 'react-simple-contenteditable';
+import Credit from '../Credit/Credit'
 
-import './NewAd'
+import './NewAd.scss'
 
-class NewCampaign extends React.Component {
+class NewAd extends React.Component {
   constructor(props) {
     super(props);
+
+    const user = Meteor.users.findOne(Meteor.userId())
+    const page = {
+      'label': user.profile.pages[0].name,
+      'value': user.profile.pages[0].id
+    }
+    const address = "57 Curzon";
+    const description = `🔥 Stunning House Located At ${address} 🔥
+
+  ✅ Newly Renovated Finished Basement 
+  ✅ Newly Built Back Two-Level Deck
+  ✅ Open Concept Kitchen
+
+  You need to see this one for yourself!
+
+  To get more information on this property or to book a viewing  hit the "Send Message" button below!`
     
   	this.state = {
-  		region: '',
-  		description: '',
-  		budget: '',
+  		description: description,
+      plan: "pro",
   		vidUrl: '',
   		videoId: '',
-  		chooseVid: true,
-  		headline: 'GET INSTANTLY',
-  		ref: "FB",
       address: '',
-      propertyType: '',
       loading: false,
-      imgUrl: '',
-      first: 'Newly Renovated Finished Basement',
-      second: 'Newly Built Back Two-Level Deck',
-      third: 'Open Concept Kitchen',
-      page: '',
-      price: '',
-      showAddress: true,
-      showPrice: true,
-      showSellingPoints: true
+      user: user,
+      pageId: page,
+      address: address,
+      stage: 'pageId'
   	}
-  	this.imgChange = this.imgChange.bind(this)
-    this.vidChange = this.vidChange.bind(this)
-  	this.handleTextareaChange = this.handleTextareaChange.bind(this)
-  	this.handleHeadlineChange = this.handleHeadlineChange.bind(this)
-    this.handlePriceChange = this.handlePriceChange.bind(this)
-  	this.handleRefChange = this.handleRefChange.bind(this)
-  	this.handleBudgetChange = this.handleBudgetChange.bind(this)
-  	this.handleChange = this.handleChange.bind(this)
+
     this.handlePageChange = this.handlePageChange.bind(this)
-    this.handleFirstChange = this.handleFirstChange.bind(this)
-    this.handleSecondChange = this.handleSecondChange.bind(this)
-    this.handleThirdChange = this.handleThirdChange.bind(this)
-  	this.chooseAnotherVid = this.chooseAnotherVid.bind(this)
-    this.chooseAnotherImg = this.chooseAnotherImg.bind(this)
-  	this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
     this.handleAddressChange = this.handleAddressChange.bind(this)
-    this.handlePropertyTypeChange = this.handlePropertyTypeChange.bind(this)
-    this.chooseAnotherRegion = this.chooseAnotherRegion.bind(this)
-    this.chooseAnotherPropertyType = this.chooseAnotherPropertyType.bind(this)
-    this.updateAddress = this.updateAddress.bind(this)
-    this.chooseAnotherAddress = this.chooseAnotherAddress.bind(this)
-    this.chooseAnotherPrice = this.chooseAnotherPrice.bind(this)
-    this.updatePrice = this.updatePrice.bind(this)
-    this.updateSellingPoints = this.updateSellingPoints.bind(this)
-    this.chooseSellingPoints = this.chooseSellingPoints.bind(this)
-    this.chooseAnotherPage = this.chooseAnotherPage.bind(this)
-  }
-
-  handleChange(region) {
-    this.setState({ 
-      region: region
-    });
-  }
-
-  handlePageChange(page) {
-    this.setState({ 
-      page: page
-    });
-  }
-
-  handlePriceChange(evt) {
-    this.setState({ 
-      price: evt.target.value
-    });
-  }
-
-  handleFirstChange(evt) {
-    this.setState({ 
-      first: evt.target.value
-    });
-  }
-
-  handleSecondChange(evt) {
-    this.setState({ 
-      second: evt.target.value
-    });
-  }
-
-  handleThirdChange(evt) {
-    this.setState({ 
-      third: evt.target.value
-    });
+    this.vidChange = this.vidChange.bind(this)
+    this.planChange = this.planChange.bind(this)
   }
 
   componentDidMount() {
@@ -115,425 +67,101 @@ class NewCampaign extends React.Component {
 
     validate(component.form, {
       rules: {
-        budget: {
-          required: true
-        },
-        region: {
-          required: true,
-        },
-        address: {
-          required: true
-        },
-        propertyType: {
-          required: true
-        },
-        ref: {
-          required: true
-        },
-        description: {
-          required: true
-        },
-        pageId: {
-          required: true
-        }
+
       },
       messages: {
-        budget: {
-          required: "Need to pick a budget"
-        },
-        region: {
-          required: 'Need to pick a region'
-        },
-        address: {
-          required: "What's your address?"
-        },
-        propertyType: {
-          required: "What's your property type?"
-        },
-        ref: {
-          required: 'Need an email address here.'
-        },
-        description: {
-          required: 'Need a description here.'
-        },
-        padeId: {
-          required:'Need a pageId here.'
-        }
+
       },
       submitHandler() { component.handleSubmit(); },
     });
   }
 
-  handleTextareaChange(evt) {
-    this.setState({ 
-      description: evt.target.value
-    });
-  }
-
-  handleBudgetChange(budget) {
-    this.setState({ 
-      budget: budget
-    });
-  }
-
-  handleHeadlineChange(evt) {
+  handleDescriptionChange(evt, value){
     this.setState({
-      headline: evt.target.value
+      description: value
     })
   }
 
-  handleAddressChange(evt) {
+  changeStage(stage){
     this.setState({
-      address: evt.target.value
+      stage: stage
     })
   }
 
-  handlePropertyTypeChange(evt) {
+  planChange(plan){
     this.setState({
-      propertyType: evt.value
-    })
-  }
-
-  handleRefChange(evt) {
-    this.setState({
-      ref: evt.target.value
-    })
-  }
-
-  handleRefChange(evt) {
-    this.setState({
-      ref: evt.target.value
+      plan: plan
     })
   }
 
   vidChange(vid, videoId) {
-    this.setState({ 
+    this.setState({
       videoId: videoId,
       vidUrl: vid,
-      chooseVid: false
+      stage: 'plan'
     });
   }
 
-  imgChange(img) {
-    this.setState({ 
-      imgUrl: img.src
+  handlePageChange(page) {
+    this.setState({
+      pageId: page
     });
   }
 
-  chooseAnotherVid() {
-    this.setState({ 
-      vidUrl: ''
-    });
-  }
+  handleAddressChange(evt) {
+    let description = `🔥 Stunning House Located At ${evt.target.value} 🔥
 
-  chooseAnotherPropertyType(){
-    this.setState({
-      propertyType: ''
-    })
-  }
-
-  chooseAnotherPage(){
-    this.setState({
-      page: ''
-    })
-  }
-
-  chooseAnotherPrice(){
-    this.setState({
-      showPrice: true
-    })
-  }
-
-  updatePrice(){
-    this.setState({
-      showPrice: false
-    })
-  }
-
-  chooseSellingPoints(){
-    this.setState({
-      showSellingPoints: true
-    })
-  }
-
-  updateSellingPoints(){
-    this.setState({
-      showSellingPoints: false
-    })
-  }
-
-  updateAddress(){
-    this.setState({
-      showAddress: false
-    })
-  }
-
-  chooseAnotherAddress(){
-    this.setState({
-      showAddress: true
-    })
-  }
-
-  chooseAnotherRegion(){
-    this.setState({
-      region: ''
-    })
-  }
-
-  chooseAnotherImg() {
-    this.setState({ 
-      imgUrl: ''
-    });
-  }
-
-  handleSubmit(evt) {
-    const { history } = this.props;
-
-    evt.preventDefault()
-
-    this.setState({
-      loading: true
-    })
-
-    let prov = this.state.region.value
-
-    const pageId = '140688513258179';
-
-    const user = Meteor.users.findOne(Meteor.userId())
-    const userName = user.profile.name.split(" ")[0]
-
-    const description = `🔥 Stunning ${this.state.propertyType} Located At ${this.state.address} 🔥
-
-  ✅ ${this.state.first} 
-  ✅ ${this.state.second}
-  ✅ ${this.state.third}
+  ✅ Newly Renovated Finished Basement 
+  ✅ Newly Built Back Two-Level Deck
+  ✅ Open Concept Kitchen
 
   You need to see this one for yourself!
 
   To get more information on this property or to book a viewing  hit the "Send Message" button below!`
-
-    const ad = {
-      vidUrl: this.state.vidUrl,
-      name: 'GET INSTANTLY',
-      description: description,
-      region: prov,
-      budget: parseInt('10000'),
-      videoId: this.state.videoId,
-      address: this.state.address,
-      propertyType: this.state.propertyType,
-      imgUrl: this.state.imgUrl,
-      pageId: this.state.page.value,
-      price: this.state.price.value
-    }
-
-    const context = this;                             
-    Meteor.call('adset.new', user.profile.campaignId, ad, pageId, Meteor.userId(), function(err, result){
-      if(err) {
-        console.log(err)
-      } else {
-        setTimeout(function(){ 
-          context.setState({
-            loading: false
-          })
-          history.push('/properties');
-        }, 5000);
-      }
+ 
+    this.setState({
+      address: evt.target.value,
+      description: description
     })
   }
 
   render() {
-    console.log(this.state)
+    const { history } = this.props;
+
     if(this.state.loading) {
       return <Loading />
     } else {
-      if(this.state.vidUrl == ''){
+      if(this.state.stage == 'pageId') {
         return (
-          <div className="NewCampaign">
+          <div className="NewAd">
+            <div className="page-header clearfix">
+              <h4 className="pull-left">Create an Ad</h4>
+            </div>
             <Row>
-              <Col sm={6} md={5} lg={3}>
-                <h4>Video</h4>
-                <p>No video yet</p> 
-                <h4>Image</h4>
-                <p>No image yet</p>
-                <h4>Page</h4>
-                <p>Not choosen yet</p>
-                <h4>Region</h4>
-                <p>Not choosen yet</p>
-                <h4>Property Type</h4>
-                <p>Not choosen yet</p>
-                <h4>Address</h4>
-                <p>Not choosen yet</p>
-                <h4>Price</h4>
-                <p>Not choosen yet</p>
-                <h4>Selling points</h4>
-                <p>Not choosen yet</p>
+              <Col xs={6}>
+                <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.pageId} />
+                <p><button onClick={this.changeStage.bind(this, 'address')}>Next</button></p>
               </Col>
-              <Col sm={6} md={5} lg={8}>
-                <VideosList imgChange={this.vidChange} />
+              <Col xs={6}>
+                <h5>{this.state.pageId.label == '' ? "Page Name" : this.state.pageId.label }</h5>
+                <div>
+                  {nl2br(this.state.description)}
+                </div>
+                <video width="200" height="200" controls>
+                  <source src={this.state.vidUrl} type="video/mp4"/>
+                </video>
               </Col>
             </Row>
           </div>
         );
-      } else if(this.state.imgUrl == '') {
+      } else if(this.state.stage == 'address') {
         return (
-          <div>
-            <Col sm={6} md={5} lg={3}>
-                <h4>Video <small onClick={this.chooseAnotherVid}><i className="fa fa-pencil"></i></small></h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
-                <h4>Image</h4>
-                <p>No image yet</p>
-                <h4>Page</h4>
-                <p>Not choosen yet</p>
-                <h4>Region</h4>
-                <p>Not choosen yet</p>
-                <h4>Property Type</h4>
-                <p>Not choosen yet</p>
-                <h4>Address</h4>
-                <p>Not choosen yet</p>
-                <h4>Price</h4>
-                <p>Not choosen yet</p>
-                <h4>Selling points</h4>
-                <p>Not choosen yet</p>
-            </Col>
-            <Col sm={6} md={5} lg={8}>
-              <ImagesList imgChange={this.imgChange} />
-            </Col>
-          </div>
-        )
-      } else if(this.state.page == '') {
-        return (
-          <div>  
-            <Col sm={6} md={5} lg={3}>
-                <h4>Video</h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
-                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-                <h4>Image</h4>
-                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
-                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
-                <h4>Page</h4>
-                <p>Not choosen yet</p>
-                <h4>Region</h4>
-                <p>Not choosen yet</p>
-                <h4>Property Type</h4>
-                <p>Not choosen yet</p>
-                <h4>Address</h4>
-                <p>Not choosen yet</p>
-                <h4>Price</h4>
-                <p>Not choosen yet</p>
-                <h4>Selling points</h4>
-                <p>Not choosen yet</p>
-            </Col>
-            <Col sm={6} md={5} lg={8}>
-              <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.page} />
-            </Col>
-          </div>
-        )
-      } else if(this.state.region == '') {
-        return (
-          <div>
-            <Col sm={6} md={5} lg={3}>
-              <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
-              <h4>Video</h4>
-              <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
-              <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-              <h4>Image</h4>
-              <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
-              <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
-              <h4>Page</h4>
-              <p>{this.state.page.label}</p>
-              <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
-              <h4>Region</h4>
-              <p>Not choosen yet</p>
-              <h4>Property Type</h4>
-              <p>Not choosen yet</p>
-              <h4>Address</h4>
-              <p>Not choosen yet</p>
-              <h4>Price</h4>
-                <p>Not choosen yet</p>
-              <h4>Selling points</h4>
-              <p>Not choosen yet</p>
-            </Col>
-            <Col sm={6} md={5} lg={8}>
-              <AudiencesList handleChange={this.handleChange} currentRegion={this.state.region} />
-            </Col>
-          </div>
-        )
-      } else if(this.state.propertyType == '') {
-        return (
-          <div>
-            <Col sm={6} md={5} lg={3}>
-              <h4>Video</h4>
-              <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
-              <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-              <h4>Image</h4>
-              <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
-              <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
-              <h4>Page</h4>
-              <p>{this.state.page.label}</p>
-              <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
-              <h4>Region</h4>
-              <p>{this.state.region.label}</p>
-              <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
-              <h4>Property Type</h4>
-              <p>Not choosen yet</p>
-              <h4>Address</h4>
-              <p>Not choosen yet</p>
-              <h4>Price</h4>
-                <p>Not choosen yet</p>
-              <h4>Selling points</h4>
-              <p>Not choosen yet</p>
-            </Col>
-            <Col sm={6} md={5} lg={4}>
-              <div className="page-header clearfix">
-                <h4>What type of property is this?</h4>
-              </div>
-              <Select
-                name="propertyType"
-                value={this.state.propertyType}
-                onChange={this.handlePropertyTypeChange}
-                options={[
-                  { value: 'loft', label: 'Loft' },
-                  { value: 'detached', label: 'Detached'},
-                  { value: 'condo', label: 'Condo'},
-                  { value: 'detached', label: 'Detached'},
-                  { value: 'bungalow', label: 'Bugalow'},
-                  { value: 'townhome', label: 'Townhome'},
-                  { value: 'semidetachedtownhome', label: 'Semi Detached Townhome'},
-                ]}
-              />
-            </Col>
-          </div>
-        )
-      } else if(this.state.showAddress) {
-        return (
-            <div>
-              <Col sm={6} md={5} lg={3}>
-                <h4>Video</h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
-                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-                <h4>Image</h4>
-                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
-                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
-                <h4>Page</h4>
-                <p>{this.state.page.label}</p>
-                <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
-                <h4>Region</h4>
-                <p>{this.state.region.label}</p>
-                <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
-                <h4>Property Type</h4>
-                <p>{this.state.propertyType}</p>
-                <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
-                <h4>Address</h4>
-                <p>Not choosen yet</p>
-                <h4>Price</h4>
-                <p>Not choosen yet</p>
-                <h4>Selling points</h4>
-                <p>Not choosen yet</p>
-              </Col>
-              <Col sm={6} md={5} lg={8}>
-                <div className="page-header clearfix">
-                  <h4>What is the address of the property?</h4>
-                </div>
+          <div className="NewAd">
+            <div className="page-header clearfix">
+              <h4 className="pull-left">Create an Ad</h4>
+            </div>
+            <Row>
+              <Col xs={6}>
                 <input
                   type="text"
                   name="address"
@@ -542,243 +170,147 @@ class NewCampaign extends React.Component {
                   className="form-control"
                   onChange={this.handleAddressChange}
                 />
-                <p><button onClick={this.updateAddress}>Update address</button></p>
+                <p><button onClick={this.changeStage.bind(this, 'description')}>Next</button></p>
               </Col>
-            </div>
-        )
-      } else if(this.state.showPrice){
-        return (
-          <div>
-              <Col sm={6} md={5} lg={3}>
-                <h4>Video</h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
-                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-                <h4>Image</h4>
-                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
-                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
-                <h4>Page</h4>
-                <p>{this.state.page.label}</p>
-                <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
-                <h4>Region</h4>
-                <p>{this.state.region.label}</p>
-                <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
-                <h4>Property Type</h4>
-                <p>{this.state.propertyType}</p>
-                <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
-                <h4>Address</h4>
-                <p>{this.state.address}</p>
-                <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
-                <h4>Price</h4>
-                <p>Not choosen yet</p>
-                <h4>Selling points</h4>
-                <p>Not choosen yet</p>
-              </Col>
-              <Col sm={6} md={5} lg={9}>
-                  <div className="page-header clearfix">
-                    <h4>What is the price of the property?</h4>
-                  </div>
-                  <input
-                    type="text"
-                    name="price"
-                    value={this.state.price}
-                    ref={price => (this.price = price)}
-                    className="form-control"
-                    onChange={this.handlePriceChange}
-                  />
-                <p><button onClick={this.updatePrice}>Update price</button></p>
-              </Col>
-          </div>
-        )
-      } else if(this.state.showSellingPoints){
-        return (
-          <div>
-              <Col sm={6} md={5} lg={3}>
-                <h4>Video</h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
-                <p><button onClick={this.chooseAnotherVid}>Change video</button></p>
-                <h4>Image</h4>
-                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
-                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
-                <h4>Page</h4>
-                <p>{this.state.page.label}</p>
-                <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
-                <h4>Region</h4>
-                <p>{this.state.region.label}</p>
-                <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
-                <h4>Property Type</h4>
-                <p>{this.state.propertyType}</p>
-                <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
-                <h4>Address</h4>
-                <p>{this.state.address}</p>
-                <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
-                <h4>Price</h4>
-                <p>{this.state.price}</p>
-                <p><button onClick={this.chooseAnotherPrice}>Change price</button></p>
-                <h4>Selling points</h4>
-                <p>Not choosen yet</p>
-              </Col>
-              <Col sm={6} md={5} lg={8}>
-                <div className="page-header clearfix">
-                  <h4>What are the top 3 selling points of this property?</h4>
+              <Col xs={6}>
+                <h5>{this.state.pageId.label}</h5>
+                <div>
+                  {nl2br(this.state.description)}
                 </div>
-                <ControlLabel>#1 Selling Point</ControlLabel>
-                <input
-                  type="text"
-                  name="first"
-                  value={this.state.first}
-                  ref={first => (this.first = first)}
-                  className="form-control"
-                  onChange={this.handleFirstChange}
-                />
-                <ControlLabel>#2 Selling Point</ControlLabel>
-                <input
-                  type="text"
-                  name="second"
-                  value={this.state.second}
-                  ref={second => (this.second = second)}
-                  className="form-control"
-                  onChange={this.handleSecondChange}
-                />
-                <ControlLabel>#3 Selling Point</ControlLabel>
-                <input
-                  type="text"
-                  name="third"
-                  value={this.state.third}
-                  ref={third => (this.third = third)}
-                  className="form-control"
-                  onChange={this.handleThirdChange}
-                />
-              <p><button onClick={this.updateSellingPoints}>Update selling points</button></p>
+                <video width="200" height="200" controls>
+                  <source src={this.state.vidUrl} type="video/mp4"/>
+                </video>
               </Col>
+            </Row>
           </div>
-        )
-      } else {
-          let description = `🔥 Stunning ${this.state.propertyType} Located At ${this.state.address} 🔥
-
-        ✅ ${this.state.first} 
-        ✅ ${this.state.second}
-        ✅ ${this.state.third}
-
-        You need to see this one for yourself!
-
-        To get more information on this property or to book a viewing  hit the "Send Message" button below!`
+        );
+      } else if(this.state.stage == 'description') {
         return (
-          <div className="NewCampaign">
+          <div className="NewAd">
+            <div className="page-header clearfix">
+              <h4 className="pull-left">Create an Ad</h4>
+            </div>
             <Row>
-              <Col sm={6} md={5} lg={3}>
-                <h4>Video <button onClick={this.chooseAnotherVid}>edit</button></h4>
-                <p><a target='_blank' href={this.state.vidUrl}>Video Link</a></p> 
-                <h4>Image</h4>
-                <p><a target='_blank' href={this.state.imgUrl}>Image Link</a></p>
-                <p><button onClick={this.chooseAnotherImg}>Change image</button></p>
-                <h4>Page</h4>
-                <p>{this.state.page.label}</p>
-                <p><button onClick={this.chooseAnotherPage}>Change page</button></p>
-                <h4>Region</h4>
-                <p>{this.state.region.label}</p>
-                <p><button onClick={this.chooseAnotherRegion}>Change region to target</button></p>
-                <h4>Property Type</h4>
-                <p>{this.state.propertyType}</p>
-                <p><button onClick={this.chooseAnotherPropertyType}>Change property type</button></p>
-                <h4>Address</h4>
-                <p>{this.state.address}</p>
-                <p><button onClick={this.chooseAnotherAddress}>Change address</button></p>
-                <h4>Price</h4>
-                <p>{this.state.price}</p>
-                <p><button onClick={this.chooseAnotherPrice}>Change price</button></p>
-                <h4>Selling points</h4>
-                <p>{this.state.first}</p>
-                <p>{this.state.second}</p>
-                <p>{this.state.third}</p>
-                <p><button onClick={this.chooseSellingPoints}>Change selling points</button></p>
-                </Col>
-                <Col sm={6} md={5} lg={9}>
-                <form ref={form => (this.form = form)} onSubmit={this.handleSubmit.bind(this)}>
-                    <FormGroup style={{display: 'none'}}>
-                      <ControlLabel>Page</ControlLabel>
-                      <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.page} />
-                    </FormGroup>
-                    <FormGroup style={{display: 'none'}}>
-                      <ControlLabel>City</ControlLabel>
-                      <AudiencesList handleChange={this.handleChange} currentRegion={this.state.region} />
-                    </FormGroup>
-                    <FormGroup style={{display: 'none'}}>
-                      <ControlLabel>Address</ControlLabel>
-                      <input
-                        type="text"
-                        name="address"
-                        value={this.state.address}
-                        ref={address => (this.address = address)}
-                        className="form-control"
-                        onChange={this.handleAddressChange}
-                      />
-                    </FormGroup>  
-                    <FormGroup style={{display: 'none'}}>
-                      <ControlLabel>#1 Selling Point</ControlLabel>
-                      <input
-                        type="text"
-                        name="first"
-                        value={this.state.first}
-                        ref={first => (this.first = first)}
-                        className="form-control"
-                        onChange={this.handleFirstChange}
-                      />
-                    </FormGroup>   
-                    <FormGroup style={{display: 'none'}}>
-                      <ControlLabel>#2 Selling Point</ControlLabel>
-                      <input
-                        type="text"
-                        name="second"
-                        value={this.state.second}
-                        ref={second => (this.second = second)}
-                        className="form-control"
-                        onChange={this.handleSecondChange}
-                      />
-                    </FormGroup>  
-                    <FormGroup style={{display: 'none'}}>
-                      <ControlLabel>#3 Selling Point</ControlLabel>
-                      <input
-                        type="text"
-                        name="third"
-                        value={this.state.third}
-                        ref={third => (this.third = third)}
-                        className="form-control"
-                        onChange={this.handleThirdChange}
-                      />
-                    </FormGroup> 
-                    <FormGroup style={{display: 'none'}}>
-                      <ControlLabel>Price</ControlLabel>
-                      <input
-                        type="text"
-                        name="price"
-                        value={this.state.price}
-                        ref={price => (this.price = price)}
-                        className="form-control"
-                        onChange={this.handlePriceChange}
-                      />
-                    </FormGroup> 
-                    <FormGroup style={{display: 'none'}}>
-                      <ControlLabel>Property Type</ControlLabel>
-                      <Select
-                        name="propertyType"
-                        value={this.state.propertyType}
-                        onChange={this.handlePropertyTypeChange}
-                        options={[
-                          { value: 'loft', label: 'Loft' },
-                          { value: 'detached', label: 'Detached'},
-                          { value: 'condo', label: 'Condo'},
-                          { value: 'detached', label: 'Detached'},
-                          { value: 'bungalow', label: 'Bugalow'},
-                          { value: 'townhome', label: 'Townhome'},
-                          { value: 'semidetachedtownhome', label: 'Semi Detached Townhome'},
-                        ]}
-                      />
-                    </FormGroup>
-                    <div>
-                      {nl2br(description)}
-                    </div>
-                  <Button type="submit" bsStyle="success">Create Ad</Button>
-                </form>
+              <Col xs={6}>
+                  <ContentEditable
+                    html={this.state.description}
+                    className="edit-description"
+                    tagName="div"
+                    onChange={ this.handleDescriptionChange}
+                    contentEditable="plaintext-only"
+                  />
+                  <p><button onClick={this.changeStage.bind(this, 'video')}>Next</button></p>
+                <div>
+                </div>
+              </Col>
+              <Col xs={6}>
+                <h5>{this.state.pageId.label}</h5>
+                <div>
+                  {nl2br(this.state.description)}
+                </div>
+                <video width="200" height="200" controls>
+                  <source src={this.state.vidUrl} type="video/mp4"/>
+                </video>
+              </Col>
+            </Row>
+          </div>
+        );
+      } else if(this.state.stage == 'video'){
+        return (
+          <div className="NewAd">
+            <div className="page-header clearfix">
+              <h4 className="pull-left">Create an Ad</h4>
+            </div>
+            <Row>
+              <Col xs={6}>
+                  <NewVideo />
+                  <VideosList vidChange={this.vidChange} />
+              </Col>
+              <Col xs={6}>
+                <h5>{this.state.pageId.label}</h5>
+                <div>
+                  {nl2br(this.state.description)}
+                </div>
+                <video width="200" height="200" controls>
+                  <source src={this.state.vidUrl} type="video/mp4"/>
+                </video>
+              </Col>
+            </Row>
+          </div>
+        );
+      } else if(this.state.stage == 'plan'){
+        return (
+          <div className="NewAd">
+            <div className="page-header clearfix">
+              <h4 className="pull-left">Create an Ad</h4>
+            </div>
+            <Row>
+              <Col xs={6}>
+                  <ControlLabel>Budget</ControlLabel>
+                  <Select
+                    name="propertyType"
+                    value={this.state.plan}
+                    onChange={this.planChange}
+                    options={[
+                      { value: 'starter', label: '$50' },
+                      { value: 'pro', label: '$100'},
+                      { value: 'ultra', label: '$250'}
+                    ]}
+                  />
+                  <p><button onClick={this.changeStage.bind(this, 'payment')}>Next</button></p>
+              </Col>
+              <Col xs={6}>
+                <h5>{this.state.pageId.label}</h5>
+                <div>
+                  {nl2br(this.state.description)}
+                </div>
+                <video width="200" height="200" controls>
+                  <source src={this.state.vidUrl} type="video/mp4"/>
+                </video>
+              </Col>
+            </Row>
+          </div>
+        );
+      } else if(this.state.stage == 'payment') {
+
+        let budget = 1000
+        const plan = this.state.plan
+        if(plan == 'pro'){
+          budget = 2000
+        }
+        if(plan == 'ultra') {
+          budget = 5000
+        }
+
+        const ad = {
+          vidUrl: this.state.vidUrl,
+          description: this.state.description,
+          plan: this.state.plan,
+          videoId: this.state.videoId,
+          address: this.state.address,
+          pageId: this.state.pageId,
+          user: this.state.user,
+          budget: budget
+        }
+
+        return (
+          <div className="NewAd">
+            <div className="page-header clearfix">
+              <h4 className="pull-left">Create an Ad</h4>
+            </div>
+            <Row>
+              <Col xs={6}>
+                  <p>Awesome time to make a payment</p>
+                  <Credit ad={ad} />
+              </Col>
+              <Col xs={6}>
+                <h5>{this.state.pageId.label}</h5>
+                <div>
+                  {nl2br(this.state.description)}
+                </div>
+                <video width="200" height="200" controls>
+                  <source src={this.state.vidUrl} type="video/mp4"/>
+                </video>
               </Col>
             </Row>
           </div>
@@ -791,8 +323,8 @@ class NewCampaign extends React.Component {
   }
 }
 
-NewCampaign.propTypes = {
+NewAd.propTypes = {
   history: PropTypes.object.isRequired,
 };
 
-export default NewCampaign;
+export default NewAd;

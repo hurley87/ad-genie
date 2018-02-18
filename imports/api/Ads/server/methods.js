@@ -68,11 +68,9 @@ Meteor.methods({
 	       Pages.rawCollection().insert(cool_page)
 	    });
 	},
-	'adset.new': function adsetNew(campaignId, ad, pageId, userId) {
-		check(campaignId, String)
-		check(pageId, String)
+	'adset.new': function adsetNew(ad) {
 		check(ad, Object);
-		check(userId, String)
+		console.log(ad)
 		const accessToken = Meteor.settings.FBAccess;
 		const accountId = Meteor.settings.FBAccountID
 
@@ -85,7 +83,7 @@ Meteor.methods({
 			[AdSet.Fields.Id],
 			{
 				[AdSet.Fields.name]: ad.address,
-				[AdSet.Fields.campaign_id]: campaignId,
+				[AdSet.Fields.campaign_id]: ad.user.profile.campaignId,
 				[AdSet.Fields.daily_budget]: ad.budget,
 				[AdSet.Fields.billing_event]: AdSet.BillingEvent.impressions,
 				[AdSet.Fields.optimization_goal]: AdSet.OptimizationGoal.impressions,
@@ -93,13 +91,13 @@ Meteor.methods({
 			        "geo_locations": {
 			            "cities": [
 			                {
-			                    "key": ad.region
+			                    "key": '296875'
 			                }
 			            ]
 			        },
 			        "age_min": 25,
 			        "age_max": 45,
-			        "device_platforms": ['mobile'],
+			        "device_platforms": ['mobile', 'desktop'],
 			        "publisher_platforms": ['facebook'],
 			        "facebook_positions": ["feed"]
 				},
@@ -109,20 +107,18 @@ Meteor.methods({
 		)
 		.then((adset) =>{
 			console.log('Now creating your ad')
-			Meteor.call('ad.new', campaignId, adset.id, ad, pageId, userId)
+			Meteor.call('ad.new', adset.id, ad)
 		})
 		.catch((error) =>  {
 			console.log('THIS IS THE ERROR')
 			console.log(error)
 		})
 	},
-	'ad.new': function adNew(campaignId, adsetId, ad, pageId, userId) {
-		check(campaignId, String)
+	'ad.new': function adNew(adsetId, ad) {
 		check(adsetId, String)
 		check(ad, Object)
-		check(pageId, String)
-		check(userId, String)
-
+		console.log('ADDDD')
+		console.log(ad)
 		const accessToken = Meteor.settings.FBAccess;
 		const accountId = Meteor.settings.FBAccountID;
 		const FacebookAdsApi = adsSdk.FacebookAdsApi.init(accessToken)
@@ -139,9 +135,9 @@ Meteor.methods({
 					"status": "PAUSED",
 					"name": ad.address,
 					"creative": {
-						"name": ad.name,
+						"name": ad.address,
 						"object_story_spec": {
-						    "page_id": ad.pageId, 
+						    "page_id": ad.pageId.value, 
 						    "video_data": { 
 						      "call_to_action": {
 						        "type": "OPEN_MESSENGER_EXT",
@@ -149,14 +145,14 @@ Meteor.methods({
 						          "app_destination": "MESSENGER",
 						        },
 						      },
-						      "image_url": ad.imgUrl,
+						      "image_url": "https://s3.us-east-2.amazonaws.com/snapmortgages/toronto.png",
 						      "page_welcome_message": "Welcome message in messenger",
 						      "video_id": ad.videoId,
 						      "title": ad.address,
 						      "message": ad.description
 						    }
 						},
-						"url_tags": "ref=" + userId
+						"url_tags": "ref=" + ad.user._id
 					}
 				}
 			)
@@ -166,7 +162,7 @@ Meteor.methods({
 					ad: ad,
 					approve: false,
 					ad_id: result.id, 
-					userId: userId,
+					userId: ad.user._id,
 					conversations: 0,
 					spend: 0,
 					cpc: 0

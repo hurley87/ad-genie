@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Grid } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Alert, Grid, Row, Col, Table } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
@@ -56,38 +56,37 @@ const App = props => (
           />
           : ''}
         <Navigation {...props} />
-        <Grid>
-          <Switch>
-            <Route exact name="index" path="/" component={Index} />
-            <Authenticated exact path="/documents" component={Documents} {...props} />
-            <Authenticated exact path="/documents/new" component={NewDocument} {...props} />
-            <Authenticated exact path="/campaigns/new" component={NewCampaign} {...props} />
-            <Authenticated exact path="/properties/new" component={NewAd} {...props} />
-            <Authenticated exact path="/properties" component={AdsContainer} {...props} />
-            <Authenticated exact path="/videos/new" component={NewVideo} {...props} />
-            <Authenticated exact path="/properties/:_id" component={ViewProperty} {...props} />
-            <Authenticated exact path="/documents/:_id" component={ViewDocument} {...props} />
-            <Authenticated exact path="/documents/:_id/edit" component={EditDocument} {...props} />
-            <Authenticated exact path="/audiences/new" component={NewAudience} {...props} />
-            <Authenticated exact path="/images/new" component={NewImage} {...props} />
-            <Authenticated exact path="/profile" component={Profile} {...props} />
-            <Authenticated exact path="/email" component={Email} {...props} />
-            <Authenticated exact path="/phone" component={Phone} {...props} />
-            <Authenticated exact path="/credit" component={Credit} {...props} />
-            <Public path="/signup" component={Signup} {...props} />
-            <Public path="/about" component={About} {...props} />
-            <Public path="/login" component={Login} {...props} />
-            <Route path="/logout" component={Logout} {...props} />
-            <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
-            <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
-            <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
-            <Route name="terms" path="/terms" component={Terms} />
-            <Route name="privacy" path="/privacy" component={Privacy} />
-            <Route name="examplePage" path="/example-page" component={ExamplePage} />
-            <Route component={NotFound} />
-          </Switch>
-        </Grid>
-        <Footer />
+          <Grid>
+            <Switch>
+              <Route exact name="index" path="/" component={Index} />
+              <Authenticated exact path="/documents" component={Documents} {...props} />
+              <Authenticated exact path="/documents/new" component={NewDocument} {...props} />
+              <Authenticated exact path="/campaigns/new" component={NewCampaign} {...props} />
+              <Authenticated exact path="/ads/new" component={NewAd} {...props} />
+              <Authenticated exact path="/ads" component={AdsContainer} {...props} />
+              <Authenticated exact path="/videos/new" component={NewVideo} {...props} />
+              <Authenticated exact path="/ads/:_id" component={ViewProperty} {...props} />
+              <Authenticated exact path="/documents/:_id" component={ViewDocument} {...props} />
+              <Authenticated exact path="/documents/:_id/edit" component={EditDocument} {...props} />
+              <Authenticated exact path="/audiences/new" component={NewAudience} {...props} />
+              <Authenticated exact path="/images/new" component={NewImage} {...props} />
+              <Authenticated exact path="/profile" component={Profile} {...props} />
+              <Authenticated exact path="/email" component={Email} {...props} />
+              <Authenticated exact path="/phone" component={Phone} {...props} />
+              <Authenticated exact path="/credit" component={Credit} {...props} />
+              <Public path="/signup" component={Signup} {...props} />
+              <Public path="/about" component={About} {...props} />
+              <Public path="/login" component={Login} {...props} />
+              <Route path="/logout" component={Logout} {...props} />
+              <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
+              <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
+              <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
+              <Route name="terms" path="/terms" component={Terms} />
+              <Route name="privacy" path="/privacy" component={Privacy} />
+              <Route name="examplePage" path="/example-page" component={ExamplePage} />
+              <Route component={NotFound} />
+            </Switch>
+          </Grid>
       </div>
       ) : ''}
   </Router>

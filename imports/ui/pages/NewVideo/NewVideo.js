@@ -18,7 +18,7 @@ class NewVideo extends React.Component {
     const { history } = props;
     this.handleUpload = this.handleUpload.bind(this);
     this.state = {
-      imgChange: props.imgChange,
+      vidChange: props.vidChange,
       loading: false,
       history: history
     }

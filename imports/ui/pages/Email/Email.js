@@ -56,14 +56,13 @@ class Email extends React.Component {
   }
 
   handleSubmit() {
-    const { history } = this.props;
+    const { viewChange } = this.props;
 
     Meteor.call('users.updateEmail', this.state.email, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
-        Bert.alert('Profile updated!', 'success');
-        history.push('/phone');
+        viewChange('pageId')
       }
     });
   }

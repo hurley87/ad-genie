@@ -10,22 +10,34 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import { withTracker } from 'meteor/react-meteor-data';
 import InputHint from '../../components/InputHint/InputHint';
 import validate from '../../../modules/validate';
+import Select from 'react-select';
 
 
-class Phone extends React.Component {
+class PageId extends React.Component {
   constructor(props) {
     super(props);
 
     const { user } = this.props;
+    let pages = user.profile.pages;
+    let select = [];
 
-    this.state = {
-      phone: ''
+    for(let page in pages) {
+      select.push({
+        value: pages[page].id,
+        label: pages[page].name
+      })
     }
 
+    console.log(select)
+
+    this.state = {
+      pageId: '',
+      select: select
+    }
 
     this.getUserType = this.getUserType.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.changePhone = this.changePhone.bind(this)
+    this.changePageId = this.changePageId.bind(this)
   }
 
   componentDidMount() {
@@ -41,20 +53,20 @@ class Phone extends React.Component {
     return service === 'password' ? 'password' : 'oauth';
   }
 
-  changePhone(evt) {
+  changePageId(pageId) {
     this.setState({
-      phone: evt.target.value
+      pageId: pageId.value
     })
   }
 
   handleSubmit() {
     const { viewChange } = this.props;
 
-    Meteor.call('users.updatePhone', this.state.phone, (error) => {
+    Meteor.call('users.updatePageId', this.state.pageId, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
-        viewChange('ad')
+        viewChange('phone')
       }
     });
   }
@@ -65,23 +77,21 @@ class Phone extends React.Component {
       <div className="Profile">
         <Row>
           <Col xs={12}>
-            <h4>Your Phone Number</h4>
-            <p>Potential Clients will contact you here.</p>
+            <h4>Connect Your Facebook Page</h4>
+            <p>You can update this later if you want.</p>
             <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
               <div>
                   <Row>
                     <Col xs={12}>
-                    <FormGroup>
-                      <input
-                        type="phone"
-                        name="phone"
-                        value={this.state.phone}
-                        onChange={this.changePhone}
-                        className='form-control'
+                      <Select
+                        name="pageId"
+                        value={this.state.pageId}
+                        onChange={this.changePageId}
+                        options={this.state.select}
                       />
-                    </FormGroup>
                     </Col>
                   </Row>
+                  <br />
                   <Button type="submit" bsStyle="success">Next</Button>
                 </div>
             </form>
@@ -92,7 +102,7 @@ class Phone extends React.Component {
   }
 }
 
-Phone.propTypes = {
+PageId.propTypes = {
   loading: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
 };
@@ -104,4 +114,4 @@ export default withTracker(() => {
     loading: !subscription.ready(),
     user: Meteor.user(),
   };
-})(Phone);
+})(PageId);

@@ -5,8 +5,10 @@ import updateSubs from './updateSubs';
 import updateUnsubs from './updateUnsubs'; 
 import updateEmail from './updateEmail';
 import updatePhone from './updatePhone'
+import updatePageId from './updatePageId'
 import rateLimit from '../../../modules/rate-limit';
 import graph from 'fbgraph';
+import stripePackage from 'stripe';
 
 Meteor.methods({
   'users.sendVerificationEmail': function usersSendVerificationEmail() {
@@ -56,6 +58,8 @@ Meteor.methods({
   'users.updateEmail': function usersUpdateEmail(email) {
     check(email, String);
 
+    console.log(email)
+
     return updateEmail({ userId: this.userId, email })
       .then(response => response)
       .catch((exception) => {
@@ -71,6 +75,44 @@ Meteor.methods({
         throw new Meteor.Error('500', exception);
       });
   },
+  'users.updatePageId': function usersUpdatePageId(pageId) {
+    check(pageId, String);
+
+    return updatePageId({ userId: this.userId, pageId })
+      .then(response => response)
+      .catch((exception) => {
+        throw new Meteor.Error('500', exception);
+      });
+  },
+  'users.createClient': function usersCreateClient(token, email, userId, plan){
+    check(token, String)
+    check(email, String)
+    check(userId, String)
+    check(plan, String)
+
+    const stripe = stripePackage('sk_test_3NyfglCp2OTHo6uhwcVmLMyi');
+
+    stripe.customers.create({
+      email: email,
+      source: token
+    }, Meteor.bindEnvironment(function(error, customer){
+        stripe.subscriptions.create({
+            customer: customer.id,
+            items: [
+              {
+                plan: plan
+              }
+            ]
+        }, Meteor.bindEnvironment(function(error, subscription){
+          Meteor.users.update(userId, {
+            $set: {
+              "profile.customerId": subscription.customer
+            }
+          })
+        }))
+    }))
+
+  }
 });
 
 rateLimit({

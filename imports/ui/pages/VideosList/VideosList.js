@@ -15,20 +15,14 @@ import NewVideo from '../NewVideo/NewVideo';
 
 import './VideosList.scss';
 
-const VideosList = ({ videos, loading, imgChange, match, history }) => ( !loading ? (
+const VideosList = ({ videos, loading, vidChange, match, history }) => ( !loading ? (
   videos.length > 0 ? 
   <div>
-	<div className="page-header clearfix">
-	  <h4 className="pull-left">Upload a Video</h4>
-	</div>
-	<NewVideo />
-	<div className="page-header clearfix">
-	  <h4>Choose a Video</h4>
-	</div>
+	<p>Now choose a video below to advertise.</p>
   	<Row>
 	{videos.reverse().map((vid, i) => (
 	  <Col md={6} xs={6} key={i}>
-	  	<button onClick={imgChange.bind(this, vid.url, vid.video_id)}>{vid.name}</button>
+	  	<button onClick={vidChange.bind(this, vid.url, vid.video_id)}>{vid.name}</button>
 	  	<video width="200" height="200" controls>
 	  		<source src={vid.url} type="video/mp4"/>
 	  	</video> 
@@ -58,7 +52,7 @@ export default createContainer((props) => {
 	return { 
 		videos: videos,
 		loading: loading,
-		imgChange: props.imgChange
+		vidChange: props.vidChange
 	}
 }, VideosList);
 

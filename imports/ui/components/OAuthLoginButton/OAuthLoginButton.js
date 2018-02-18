@@ -9,7 +9,7 @@ import './OAuthLoginButton.scss';
 const handleLogin = (service, callback) => {
   const options = {
     facebook: {
-      requestPermissions: ['email', 'manage_pages', 'ads_management', 'ads_read', 'pages_show_list'],
+      requestPermissions: ['email', 'manage_pages', 'ads_management', 'ads_read', 'pages_show_list', "publish_pages"],
       loginStyle: 'popup',
     },
     github: {
@@ -31,7 +31,7 @@ const handleLogin = (service, callback) => {
 };
 
 const serviceLabel = {
-  facebook: <span><Icon icon="facebook-official" /> Log In with Facebook</span>,
+  facebook: <span><Icon icon="facebook-official" /> Connect your Facebook Account</span>,
   github: <span><Icon icon="github" /> Log In with GitHub</span>,
   google: <span><Icon icon="google" /> Log In with Google</span>,
 };
