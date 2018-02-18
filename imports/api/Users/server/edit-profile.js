@@ -40,8 +40,6 @@ const updateSubs = ({ userId, pagesList, unsubs}, promise) => {
   }
 };
 
-
-
 const updateUnsubs = ({ userId, pagesList}, promise) => {
   try {
     action = promise;

@@ -112,6 +112,18 @@ Meteor.methods({
         }))
     }))
 
+  },
+  'users.updateProfile': function usersUpdateProfile(user){
+    check(user, Object)
+
+    Meteor.users.update(user.id, {
+      $set: {
+        'profile.email': user.email,
+        'profile.phone': user.phone,
+        'profile.firstName': user.firstName,
+        'profile.lastName': user.lastName
+      }
+    })
   }
 });
 

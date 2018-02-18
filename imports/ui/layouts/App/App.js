@@ -21,6 +21,7 @@ import ViewProperty from '../../pages/ViewProperty/ViewProperty';
 import EditDocument from '../../pages/EditDocument/EditDocument';
 import Email from '../../pages/Email/Email'
 import Phone from '../../pages/Phone/Phone'
+import Settings from '../../pages/Settings/Settings'
 import Credit from '../../pages/Credit/Credit'
 import Signup from '../../pages/Signup/Signup';
 import About from '../../pages/About/About';
@@ -74,6 +75,7 @@ const App = props => (
               <Authenticated exact path="/email" component={Email} {...props} />
               <Authenticated exact path="/phone" component={Phone} {...props} />
               <Authenticated exact path="/credit" component={Credit} {...props} />
+              <Authenticated exact path="/settings" component={Settings} {...props} />
               <Public path="/signup" component={Signup} {...props} />
               <Public path="/about" component={About} {...props} />
               <Public path="/login" component={Login} {...props} />
