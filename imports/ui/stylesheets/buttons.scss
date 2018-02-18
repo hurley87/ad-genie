@@ -1,0 +1,19 @@
+@import './colors';
+
+.main-button {
+  display: block;
+  color: #ffffff;
+  background-color: $ad-genie-blue;
+  border-radius: 3px;
+  padding: 15px 30px;
+  border: none;
+  margin: auto;
+  width: 100%;
+  max-width: 400px;
+
+
+  &:hover {
+    color: #ffffff;
+    background-color: $ad-genie-lighter-blue;
+  }
+}

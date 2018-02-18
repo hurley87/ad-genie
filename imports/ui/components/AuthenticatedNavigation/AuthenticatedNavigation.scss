@@ -1,2 +1,15 @@
-@import '../../stylesheets/mixins';
 @import '../../stylesheets/colors';
+
+.AuthenticatedNavigation .btn {
+	margin-top: 10px;
+	background-color: $ad-genie-blue;
+	color: #fff;
+	border: none;
+	border-radius: 3px;
+
+  &:hover {
+    background-color: $ad-genie-lighter-blue;
+  }
+}
+
+

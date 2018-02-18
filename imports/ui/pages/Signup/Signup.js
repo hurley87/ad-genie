@@ -85,8 +85,11 @@ class Signup extends React.Component {
     return (
       <div className="Signup">
         <Row>
-          <Col xs={12} sm={6} md={5} lg={4} lgOffset={4}>
-            <h4>Sign Up</h4>
+          <Col xs={12} sm={6} md={5} lg={6} lgOffset={3} className='text-center'>
+            <h1>Join hundreds of successful realtors - just like you!</h1>
+            <p>Guarantueed 5 leads in your first month or your money back.</p>
+            <br />
+            <br />
             <Row>
               <Col xs={12}>
                 <OAuthLoginButtons

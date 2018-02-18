@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { ListGroup, ListGroupItem, Alert, Grid, Row, Col, Table } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Alert, Grid, Row, Col, Table, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import Ads from '../../../api/Ads/Ads';
@@ -11,15 +11,13 @@ import './AdsIndex.scss'
 
 const AdsIndex = ({ pausedAds, activeAds, loading, approveAd, pauseAd, deleteAd, ads, match, history }) => ( !loading ? (
 
-	<div>
-	    <div className="page-header clearfix">
-	      <h4 className="pull-left">Ads</h4>
-	      <Link className="btn btn-success pull-right" to={`ads/new`}>Create Ad</Link>
-	    </div>
+	<div className='AdsIndex'>
 		{
 		  ads.length > 0 ? 
 		  <Row>
-
+		    <div className="page-header clearfix">
+		      <h4 className="pull-left">Ads</h4>
+		    </div>
 		  	<Table  striped bordered condensed hover>
 			    <thead>
 			      <tr>
@@ -65,7 +63,19 @@ const AdsIndex = ({ pausedAds, activeAds, loading, approveAd, pauseAd, deleteAd,
 			    </tbody>
 		  	</Table>
 		  </Row> 
-		  : <Alert bsStyle="warning">No ads yet!</Alert>
+		  : 
+		  <Row>
+		  	<br />
+		  	<Col lg={6} lgOffset={3}>
+		  		<img src="/optimize.gif"/>
+		  		<h3 className='text-center'>Almost there ...</h3>
+		  		<p className='text-center'>Answer 4 simple questions and needls and we'll advertise a listing for you.</p>
+		  		<br />
+		  		<Button className='main-button' href="/ads/new">Create your first ad</Button>
+		  		<br />
+		  		<p className='text-center'>Take the First Step to new customers. Let's get started!</p>
+		  	</Col>
+		  </Row>
 		}
 	</div>
 
