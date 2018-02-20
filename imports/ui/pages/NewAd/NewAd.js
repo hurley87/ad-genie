@@ -60,6 +60,7 @@ class NewAd extends React.Component {
     this.vidChange = this.vidChange.bind(this)
     this.planChange = this.planChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.viewChange = this.viewChange.bind(this)
   }
 
   componentDidMount() {
@@ -83,6 +84,7 @@ class NewAd extends React.Component {
   }
 
   changeStage(stage){
+    console.log(stage)
     this.setState({
       stage: stage
     })
@@ -100,6 +102,12 @@ class NewAd extends React.Component {
       vidUrl: vid,
       stage: 'plan'
     });
+  }
+
+  viewChange(view){
+    this.setState({
+      stage: view
+    })
   }
 
   handlePageChange(page) {
@@ -170,6 +178,12 @@ class NewAd extends React.Component {
   render() {
     const { history } = this.props;
 
+    console.log(this.state.user)
+    const pages = this.state.user.profile.pages;
+    const pageId = this.state.pageId.value
+    const img = pages.filter((page) => { return page.id == pageId })[0].img
+    console.log(img)
+
     if(this.state.loading) {
       return <Loading />
     } else {
@@ -189,6 +203,8 @@ class NewAd extends React.Component {
                   description={nl2br(this.state.description)}  
                   vidUrl={this.state.vidUrl}
                   address={this.state.address}
+                  img={img}
+                  viewChange={this.viewChange.bind(this)}
                 />
               </Col>
             </Row>
@@ -217,6 +233,8 @@ class NewAd extends React.Component {
                   description={nl2br(this.state.description)}  
                   vidUrl={this.state.vidUrl}
                   address={this.state.address}
+                  img={img}
+                  viewChange={this.viewChange.bind(this)}
                 />
               </Col>
             </Row>
@@ -246,6 +264,8 @@ class NewAd extends React.Component {
                   description={nl2br(this.state.description)}  
                   vidUrl={this.state.vidUrl}
                   address={this.state.address}
+                  img={img}
+                  viewChange={this.viewChange.bind(this)}
                 />
               </Col>
             </Row>
@@ -268,6 +288,8 @@ class NewAd extends React.Component {
                   description={nl2br(this.state.description)}  
                   vidUrl={this.state.vidUrl}
                   address={this.state.address}
+                  img={img}
+                  viewChange={this.viewChange.bind(this)}
                 />
               </Col>
             </Row>
@@ -300,6 +322,8 @@ class NewAd extends React.Component {
                   description={nl2br(this.state.description)}  
                   vidUrl={this.state.vidUrl}
                   address={this.state.address}
+                  img={img}
+                  viewChange={this.viewChange.bind(this)}
                 />
               </Col>
               </form>
@@ -319,6 +343,8 @@ class NewAd extends React.Component {
                   description={nl2br(this.state.description)}  
                   vidUrl={this.state.vidUrl}
                   address={this.state.address}
+                  img={img}
+                  viewChange={this.viewChange.bind(this)}
                 />
               </Col>
             </Row>
