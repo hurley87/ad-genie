@@ -108,7 +108,7 @@ Meteor.methods({
             $set: {
               "profile.customerId": subscription.customer
             }
-          })
+          });
         }))
     }))
 

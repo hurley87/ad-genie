@@ -31,11 +31,7 @@ const VideosList = ({ videos, loading, vidChange, match, history }) => ( !loadin
 	</Row>
   </div> :
   <div>
-	<div className="page-header clearfix">
-	  <h4>Choose a Video</h4>
-	</div>
-	<p>TODO: Copy explaining the value of using video in an ad.</p>
-	<NewVideo />
+	Upload a video of your listing to continue
   </div>
 ): <Loading />);
 

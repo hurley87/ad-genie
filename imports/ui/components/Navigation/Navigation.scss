@@ -7,6 +7,11 @@
   border-right: none;
   border-top: none;
   margin-bottom: 0px;
+
+  .navbar-brand {
+  	color: $ad-genie-blue;
+  	font-weight: 300;
+  }
 }
 .navbar.navbar-default {
 	background-color: #fff;

@@ -1,0 +1,25 @@
+@import '../../stylesheets/colors';
+
+
+.ViewProperty{
+	padding-top: 15px;
+
+	h3 {
+		font-size: 19px;
+		font-weight: 400;
+		margin-top: 0px;
+	}
+
+	button {
+		margin-top: 15px;
+		background-color: $ad-genie-blue;
+		color: #fff;
+		border: none;
+		border-radius: 3px;
+		padding: 10px 30px;
+
+		&:hover {
+		  background-color: $ad-genie-lighter-blue;
+		}
+	}
+}

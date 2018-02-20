@@ -1,0 +1,93 @@
+.facebook-desktop-card {
+    font-family: Helvetica,Arial,sans-serif;
+    background: #fff;
+    padding: 14px;
+    border: 1px solid;
+    border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+    border-radius: 3px;
+    width: 502px;
+    margin: 0 auto;
+
+    .header {
+    	margin-bottom: 10px;
+
+    	img {
+    		width: 40px;
+    		height: 40px;
+    	}
+
+    	.text {
+    		margin: 5px 10px 0;
+
+    		h3 {
+    			margin: 0;
+			    line-height: 1;
+			    color: #365899;
+			    font-size: 14px;
+			    font-weight: 700;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+    		}
+    		span {
+    			color: #90949c;
+    			font-size: 12px;
+    		}
+    	}
+    }
+
+    .body {
+
+    	.card-text {
+	    	font-size: 14px;
+    	}
+
+    	video {
+    		margin-bottom: 5px;
+    	}
+
+    	.text {
+    		h3 {
+			    font-size: 18px;
+			    font-family: Georgia,serif;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+			    margin: 0;
+			    font-weight: 500;
+    		}
+    		.cta {
+			    background-color: #f6f7f9;
+			    border: 1px solid #ced0d4;
+			    color: #4b4f56;
+			    font-size: 12px;
+			    padding: 3px 8px;
+			    font-weight: 700;
+			    border-radius: 2px;
+			    text-transform: capitalize;
+    		}
+    	}
+
+    }
+    .footer {
+	    margin-top: 15px;
+	    border-top: 1px solid #e5e5e5;
+
+	    .button {
+		    color: #7f7f7f;
+		    display: inline-block;
+		    font-size: 12px;
+		    font-weight: 700;
+		    line-height: 14px;
+		    margin-right: 20px;
+		    padding: 10px 4px 4px 0;
+
+		    img {
+		    	border-style: none;
+	    	    vertical-align: middle;
+	    	    border: 0;
+		    }
+	    }
+
+    }
+}

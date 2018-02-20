@@ -18,8 +18,12 @@ class Phone extends React.Component {
 
     const { user } = this.props;
 
+    let phone = ''
+    if(user.profile.phone) {
+      phone = user.profile.phone
+    }
     this.state = {
-      phone: ''
+      phone: phone
     }
 
 
@@ -48,47 +52,75 @@ class Phone extends React.Component {
   }
 
   handleSubmit() {
-    const { viewChange } = this.props;
+    const { history } = this.props;
 
     Meteor.call('users.updatePhone', this.state.phone, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
-        viewChange('ad')
+        window.location.href = '/ads/' + this.props.adId
       }
     });
   }
 
   render() {
     const { loading, user } = this.props;
+
+    if(user.profile.phone) {
     return (
       <div className="Profile">
         <Row>
           <Col xs={12}>
-            <h4>Your Phone Number</h4>
-            <p>Potential Clients will contact you here.</p>
             <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
               <div>
                   <Row>
-                    <Col xs={12}>
-                    <FormGroup>
-                      <input
-                        type="phone"
-                        name="phone"
-                        value={this.state.phone}
-                        onChange={this.changePhone}
-                        className='form-control'
-                      />
-                    </FormGroup>
+                    <Col className='text-center' lg={4} lgOffset={4}>
+                      <img src="/create.gif"/>
+                      <h3>All set!</h3>
+                      <p>We'll notify you when <a href={'/ads/' + this.props.adId}>your first ad</a> is approved. In the meantime <a href="/settings">update your profile</a> or <a href="/ads/new">create another ad</a>.</p>
+                      <br />
+                      <p>If you have an issue please call Dave at 647-284-5023</p>
                     </Col>
                   </Row>
-                  <Button type="submit" bsStyle="success">Next</Button>
                 </div>
             </form>
           </Col>
         </Row>
       </div>
-    );
+    )
+    } else {
+    return (
+      <div className="Profile">
+        <Row>
+          <Col xs={12}>
+            <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+              <div>
+                  <Row>
+                    <Col lg={4} lgOffset={4}>
+                      <img src="/create.gif"/>
+                      <h3 className='text-center'>Nice work!</h3>
+                      <p className='text-center'>We created your first Facebook ad and it is now in the process of being approved. Where should we text you when your ad is approved?</p>
+                      <br />
+                      <FormGroup>
+                        <input
+                          type="phone"
+                          name="phone"
+                          value={this.state.phone}
+                          onChange={this.changePhone}
+                          className='form-control'
+                        />
+                        <br />
+                        <Button type='submit' className='main-button'>Update phone number</Button>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                </div>
+            </form>
+          </Col>
+        </Row>
+      </div>
+    )
+    }
   }
 }
 

@@ -2,13 +2,15 @@
 
 .AuthenticatedNavigation .btn {
 	margin-top: 10px;
-	background-color: $ad-genie-blue;
-	color: #fff;
-	border: none;
+	background-color: #fff;
+	color: $ad-genie-lighter-blue;
+	border: 1px solid $ad-genie-blue;
 	border-radius: 3px;
+	transition: background-color 0.5s ease;
 
   &:hover {
     background-color: $ad-genie-lighter-blue;
+    color: #fff;
   }
 }
 

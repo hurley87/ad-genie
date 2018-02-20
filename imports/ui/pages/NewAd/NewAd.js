@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import InputHint from '../../components/InputHint/InputHint';
+import FacebookAd from '../../components/FacebookAd/FacebookAd';
 import validate from '../../../modules/validate';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -38,8 +39,6 @@ class NewAd extends React.Component {
   ✅ Newly Built Back Two-Level Deck
   ✅ Open Concept Kitchen
 
-  You need to see this one for yourself!
-
   To get more information on this property or to book a viewing  hit the "Send Message" button below!`
     
   	this.state = {
@@ -60,6 +59,7 @@ class NewAd extends React.Component {
     this.handleAddressChange = this.handleAddressChange.bind(this)
     this.vidChange = this.vidChange.bind(this)
     this.planChange = this.planChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -115,13 +115,55 @@ class NewAd extends React.Component {
   ✅ Newly Built Back Two-Level Deck
   ✅ Open Concept Kitchen
 
-  You need to see this one for yourself!
-
   To get more information on this property or to book a viewing  hit the "Send Message" button below!`
  
     this.setState({
       address: evt.target.value,
       description: description
+    })
+  }
+
+  handleSubmit(evt) {
+    const { history } = this.props;
+
+    evt.preventDefault()
+
+    this.setState({
+      loading: true
+    })
+
+    let budget = 1000
+    const plan = this.state.plan
+    if(plan == 'pro'){
+      budget = 2000
+    }
+    if(plan == 'ultra') {
+      budget = 5000
+    }
+
+    const ad = {
+      vidUrl: this.state.vidUrl,
+      description: this.state.description,
+      plan: this.state.plan,
+      videoId: this.state.videoId,
+      address: this.state.address,
+      pageId: this.state.pageId,
+      user: this.state.user,
+      budget: budget
+    }
+
+    const context = this;
+    Meteor.call('adset.new', ad, function(err, result){
+      if(err) {
+        console.log(err)
+      } else {
+        setTimeout(function(){
+          context.setState({
+            loading: false
+          })
+          history.push('/ads');
+        }, 5000);
+      }
     })
   }
 
@@ -134,22 +176,20 @@ class NewAd extends React.Component {
       if(this.state.stage == 'pageId') {
         return (
           <div className="NewAd">
-            <div className="page-header clearfix">
-              <h4 className="pull-left">Create an Ad</h4>
-            </div>
             <Row>
-              <Col xs={6}>
+              <Col xs={12} sm={6}>
+                <h3>Choose a Facebook Page</h3>
+                <p>This is page you will use to chat with prospects.</p>
                 <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.pageId} />
                 <p><button onClick={this.changeStage.bind(this, 'address')}>Next</button></p>
               </Col>
-              <Col xs={6}>
-                <h5>{this.state.pageId.label == '' ? "Page Name" : this.state.pageId.label }</h5>
-                <div>
-                  {nl2br(this.state.description)}
-                </div>
-                <video width="200" height="200" controls>
-                  <source src={this.state.vidUrl} type="video/mp4"/>
-                </video>
+              <Col xs={12} sm={6}>
+                <FacebookAd 
+                  pageId={this.state.pageId} 
+                  description={nl2br(this.state.description)}  
+                  vidUrl={this.state.vidUrl}
+                  address={this.state.address}
+                />
               </Col>
             </Row>
           </div>
@@ -157,11 +197,10 @@ class NewAd extends React.Component {
       } else if(this.state.stage == 'address') {
         return (
           <div className="NewAd">
-            <div className="page-header clearfix">
-              <h4 className="pull-left">Create an Ad</h4>
-            </div>
             <Row>
-              <Col xs={6}>
+              <Col xs={12} sm={6}>
+                <h3>TODO: Need title here for address</h3>
+                <p>This is page you will use to chat with prospects.</p>
                 <input
                   type="text"
                   name="address"
@@ -172,14 +211,13 @@ class NewAd extends React.Component {
                 />
                 <p><button onClick={this.changeStage.bind(this, 'description')}>Next</button></p>
               </Col>
-              <Col xs={6}>
-                <h5>{this.state.pageId.label}</h5>
-                <div>
-                  {nl2br(this.state.description)}
-                </div>
-                <video width="200" height="200" controls>
-                  <source src={this.state.vidUrl} type="video/mp4"/>
-                </video>
+              <Col xs={12} sm={6}>
+                <FacebookAd 
+                  pageId={this.state.pageId} 
+                  description={nl2br(this.state.description)}  
+                  vidUrl={this.state.vidUrl}
+                  address={this.state.address}
+                />
               </Col>
             </Row>
           </div>
@@ -187,11 +225,10 @@ class NewAd extends React.Component {
       } else if(this.state.stage == 'description') {
         return (
           <div className="NewAd">
-            <div className="page-header clearfix">
-              <h4 className="pull-left">Create an Ad</h4>
-            </div>
             <Row>
-              <Col xs={6}>
+              <Col xs={12} sm={6}>
+                  <h3>TODO: Description</h3>
+                  <p>This is page you will use to chat with prospects.</p>
                   <ContentEditable
                     html={this.state.description}
                     className="edit-description"
@@ -203,14 +240,13 @@ class NewAd extends React.Component {
                 <div>
                 </div>
               </Col>
-              <Col xs={6}>
-                <h5>{this.state.pageId.label}</h5>
-                <div>
-                  {nl2br(this.state.description)}
-                </div>
-                <video width="200" height="200" controls>
-                  <source src={this.state.vidUrl} type="video/mp4"/>
-                </video>
+              <Col xs={12} sm={6}>
+                <FacebookAd 
+                  pageId={this.state.pageId} 
+                  description={nl2br(this.state.description)}  
+                  vidUrl={this.state.vidUrl}
+                  address={this.state.address}
+                />
               </Col>
             </Row>
           </div>
@@ -218,22 +254,21 @@ class NewAd extends React.Component {
       } else if(this.state.stage == 'video'){
         return (
           <div className="NewAd">
-            <div className="page-header clearfix">
-              <h4 className="pull-left">Create an Ad</h4>
-            </div>
             <Row>
-              <Col xs={6}>
+              <Col xs={12} sm={6}>
+                  <h3>TODO: Video</h3>
+                  <p>Need to explain why video is so important on Facebook.</p>
                   <NewVideo />
+                  <hr style={{marginTop: '0px'}}/>
                   <VideosList vidChange={this.vidChange} />
               </Col>
-              <Col xs={6}>
-                <h5>{this.state.pageId.label}</h5>
-                <div>
-                  {nl2br(this.state.description)}
-                </div>
-                <video width="200" height="200" controls>
-                  <source src={this.state.vidUrl} type="video/mp4"/>
-                </video>
+              <Col xs={12} sm={6}>
+                <FacebookAd 
+                  pageId={this.state.pageId} 
+                  description={nl2br(this.state.description)}  
+                  vidUrl={this.state.vidUrl}
+                  address={this.state.address}
+                />
               </Col>
             </Row>
           </div>
@@ -241,12 +276,12 @@ class NewAd extends React.Component {
       } else if(this.state.stage == 'plan'){
         return (
           <div className="NewAd">
-            <div className="page-header clearfix">
-              <h4 className="pull-left">Create an Ad</h4>
-            </div>
             <Row>
-              <Col xs={6}>
-                  <ControlLabel>Budget</ControlLabel>
+              <form ref={form => (this.form = form)} onSubmit={this.handleSubmit.bind(this)}>
+              <Col xs={12} sm={6}>
+
+                  <h3>TODO: Budget</h3>
+                  <p>Explain how budget is used inside the app. Don't charge here!</p>
                   <Select
                     name="propertyType"
                     value={this.state.plan}
@@ -257,60 +292,34 @@ class NewAd extends React.Component {
                       { value: 'ultra', label: '$250'}
                     ]}
                   />
-                  <p><button onClick={this.changeStage.bind(this, 'payment')}>Next</button></p>
+                  <Button type="submit">Create Ad</Button>
               </Col>
-              <Col xs={6}>
-                <h5>{this.state.pageId.label}</h5>
-                <div>
-                  {nl2br(this.state.description)}
-                </div>
-                <video width="200" height="200" controls>
-                  <source src={this.state.vidUrl} type="video/mp4"/>
-                </video>
+              <Col xs={12} sm={6}>
+                <FacebookAd 
+                  pageId={this.state.pageId} 
+                  description={nl2br(this.state.description)}  
+                  vidUrl={this.state.vidUrl}
+                  address={this.state.address}
+                />
               </Col>
+              </form>
             </Row>
           </div>
         );
-      } else if(this.state.stage == 'payment') {
-
-        let budget = 1000
-        const plan = this.state.plan
-        if(plan == 'pro'){
-          budget = 2000
-        }
-        if(plan == 'ultra') {
-          budget = 5000
-        }
-
-        const ad = {
-          vidUrl: this.state.vidUrl,
-          description: this.state.description,
-          plan: this.state.plan,
-          videoId: this.state.videoId,
-          address: this.state.address,
-          pageId: this.state.pageId,
-          user: this.state.user,
-          budget: budget
-        }
-
+      } else {
         return (
           <div className="NewAd">
-            <div className="page-header clearfix">
-              <h4 className="pull-left">Create an Ad</h4>
-            </div>
             <Row>
-              <Col xs={6}>
-                  <p>Awesome time to make a payment</p>
-                  <Credit ad={ad} />
+              <Col xs={12} sm={6}>
+                  Looks like your lost. Refresh your browser. 
               </Col>
-              <Col xs={6}>
-                <h5>{this.state.pageId.label}</h5>
-                <div>
-                  {nl2br(this.state.description)}
-                </div>
-                <video width="200" height="200" controls>
-                  <source src={this.state.vidUrl} type="video/mp4"/>
-                </video>
+              <Col xs={12} sm={6}>
+                <FacebookAd 
+                  pageId={this.state.pageId} 
+                  description={nl2br(this.state.description)}  
+                  vidUrl={this.state.vidUrl}
+                  address={this.state.address}
+                />
               </Col>
             </Row>
           </div>

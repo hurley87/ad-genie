@@ -86,8 +86,8 @@ class NewVideo extends React.Component {
                     ref={imageFile => (this.imageFile = imageFile)}
                     className="form-control"
                   />
+                  <Button type="submit" bsStyle="success">Upload Video</Button>
                 </FormGroup>
-              <Button type="submit" bsStyle="success">Upload Video</Button>
             </form>
           </Col>
         </Row>

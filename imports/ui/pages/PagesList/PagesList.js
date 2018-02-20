@@ -14,7 +14,6 @@ import Select from 'react-select';
 const PagesList = ({ loading, select, handlePageChange, currentRegion, match, history }) => (
   !loading ? 
     <div className="PagesList">
-      <p>This is page you will use to chat with prospects.</p>
       <Select
         name="page"
         value={currentRegion.value}
@@ -39,6 +38,8 @@ export default createContainer((props) => {
 			label: pages[page].name
 		})
 	}
+
+  select.push({ value: "194104847836394", label: "Property Messenger" })
  
   return {
     loading: false,

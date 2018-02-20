@@ -1,3 +1,5 @@
+@import '../../stylesheets/colors';
+
 textarea {
 	white-space: pre-line;
 	height: 500px;
@@ -5,4 +7,74 @@ textarea {
 
 .edit-description {
 	white-space: pre-line;
+	border: 1px solid;
+	border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+	padding: 10px;
+	width: 90%;
 }
+
+.NewAd {
+	padding-top: 15px;
+
+	h3 {
+		font-size: 19px;
+		font-weight: 400;
+		margin-top: 0px;
+	}
+
+	button {
+		margin-top: 15px;
+		background-color: $ad-genie-blue;
+		color: #fff;
+		border: none;
+		border-radius: 3px;
+		padding: 10px 30px;
+
+		&:hover {
+		  background-color: $ad-genie-lighter-blue;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
