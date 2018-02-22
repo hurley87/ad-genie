@@ -2,6 +2,39 @@
 @import '../../stylesheets/buttons';
 
 .AdsIndex {
+	h3 {
+		margin-top: 0px;
+	}
+	.header {
+		background-color: $ad-genie-blue;
+		padding: 15px;
+		color: white;
+	}
+	.table-cell {
+		padding: 15px;
+	}
+	.table-row {
+		border-top: 2px solid #fff;
+		color: #000;
+		opacity: 0.7;
+	}
+	.table-row:hover {
+		transition: all 0.2s ease;
+		background-color: $ad-genie-blue;
+		color: white;	
+	}
+	.first {
+		padding-left: 0px;
+		padding-right: 1px;
+	}
+	.last {
+		padding-right: 0px;
+		padding-left: 1px;
+	}
+	.middle {
+		padding-left: 1px;
+		padding-right: 1px;
+	}
 	img {
 		display: block;
 		margin: auto;

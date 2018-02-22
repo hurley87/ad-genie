@@ -98,8 +98,8 @@ class Phone extends React.Component {
                   <Row>
                     <Col lg={4} lgOffset={4}>
                       <img src="/create.gif"/>
-                      <h3 className='text-center'>Nice work!</h3>
-                      <p className='text-center'>We created your first Facebook ad and it is now in the process of being approved. Where should we text you when your ad is approved?</p>
+                      <h3 className='text-center'>You just created your first ad!</h3>
+                      <p className='text-center'>Where should we text you when your ad is approved?</p>
                       <br />
                       <FormGroup>
                         <input

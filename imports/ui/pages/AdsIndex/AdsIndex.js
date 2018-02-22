@@ -35,25 +35,129 @@ const AdsIndex = ({ pausedAds, activeAds, loading, approveAd, pauseAd, deleteAd,
 		  </Row>
 		  :
 		  <Row>
-		  	<Col lg={6} lgOffset={3}>
-		  		<h3 className='text-center'>Contact Us</h3>
-		  		<p className='text-center'>TODO: Add content around booking a demo</p>	
+		  	<Col lg={10}>
+			    <Row>
+			    	<Col className='first' xs={2}>
+			    		<div className='header'>
+			    			Name
+			    		</div>
+			    	</Col>
+			    	<Col className='middle' xs={2}>
+			    		<div className='header'>
+			    			Plan
+			    		</div>
+			    	</Col>
+			    	<Col  className='middle' xs={2}>
+			    		<div className='header'>
+			    			Status
+			    		</div>
+			    	</Col>
+			    	<Col  className='middle' xs={2}>
+			    		<div className='header'>
+			    			Spend
+			    		</div>
+			    	</Col>
+			    	<Col  className='middle' xs={2}>
+			    		<div className='header'>
+			    			Conversations
+			    		</div>
+			    	</Col>
+			    	<Col className='last' xs={2}>
+			    		<div className='header'>
+			    			CPC
+			    		</div>
+			    	</Col>
+			    </Row>
 			    {activeAds.reverse().map((ad, i) => {
 			    	return (
-				      <Col xs={12} key={ i } >
-				        <Button className='main-button' href={"/ads/"+ad._id}>{ad.ad.address}</Button>
-				        <br />
-				      </Col>
+			    		<a href={`/ads/${ad._id}`}>
+					    <Row className='table-row'>
+					    	<Col  className='first' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.ad.address}
+					    		</div>
+					    	</Col>
+					    	<Col  className='middle' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.ad.plan.value}
+					    		</div>
+					    	</Col>
+					    	<Col  className='middle' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.approved ? 'Approved' : "Pending"}
+					    		</div>
+					    	</Col>
+					    	<Col  className='middle' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.spend}
+					    		</div>
+					    	</Col>
+					    	<Col  className='middle' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.conversations}
+					    		</div>
+					    	</Col>
+					    	<Col  className='last' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.cpc}
+					    		</div>
+					    	</Col>
+					    </Row>
+					    </a>
 				    )
 			    } )}
 			    {pausedAds.reverse().map((ad, i) => {
 			    	return (
-				      <Col xs={12} key={ i } >
-				        <Button className='main-button' href={"/ads/"+ad._id}>{ad.ad.address}</Button>
-				        <br />
-				      </Col>
+			    		<a href={`/ads/${ad._id}`}>
+					    <Row className='table-row'>
+					    	<Col className='first' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.ad.address}
+					    		</div>
+					    	</Col>
+					    	<Col   className='middle' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.ad.plan.value}
+					    		</div>
+					    	</Col>
+					    	<Col   className='middle' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.approved ? 'Approved' : "Pending"}
+					    		</div>
+					    	</Col>
+					    	<Col   className='middle' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.spend}
+					    		</div>
+					    	</Col>
+					    	<Col   className='middle' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.conversations}
+					    		</div>
+					    	</Col>
+					    	<Col  className='last' xs={2}>
+					    		<div className='table-cell'>
+					    			{ad.cpc}
+					    		</div>
+					    	</Col>
+					    </Row>
+					    </a>
 				    )
 			    } )}  	
+		  	</Col>
+		  	<Col lg={2}>
+		  		<h3>Ads</h3>
+		  		<p>3</p>
+		  		<hr />
+		  		<h3>Spend</h3>
+		  		<p>$0</p>
+		  		<hr />
+		  		<h3>Conversations</h3>
+		  		<p>$0</p>
+		  		<hr />
+		  		<h3>CPC</h3>
+		  		<p>$0</p>
+		  		<hr />
 		  	</Col>
 		  </Row> 
 		}
@@ -76,8 +180,8 @@ export default createContainer((props) => {
 	let pausedAds = []
 	let activeAds = []
 
-	pausedAds = Ads.find({ approve: false }).fetch()
-	activeAds = Ads.find({ approve: true }).fetch()
+	pausedAds = Ads.find({ approved: false }).fetch()
+	activeAds = Ads.find({ approved: true }).fetch()
 
 	let loading = !subscription.ready()
 

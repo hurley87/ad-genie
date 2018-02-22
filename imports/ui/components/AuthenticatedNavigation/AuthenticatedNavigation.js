@@ -9,6 +9,7 @@ import './AuthenticatedNavigation.scss';
 const AuthenticatedNavigation = ({ name, history }) => (
   <Nav className='AuthenticatedNavigation' pullRight>	      
     <NavDropdown key={2} title={name} id="user-nav-dropdown">
+      <MenuItem key={2.0} onClick={() => history.push('/ads')}>Ads</MenuItem>
       <MenuItem key={2.1} onClick={() => history.push('/settings')}>Settings</MenuItem>
       <MenuItem key={2.2} onClick={() => history.push('/logout')}>Logout</MenuItem>
     </NavDropdown>

@@ -32,8 +32,7 @@ class NewAd extends React.Component {
       'label': user.profile.pages[0].name,
       'value': user.profile.pages[0].id
     }
-    const address = "57 Curzon";
-    const description = `🔥 Stunning House Located At ${address} 🔥
+    const description = `🔥 Stunning House Located At 57 Curzon 🔥
 
   ✅ Newly Renovated Finished Basement 
   ✅ Newly Built Back Two-Level Deck
@@ -50,7 +49,7 @@ class NewAd extends React.Component {
       loading: false,
       user: user,
       pageId: page,
-      address: address,
+      address: "57 Curzon",
       stage: 'pageId'
   	}
 
@@ -117,17 +116,8 @@ class NewAd extends React.Component {
   }
 
   handleAddressChange(evt) {
-    let description = `🔥 Stunning House Located At ${evt.target.value} 🔥
-
-  ✅ Newly Renovated Finished Basement 
-  ✅ Newly Built Back Two-Level Deck
-  ✅ Open Concept Kitchen
-
-  To get more information on this property or to book a viewing  hit the "Send Message" button below!`
- 
     this.setState({
-      address: evt.target.value,
-      description: description
+      address: evt.target.value
     })
   }
 
@@ -177,12 +167,9 @@ class NewAd extends React.Component {
 
   render() {
     const { history } = this.props;
-
-    console.log(this.state.user)
     const pages = this.state.user.profile.pages;
     const pageId = this.state.pageId.value
     const img = pages.filter((page) => { return page.id == pageId })[0].img
-    console.log(img)
 
     if(this.state.loading) {
       return <Loading />
@@ -192,7 +179,7 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
-                <h3>Choose a Facebook Page</h3>
+                <h3>Facebook Page</h3>
                 <p>This is page you will use to chat with prospects.</p>
                 <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.pageId} />
                 <p><button onClick={this.changeStage.bind(this, 'address')}>Next</button></p>
@@ -205,6 +192,7 @@ class NewAd extends React.Component {
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
+                  display='block'
                 />
               </Col>
             </Row>
@@ -215,8 +203,8 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
-                <h3>TODO: Need title here for address</h3>
-                <p>This is page you will use to chat with prospects.</p>
+                <h3>Headline</h3>
+                <p>Use a headline that stand's out. We have seen good results when realtors use the address of the property.</p>
                 <input
                   type="text"
                   name="address"
@@ -235,6 +223,7 @@ class NewAd extends React.Component {
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
+                  display='block'
                 />
               </Col>
             </Row>
@@ -245,7 +234,7 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
-                  <h3>TODO: Description</h3>
+                  <h3>Description</h3>
                   <p>This is page you will use to chat with prospects.</p>
                   <ContentEditable
                     html={this.state.description}
@@ -266,6 +255,7 @@ class NewAd extends React.Component {
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
+                  display='block'
                 />
               </Col>
             </Row>
@@ -276,7 +266,7 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
-                  <h3>TODO: Video</h3>
+                  <h3>Video</h3>
                   <p>Need to explain why video is so important on Facebook.</p>
                   <NewVideo />
                   <hr style={{marginTop: '0px'}}/>
@@ -290,6 +280,7 @@ class NewAd extends React.Component {
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
+                  display='block'
                 />
               </Col>
             </Row>
@@ -302,7 +293,7 @@ class NewAd extends React.Component {
               <form ref={form => (this.form = form)} onSubmit={this.handleSubmit.bind(this)}>
               <Col xs={12} sm={6}>
 
-                  <h3>TODO: Budget</h3>
+                  <h3>Budget</h3>
                   <p>Explain how budget is used inside the app. Don't charge here!</p>
                   <Select
                     name="propertyType"
@@ -324,6 +315,7 @@ class NewAd extends React.Component {
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
+                  display='block'
                 />
               </Col>
               </form>
@@ -345,6 +337,7 @@ class NewAd extends React.Component {
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
+                  display='block'
                 />
               </Col>
             </Row>

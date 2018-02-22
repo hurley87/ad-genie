@@ -16,14 +16,14 @@ const FacebookAd = props => (
           Sponsored&nbsp;<i className="fa fa-globe" aria-hidden="true"></i>
         </span>
       </div>
-      <div onClick={() => props.viewChange('pageId')} className='overlay'>
+      <div onClick={() => props.viewChange('pageId')} style={{display: props.display}} className='overlay'>
         <div className='overlay-text'>Change Page</div>
       </div>
     </div>
     <div className='body'>
       <div className='overlay-container'>
         <p className='card-text'>{props.description}</p>
-        <div onClick={() => props.viewChange('description')} className='overlay'>
+        <div onClick={() => props.viewChange('description')} style={{display: props.display}} className='overlay'>
           <div className='overlay-text'>Change Description</div>
         </div>
       </div>
@@ -31,14 +31,14 @@ const FacebookAd = props => (
         <video width="476" height="246" controls>
           <source src={props.vidUrl} type="video/mp4"/>
         </video>
-        <div onClick={() => props.viewChange('video')} className='overlay'>
+        <div onClick={() => props.viewChange('video')} style={{display: props.display}} className='overlay'>
           <div className='overlay-text'>Change Video</div>
         </div>
       </div>
       <div className='text clearfix overlay-container'>
         <h3 className='pull-left'>{props.address}</h3>
         <div className='cta pull-right'>Send Message</div>
-        <div onClick={() => props.viewChange('address')} className='overlay'>
+        <div onClick={() => props.viewChange('address')} style={{display: props.display}} className='overlay'>
           <div className='overlay-text'>Change Address</div>
         </div>
       </div>

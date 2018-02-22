@@ -55,7 +55,8 @@ class CheckoutForm extends React.Component {
     console.log(this.props)
     this.props.stripe.createToken(this.state.card).then((token) => {
       console.log('Received Stripe token:', token.token.id);
-	    Meteor.call('users.createClient', token.token.id, this.state.email, Meteor.userId(), this.props.ad.ad.plan, (error) => {
+      window.location.href = '/loading'
+	    Meteor.call('users.createClient', token.token.id, this.state.email, Meteor.userId(), this.props.ad.ad.plan, this.props.ad._id, (error) => {
 	      if (error) {
 	        Bert.alert(error.reason, 'danger');
 	      } 

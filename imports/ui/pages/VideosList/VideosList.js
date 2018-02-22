@@ -22,10 +22,10 @@ const VideosList = ({ videos, loading, vidChange, match, history }) => ( !loadin
   	<Row>
 	{videos.reverse().map((vid, i) => (
 	  <Col md={6} xs={6} key={i}>
-	  	<button onClick={vidChange.bind(this, vid.url, vid.video_id)}>{vid.name}</button>
-	  	<video width="200" height="200" controls>
+	  	<video width="150" height="150" controls>
 	  		<source src={vid.url} type="video/mp4"/>
 	  	</video> 
+	  	<button className="vidButton" onClick={vidChange.bind(this, vid.url, vid.video_id)}>{vid.name}</button>
 	  </Col>
 	))}
 	</Row>

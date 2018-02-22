@@ -8,47 +8,46 @@ import Ads from '../../../api/Ads/Ads';
 import Loading from '../../components/Loading/Loading';
 import FacebookAd from '../../components/FacebookAd/FacebookAd';
 import nl2br from 'react-nl2br';
-import Credit from '../Credit/Credit'
-
+import Credit from '../Credit/Credit';
+import Upgrade from '../Upgrade/Upgrade';
+import Stats from '../Stats/Stats'
 import './ViewProperty.scss'
 
-const ViewProperty = ({ loading, ad, deleteAd, user, match, history }) => ( !loading ? !ad.approve ? (
+const ViewProperty = ({ loading, ad, deleteAd, user, img, match, history }) => ( !loading ? (
   <div className="ViewProperty">
     <Row>
       <Col xs={12} sm={6}>
-          <h3>Awaiting Approval</h3>
-          <p>You'll be notified when this ad is approved.</p>
-      </Col>
-      <Col xs={12} sm={6}>
-        <FacebookAd 
-          pageId={ad.ad.pageId} 
-          description={nl2br(ad.ad.description)}  
-          vidUrl={ad.ad.vidUrl}
-          address={ad.ad.address}
-        />
-      </Col>
-    </Row>
-  </div>
-) : (
-  <div className="ViewProperty">
-    <Row>
-      <Col xs={12} sm={6}>
-          <h3>TODO : Budget</h3>
-          <p>Explain how budget is used inside the app. Don't charge here!</p>
-          <Credit ad={ad} />
-      </Col>
-      <Col xs={12} sm={6}>
-        <FacebookAd 
-          pageId={ad.ad.pageId} 
-          description={nl2br(ad.ad.description)}  
-          vidUrl={ad.ad.vidUrl}
-          address={ad.ad.address}
-        />
-      </Col>
-    </Row>
-  </div>
 
-): <Loading />);
+        {
+          user.profile.customerId ?
+          <div>
+            {
+              ad.paid ?
+              <Stats ad={ad} />
+              :
+              <Upgrade customerId={user.profile.customerId} ad={ad}  />
+            }
+          </div>
+          :
+          <div>
+            <Credit ad={ad} />
+          </div>
+        }
+
+      </Col>
+      <Col xs={12} sm={6}>
+        <FacebookAd 
+          pageId={ad.ad.pageId} 
+          description={nl2br(ad.ad.description)}  
+          vidUrl={ad.ad.vidUrl}
+          address={ad.ad.address}
+          img={user.profile.pages.filter((page) => { return page.id == ad.ad.pageId.value })[0].img}
+          display='none'
+        />
+      </Col>
+    </Row>
+  </div>
+) : <Loading />);
 
 
 ViewProperty.propTypes = {
@@ -61,20 +60,15 @@ export default createContainer(({ match, history }) => {
 
 	const adId = match.params._id;
 	const subscription = Meteor.subscribe('ad.view', adId);
-
 	let ad = Ads.find().fetch()[0];
-
-	console.log(ad)
 	const user = Meteor.users.findOne(Meteor.userId())
-	console.log(user)
-
 	let loading = !subscription.ready()
 
 	const deleteAd = function(adId, history) {
-		history.push('/properties')
+		history.push('/ads')
 		Meteor.call('delete.ad', adId, function(err, result){
 			if(err) console.log(err)
-			if(result) history.push('/properties')
+			if(result) history.push('/ads')
 		})
 	}
 

@@ -160,7 +160,8 @@ Meteor.methods({
 				console.log('Created your AD')
 				Ads.insert({
 					ad: ad,
-					approve: false,
+					approved: false,
+					paid: false,
 					ad_id: result.id, 
 					userId: ad.user._id,
 					conversations: 0,

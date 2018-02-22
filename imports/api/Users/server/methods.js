@@ -9,6 +9,7 @@ import updatePageId from './updatePageId'
 import rateLimit from '../../../modules/rate-limit';
 import graph from 'fbgraph';
 import stripePackage from 'stripe';
+import Ads from '../../Ads/Ads';
 
 Meteor.methods({
   'users.sendVerificationEmail': function usersSendVerificationEmail() {
@@ -84,11 +85,12 @@ Meteor.methods({
         throw new Meteor.Error('500', exception);
       });
   },
-  'users.createClient': function usersCreateClient(token, email, userId, plan){
+  'users.createClient': function usersCreateClient(token, email, userId, plan, adId){
     check(token, String)
     check(email, String)
     check(userId, String)
-    check(plan, String)
+    check(plan, Object)
+    check(adId, String)
 
     const stripe = stripePackage('sk_test_3NyfglCp2OTHo6uhwcVmLMyi');
 
@@ -100,15 +102,22 @@ Meteor.methods({
             customer: customer.id,
             items: [
               {
-                plan: plan
+                plan: plan.value
               }
             ]
         }, Meteor.bindEnvironment(function(error, subscription){
           Meteor.users.update(userId, {
             $set: {
-              "profile.customerId": subscription.customer
+              "profile.customerId": subscription.customer,
+              "profile.ads": [adId],
+              "profile.email": email
             }
           });
+          Ads.update(adId, {
+            $set: {
+              paid: true
+            }
+          })
         }))
     }))
 
@@ -124,6 +133,34 @@ Meteor.methods({
         'profile.lastName': user.lastName
       }
     })
+  },
+  "users.addPlan": function userAddPlan(customerId, plan, userId, adId){
+    check(plan, String)
+    check(customerId, String)
+    check(userId, String)
+    check(adId, String)
+
+    const stripe = stripePackage('sk_test_3NyfglCp2OTHo6uhwcVmLMyi');
+    stripe.subscriptions.create({
+        customer: customerId,
+        items: [
+          {
+            plan: plan
+          }
+        ]
+    }, Meteor.bindEnvironment(function(error, subscription){
+      Meteor.users.update(userId, {
+        $push: {
+          "profile.ads": adId
+        }
+      });
+      Ads.update(adId, {
+        $set: {
+          paid: true
+        }
+      })
+    }))
+
   }
 });
 

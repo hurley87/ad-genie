@@ -119,7 +119,7 @@ class Phone extends React.Component {
     return (
       <div className="Profile">
         <Row>
-          <Col xs={12}>
+          <Col sm={6}>
             <h4>Update your Account</h4>
             <p>Potential Clients will contact you here.</p>
             <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
@@ -169,7 +169,7 @@ class Phone extends React.Component {
 
                     </Col>
                 </Row>
-                <Button type="submit" bsStyle="success">Update</Button>
+                <Button type="submit">Update</Button>
                 </div>
             </form>
           </Col>

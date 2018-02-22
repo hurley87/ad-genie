@@ -59,7 +59,7 @@ const App = props => (
         <Navigation {...props} />
           <Grid>
             <Switch>
-              <Route exact name="index" path="/" component={Index} />
+              <Route exact name="index" path="/" component={Signup} />
               <Authenticated exact path="/documents" component={Documents} {...props} />
               <Authenticated exact path="/documents/new" component={NewDocument} {...props} />
               <Authenticated exact path="/campaigns/new" component={NewCampaign} {...props} />
