@@ -44,8 +44,6 @@ Meteor.methods({
 	},
 	'pages': function pages(pages){
 		check(pages, Array)
-		console.log("PAGES")
-		console.log(pages)
 		for(let p_idx in pages) {
 			let page = pages[p_idx];
 			Pages.insert(page)
@@ -60,8 +58,6 @@ Meteor.methods({
 	        "client_id": "2029273400421368"
 	      , "client_secret": "2d5e6288c3aa1a575a485f8dd0e5f03b"
 	    }, function (err, facebookRes) {
-	       console.log(facebookRes.access_token);
-	       console.log('PGE')
 	       let cool_page = page
 	       cool_page['accessToken'] = facebookRes.access_token
 	       console.log(cool_page)
@@ -117,8 +113,7 @@ Meteor.methods({
 	'ad.new': function adNew(adsetId, ad) {
 		check(adsetId, String)
 		check(ad, Object)
-		console.log('ADDDD')
-		console.log(ad)
+
 		const accessToken = Meteor.settings.FBAccess;
 		const accountId = Meteor.settings.FBAccountID;
 		const FacebookAdsApi = adsSdk.FacebookAdsApi.init(accessToken)
@@ -145,7 +140,7 @@ Meteor.methods({
 						          "app_destination": "MESSENGER",
 						        },
 						      },
-						      "image_url": "https://s3.us-east-2.amazonaws.com/snapmortgages/toronto.png",
+						      "image_hash": "6ce230dd93bf14ea9c9b830998fa7532",
 						      "page_welcome_message": "Welcome message in messenger",
 						      "video_id": ad.videoId,
 						      "title": ad.address,

@@ -13,7 +13,7 @@ const Authenticated = ({
         (React.createElement(component, {
           ...props, ...rest, loggingIn, authenticated,
         })) :
-        (<Redirect to="/signup" />)
+        (<Redirect to="/login" />)
     )}
   />
 );

@@ -31,7 +31,7 @@ const VideosList = ({ videos, loading, vidChange, match, history }) => ( !loadin
 	</Row>
   </div> :
   <div>
-	Upload a video of your listing to continue
+	No videos yet.
   </div>
 ): <Loading />);
 

@@ -1,0 +1,10 @@
+@import '../../stylesheets/colors';
+.progress {
+	width: 100%;
+
+	.fill {
+		background-color: $ad-genie-blue;
+		display: list-item;
+		transition: all 1s ease;
+	}
+}

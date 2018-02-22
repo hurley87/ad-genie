@@ -20,11 +20,9 @@ const AdsIndex = ({ pausedAds, activeAds, loading, approveAd, pauseAd, deleteAd,
 		  	<Col lg={6} lgOffset={3}>
 		  		<img src="/optimize.gif"/>
 		  		<h3 className='text-center'>Almost there ...</h3>
-		  		<p className='text-center'>Answer 4 simple questions and needls and we'll advertise a listing for you.</p>
+		  		<p className='text-center'>Answer 4 simple questions and we'll advertise a listing for you.</p>
 		  		<br />
 		  		<Button className='main-button' href="/ads/new">Create your first ad</Button>
-		  		<br />
-		  		<p className='text-center'>Take the First Step to new customers. Let's get started!</p>
 		  	</Col>
 		  </Row>
 		  : 
@@ -174,9 +172,6 @@ export default createContainer((props) => {
 	const subscription = Meteor.subscribe('ads.user', Meteor.userId());
 
 	let ads = Ads.find().fetch();
-
-	console.log(ads)
-
 	let pausedAds = []
 	let activeAds = []
 

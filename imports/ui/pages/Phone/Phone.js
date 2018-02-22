@@ -110,7 +110,7 @@ class Phone extends React.Component {
                           className='form-control'
                         />
                         <br />
-                        <Button type='submit' className='main-button'>Update phone number</Button>
+                        <Button type='submit' className='main-button'>Update your phone number</Button>
                       </FormGroup>
                     </Col>
                   </Row>

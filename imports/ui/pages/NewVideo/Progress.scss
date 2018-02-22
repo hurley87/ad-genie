@@ -1,0 +1,11 @@
+@import '../../stylesheets/colors';
+
+.Progress {
+	width: 100%;
+	.progress-bar {
+		width: 100%;
+		.fill {
+			background-color: $ad-genie-blue;
+		}
+	}
+}

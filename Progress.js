@@ -1,5 +1,5 @@
 import React from 'react';
-import './Progress.scss'
+
 class Progress extends React.Component {
   constructor(props) {
     super(props);
@@ -12,11 +12,11 @@ class Progress extends React.Component {
   }
 
   render() {
-    return (
+    return (<div className="Progress">
       <div className="progress-bar">
         <div className="fill" style={{ width: this.calculateFill() }}></div>
       </div>
-    );
+    </div>);
   }
 }
 

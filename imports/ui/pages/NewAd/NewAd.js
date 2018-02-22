@@ -20,6 +20,7 @@ import Phone from '../Phone/Phone'
 import PageId from '../PageId/PageId'
 import ContentEditable from 'react-simple-contenteditable';
 import Credit from '../Credit/Credit'
+import Progress from './Progress'
 
 import './NewAd.scss'
 
@@ -49,7 +50,7 @@ class NewAd extends React.Component {
       loading: false,
       user: user,
       pageId: page,
-      address: "57 Curzon",
+      address: "GET INSTANTLY",
       stage: 'pageId'
   	}
 
@@ -150,6 +151,10 @@ class NewAd extends React.Component {
       budget: budget
     }
 
+    this.setState({
+      loading: true
+    })
+
     const context = this;
     Meteor.call('adset.new', ad, function(err, result){
       if(err) {
@@ -160,7 +165,7 @@ class NewAd extends React.Component {
             loading: false
           })
           history.push('/ads');
-        }, 5000);
+        }, 7000);
       }
     })
   }
@@ -179,8 +184,9 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
+                <Progress width={'20%'}/>
                 <h3>Facebook Page</h3>
-                <p>This is page you will use to chat with prospects.</p>
+                <p>Choose your Facebook page from the dropdown menu. If you aren't an administer of your own page you can use ours.</p>
                 <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.pageId} />
                 <p><button onClick={this.changeStage.bind(this, 'address')}>Next</button></p>
               </Col>
@@ -203,8 +209,11 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
+                <Progress width={'40%'}/>
                 <h3>Headline</h3>
-                <p>Use a headline that stand's out. We have seen good results when realtors use the address of the property.</p>
+                <p>Aim to keep your Facebook Ad headline short, sweet, and to the point. Facebook recommends that Ad headlines fall between 25-40 characters in length to maximize engagement, so your focus should be on creating something that is easily understood and value-oriented.
+
+</p>
                 <input
                   type="text"
                   name="address"
@@ -234,8 +243,9 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
+                  <Progress width={'60%'}/>
                   <h3>Description</h3>
-                  <p>This is page you will use to chat with prospects.</p>
+                  <p>This is chance to sell your ad so explain why someone would want to click on your ad. Pro tip: Use lists! People love lists so use that to your advantage.</p>
                   <ContentEditable
                     html={this.state.description}
                     className="edit-description"
@@ -266,8 +276,9 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
+                  <Progress width={'80%'}/>
                   <h3>Video</h3>
-                  <p>Need to explain why video is so important on Facebook.</p>
+                  <p>People are watching more than 100 million hours of video on Facebook every day, and you can tap into this market with your own video. This is the most important part of your ad so make your video count!</p>
                   <NewVideo />
                   <hr style={{marginTop: '0px'}}/>
                   <VideosList vidChange={this.vidChange} />
@@ -292,17 +303,17 @@ class NewAd extends React.Component {
             <Row>
               <form ref={form => (this.form = form)} onSubmit={this.handleSubmit.bind(this)}>
               <Col xs={12} sm={6}>
-
+                  <Progress width={'100%'}/>
                   <h3>Budget</h3>
-                  <p>Explain how budget is used inside the app. Don't charge here!</p>
+                  <p>The more money you spend, the more conversations you'll have. On average realtors are able to have 1 converion for every two dollars spent.</p>
                   <Select
                     name="propertyType"
                     value={this.state.plan}
                     onChange={this.planChange}
                     options={[
-                      { value: 'starter', label: '$50' },
-                      { value: 'pro', label: '$100'},
-                      { value: 'ultra', label: '$250'}
+                      { value: 'starter', label: 'Starter - $49 / month' },
+                      { value: 'pro', label: '***Most Popular*** Pro - $99 / month'},
+                      { value: 'ultra', label: 'Ultra - $249 / month'}
                     ]}
                   />
                   <Button type="submit">Create Ad</Button>

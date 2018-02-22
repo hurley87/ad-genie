@@ -85,35 +85,32 @@ Meteor.methods({
         throw new Meteor.Error('500', exception);
       });
   },
-  'users.createClient': function usersCreateClient(token, email, userId, plan, adId){
-    check(token, String)
-    check(email, String)
-    check(userId, String)
-    check(plan, Object)
-    check(adId, String)
+  'users.createClient': function usersCreateClient(client){
+    check(client, Object)
+    console.log(client)
 
     const stripe = stripePackage('sk_test_3NyfglCp2OTHo6uhwcVmLMyi');
 
     stripe.customers.create({
-      email: email,
-      source: token
+      email: client.email,
+      source: client.token
     }, Meteor.bindEnvironment(function(error, customer){
         stripe.subscriptions.create({
             customer: customer.id,
             items: [
               {
-                plan: plan.value
+                plan: client.plan
               }
             ]
         }, Meteor.bindEnvironment(function(error, subscription){
-          Meteor.users.update(userId, {
+          Meteor.users.update(client.userId, {
             $set: {
               "profile.customerId": subscription.customer,
-              "profile.ads": [adId],
-              "profile.email": email
+              "profile.ads": [client.adId],
+              "profile.email": client.email
             }
           });
-          Ads.update(adId, {
+          Ads.update(client.adId, {
             $set: {
               paid: true
             }
