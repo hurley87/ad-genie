@@ -51,7 +51,7 @@ class NewAd extends React.Component {
       user: user,
       pageId: page,
       address: "GET INSTANTLY",
-      stage: 'pageId'
+      stage: 'video'
   	}
 
     this.handlePageChange = this.handlePageChange.bind(this)
@@ -100,7 +100,7 @@ class NewAd extends React.Component {
     this.setState({
       videoId: videoId,
       vidUrl: vid,
-      stage: 'plan'
+      stage: 'pageId'
     });
   }
 
@@ -158,14 +158,15 @@ class NewAd extends React.Component {
     const context = this;
     Meteor.call('adset.new', ad, function(err, result){
       if(err) {
-        console.log(err)
+        Bert.alert(err.reason, 'danger');
       } else {
         setTimeout(function(){
+          Bert.alert("Your ad was successfully created", 'success');
+          history.push('/ads');
           context.setState({
             loading: false
           })
-          history.push('/ads');
-        }, 7000);
+        }, 5000);
       }
     })
   }
@@ -184,7 +185,7 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
-                <Progress width={'20%'}/>
+                <Progress width={'40%'}/>
                 <h3>Facebook Page</h3>
                 <p>Choose your Facebook page from the dropdown menu. If you aren't an administer of your own page you can use ours.</p>
                 <PagesList handlePageChange={this.handlePageChange} currentPage={this.state.pageId} />
@@ -209,7 +210,7 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
-                <Progress width={'40%'}/>
+                <Progress width={'60%'}/>
                 <h3>Headline</h3>
                 <p>Aim to keep your Facebook Ad headline short, sweet, and to the point. Facebook recommends that Ad headlines fall between 25-40 characters in length to maximize engagement, so your focus should be on creating something that is easily understood and value-oriented.
 
@@ -243,7 +244,7 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
-                  <Progress width={'60%'}/>
+                  <Progress width={'80%'}/>
                   <h3>Description</h3>
                   <p>This is chance to sell your ad so explain why someone would want to click on your ad. Pro tip: Use lists! People love lists so use that to your advantage.</p>
                   <ContentEditable
@@ -253,7 +254,7 @@ class NewAd extends React.Component {
                     onChange={ this.handleDescriptionChange}
                     contentEditable="plaintext-only"
                   />
-                  <p><button onClick={this.changeStage.bind(this, 'video')}>Next</button></p>
+                  <p><button onClick={this.changeStage.bind(this, 'plan')}>Next</button></p>
                 <div>
                 </div>
               </Col>
@@ -276,12 +277,11 @@ class NewAd extends React.Component {
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
-                  <Progress width={'80%'}/>
+                  <Progress width={'20%'}/>
                   <h3>Video</h3>
                   <p>People are watching more than 100 million hours of video on Facebook every day, and you can tap into this market with your own video. This is the most important part of your ad so make your video count!</p>
-                  <NewVideo />
-                  <hr style={{marginTop: '0px'}}/>
-                  <VideosList vidChange={this.vidChange} />
+                  <NewVideo vidChange={this.vidChange} />
+                  
               </Col>
               <Col xs={12} sm={6}>
                 <FacebookAd 
@@ -311,9 +311,9 @@ class NewAd extends React.Component {
                     value={this.state.plan}
                     onChange={this.planChange}
                     options={[
-                      { value: 'starter', label: 'Starter - $49 / month' },
-                      { value: 'pro', label: '***Most Popular*** Pro - $99 / month'},
-                      { value: 'ultra', label: 'Ultra - $249 / month'}
+                      { value: 'starter', label: '$50' },
+                      { value: 'pro', label: '$100'},
+                      { value: 'ultra', label: '$250'}
                     ]}
                   />
                   <Button type="submit">Create Ad</Button>

@@ -9,5 +9,5 @@ Meteor.publish('videos', function videos() {
 
 Meteor.publish('videos.user', function videos(userId) {
 	check(userId, String)
-	return Videos.find({owner_id: userId});
+	return Videos.find({userId: userId});
 });

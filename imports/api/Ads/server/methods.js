@@ -4,6 +4,7 @@ import rateLimit from '../../../modules/rate-limit';
 import adsSdk from 'facebook-nodejs-ads-sdk';
 import request from 'request';
 import Ads from '../Ads'
+import Videos from '../../Videos/Videos'
 import Pages from '../../Pages/Pages'
 import graph from 'fbgraph'
 
@@ -75,6 +76,8 @@ Meteor.methods({
 		const AdSet = adsSdk.AdSet;
 		const account = new AdAccount(accountId)
 
+
+
 		account.createAdSet(
 			[AdSet.Fields.Id],
 			{
@@ -122,6 +125,9 @@ Meteor.methods({
 		const Ad = adsSdk.Ad;
 		const AdCreative = adsSdk.AdCreative;
 
+		const vidUrl = ad.vidUrl;
+		const vid_id = Videos.find({ "url": vidUrl}).fetch()[0].videoId
+
 		account
 			.createAd(
 				[],
@@ -142,7 +148,7 @@ Meteor.methods({
 						      },
 						      "image_hash": "6ce230dd93bf14ea9c9b830998fa7532",
 						      "page_welcome_message": "Welcome message in messenger",
-						      "video_id": ad.videoId,
+						      "video_id": vid_id,
 						      "title": ad.address,
 						      "message": ad.description
 						    }

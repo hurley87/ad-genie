@@ -87,14 +87,13 @@ Meteor.methods({
   },
   'users.createClient': function usersCreateClient(client){
     check(client, Object)
-    console.log(client)
-
     const stripe = stripePackage('sk_test_3NyfglCp2OTHo6uhwcVmLMyi');
 
     stripe.customers.create({
       email: client.email,
       source: client.token
     }, Meteor.bindEnvironment(function(error, customer){
+        console.log(client)
         stripe.subscriptions.create({
             customer: customer.id,
             items: [

@@ -46,25 +46,26 @@ class NewVideo extends React.Component {
     const files = this.imageFile.files;
     const reader = new FileReader();
     const file = files[0];
-
     const { history } = this.props;
-
-    reader.readAsDataURL(file);
     this.setState({
       loading: true
     })
-    reader.onloadend = (event) => {
-      const context = this;
-      Meteor.call('video.new', { data: reader.result, file: { name: file.name, type: file.type } }, function(err, result){
-        if (err) console.warn(err);
-        if (result) console.log(result);
-        setTimeout(function(){ 
+    if(file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = (event) => {
+        const context = this;
+        Meteor.call('video.new', { data: reader.result, file: { name: file.name, type: file.type } }, Meteor.user(), function(err, result){
+          if (err) console.warn(err);
+          if (result) console.log(result);
           context.setState({
             loading: false
           })
-        }, 4000);
-      })
-    };
+        })
+      };
+    } else {
+      return Bert.alert('Error uploading your video. Please try again.', 'danger')
+    }
+
   }
 
   render() {
@@ -89,6 +90,8 @@ class NewVideo extends React.Component {
                   <Button type="submit" bsStyle="success">Upload Video</Button>
                 </FormGroup>
             </form>
+            <hr style={{marginTop: '0px'}}/>
+            <VideoList vidChange={this.props.vidChange} />
           </Col>
         </Row>
       </div>

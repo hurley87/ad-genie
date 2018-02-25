@@ -8,6 +8,8 @@ class Upgrade extends React.Component {
   constructor(props) {
   	super(props)
 
+
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -41,3 +43,6 @@ class Upgrade extends React.Component {
 }
 
 export default Upgrade;
+
+
+

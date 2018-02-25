@@ -15,7 +15,7 @@ export default {
   putObject(upload, bucket, ACL, isSigned) {
     return new Promise((resolve, reject) => {
       s3.putObject({
-        Bucket: bucket || 'snapmortgages',
+        Bucket: bucket || 'adsgen',
         Key: upload.file.name,
         Body: new Buffer(upload.data.split(',')[1], 'base64'),
         ContentEncoding: 'base64',
@@ -28,7 +28,7 @@ export default {
         } else {
           if (isSigned) {
             s3.getSignedUrl('getObject', {
-              Bucket: 'snapmortgages',
+              Bucket: 'adsgen',
               Key: upload.file.name,
             }, (error, response) => {
               if (error) {
@@ -56,7 +56,7 @@ export default {
   deleteObject(Key, bucket) {
     return new Promise((resolve, reject) => {
       s3.deleteObject({
-        Bucket: bucket || 'snapmortgages',
+        Bucket: bucket || 'adsgen',
         Key,
       }, Meteor.bindEnvironment((error) => {
         if (error) {
@@ -70,7 +70,7 @@ export default {
   getSignedUrl(Key, bucket) {
     return new Promise((resolve, reject) => {
       s3.getSignedUrl('getObject', {
-        Bucket: bucket || 'snapmortgages',
+        Bucket: bucket || 'adsgen',
         Key,
       }, (error, url) => {
         if (error) {

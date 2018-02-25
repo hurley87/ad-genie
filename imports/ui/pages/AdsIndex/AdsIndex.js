@@ -175,8 +175,12 @@ export default createContainer((props) => {
 	let pausedAds = []
 	let activeAds = []
 
+
+
 	pausedAds = Ads.find({ approved: false }).fetch()
 	activeAds = Ads.find({ approved: true }).fetch()
+
+	console.log(ads)
 
 	let loading = !subscription.ready()
 

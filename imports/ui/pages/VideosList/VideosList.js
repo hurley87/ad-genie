@@ -18,16 +18,22 @@ import './VideosList.scss';
 const VideosList = ({ videos, loading, vidChange, match, history }) => ( !loading ? (
   videos.length > 0 ? 
   <div>
-	<p>Now choose a video below to advertise.</p>
+	<p>Choose a video below.</p>
   	<Row>
-	{videos.reverse().map((vid, i) => (
-	  <Col md={6} xs={6} key={i}>
-	  	<video width="150" height="150" controls>
-	  		<source src={vid.url} type="video/mp4"/>
-	  	</video> 
-	  	<button className="vidButton" onClick={vidChange.bind(this, vid.url, vid.video_id)}>{vid.name}</button>
-	  </Col>
-	))}
+	{videos.reverse().map((vid, i) => {
+		if(vid.videoId) {
+			return (
+			  <Col md={4} xs={6} key={i}>
+			  	<video width="150" height="150" controls>
+			  		<source src={vid.url} type="video/mp4"/>
+			  	</video> 
+			  	<button className="vidButton" onClick={vidChange.bind(this, vid.url, vid.video_id)}>{vid.name}</button>
+			  </Col>
+			)
+		} else {
+			return <Loading />
+		}
+	})}
 	</Row>
   </div> :
   <div>

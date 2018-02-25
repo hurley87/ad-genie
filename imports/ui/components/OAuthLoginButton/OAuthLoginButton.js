@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Icon from '../Icon/Icon';
-
+import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import './OAuthLoginButton.scss';
 
 const handleLogin = (service, callback) => {
@@ -31,19 +31,18 @@ const handleLogin = (service, callback) => {
 };
 
 const serviceLabel = {
-  facebook: <span><Icon icon="facebook-official" /> Connect your Facebook Account</span>,
+  facebook: <Button className='main-button'>Connect Your Facebook Account</Button>,
   github: <span><Icon icon="github" /> Log In with GitHub</span>,
   google: <span><Icon icon="google" /> Log In with Google</span>,
 };
 
 const OAuthLoginButton = ({ service, callback }) => (
-  <button
+  <div
     className={`OAuthLoginButton OAuthLoginButton-${service}`}
-    type="button"
     onClick={() => handleLogin(service, callback)}
   >
     {serviceLabel[service]}
-  </button>
+  </div>
 );
 
 OAuthLoginButton.defaultProps = {
