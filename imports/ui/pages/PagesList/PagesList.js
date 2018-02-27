@@ -39,7 +39,7 @@ export default createContainer((props) => {
 		})
 	}
 
-  select.push({ value: "194104847836394", label: "Property Messenger" })
+  select.push({ value: "194104847836394", label: "Property Messenger", img: "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/26804369_194105004503045_2459918275830932498_n.jpg?oh=b8241812e0b5e568b8defe52fa35fd39&oe=5B04BDBC" })
  
   return {
     loading: false,

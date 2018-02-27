@@ -4,8 +4,8 @@
     "MAIL_URL": "",
     "OAuth": {
       "facebook": {
-        "appId": "2029273400421368",
-        "secret": "2d5e6288c3aa1a575a485f8dd0e5f03b",
+        "appId": "1601590126567055",
+        "secret": "7b18f91492b7229bdca9a67037c6b9ee",
         "loginStyle": "popup"
       },
       "google": {
