@@ -41,7 +41,7 @@ const ViewProperty = ({ loading, ad, deleteAd, user, img, match, history }) => (
           description={nl2br(ad.ad.description)}  
           vidUrl={ad.ad.vidUrl}
           address={ad.ad.address}
-          img={user.profile.pages.filter((page) => { return page.id == ad.ad.pageId.value })[0].img}
+          img={user.profile.pages.filter((page) => { return page.id == ad.ad.pageId.value }).length > 0 ? user.profile.pages.filter((page) => { return page.id == ad.ad.pageId.value })[0].img : "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/26804369_194105004503045_2459918275830932498_n.jpg?oh=b8241812e0b5e568b8defe52fa35fd39&oe=5B04BDBC"}
           display='none'
         />
       </Col>
