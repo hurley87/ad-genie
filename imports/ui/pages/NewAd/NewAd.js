@@ -84,7 +84,6 @@ class NewAd extends React.Component {
   }
 
   changeStage(stage){
-    console.log(stage)
     this.setState({
       stage: stage
     })
@@ -111,6 +110,7 @@ class NewAd extends React.Component {
   }
 
   handlePageChange(page) {
+    console.log(page)
     this.setState({
       pageId: page
     });
@@ -175,8 +175,12 @@ class NewAd extends React.Component {
     const { history } = this.props;
     const pages = this.state.user.profile.pages;
     const pageId = this.state.pageId.value
-    const img = pages.filter((page) => { return page.id == pageId })[0].img
-
+    const choosenPage = pages.filter((page) => { return page.id == pageId })
+    let img = "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/26804369_194105004503045_2459918275830932498_n.jpg?oh=b8241812e0b5e568b8defe52fa35fd39&oe=5B04BDBC";
+    if(choosenPage.length > 0) {
+      img = choosenPage[0].img
+    }
+ 
     if(this.state.loading) {
       return <Loading />
     } else {
