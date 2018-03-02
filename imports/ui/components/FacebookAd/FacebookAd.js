@@ -28,18 +28,16 @@ const FacebookAd = props => (
         </div>
       </div>
       <div className='video text-center overlay-container'>
-        <video width="476" height="246" controls>
-          <source src={props.vidUrl} type="video/mp4"/>
-        </video>
-        <div onClick={() => props.viewChange('video')} style={{display: props.display}} className='overlay'>
-          <div className='overlay-text'>Change Video</div>
+        <img width="470" height="246" src={props.imgUrl} />
+        <div onClick={() => props.viewChange('image')} style={{display: props.display}} className='overlay'>
+          <div className='overlay-text'>Change Image</div>
         </div>
       </div>
       <div className='text clearfix overlay-container'>
         <h3 className='pull-left'>{props.address}</h3>
         <div className='cta pull-right'>Send Message</div>
         <div onClick={() => props.viewChange('address')} style={{display: props.display}} className='overlay'>
-          <div className='overlay-text'>Change Address</div>
+          <div className='overlay-text'>Change Headline</div>
         </div>
       </div>
     </div>

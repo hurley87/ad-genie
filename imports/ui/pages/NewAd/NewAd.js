@@ -21,6 +21,7 @@ import PageId from '../PageId/PageId'
 import ContentEditable from 'react-simple-contenteditable';
 import Credit from '../Credit/Credit'
 import Progress from './Progress'
+import NewImage from '../NewImage/NewImage';
 
 import './NewAd.scss'
 
@@ -45,19 +46,22 @@ class NewAd extends React.Component {
   		description: description,
       plan: "pro",
   		vidUrl: '',
+      imgUrl: 'https://s3.us-east-2.amazonaws.com/snapmortgages/housing.png',
+      imgHash: '600af4c2aa497ef79c95c1e42516f8fd',
   		videoId: '',
       address: '',
       loading: false,
       user: user,
       pageId: page,
       address: "GET INSTANTLY",
-      stage: 'video'
+      stage: 'image'
   	}
 
     this.handlePageChange = this.handlePageChange.bind(this)
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
     this.handleAddressChange = this.handleAddressChange.bind(this)
     this.vidChange = this.vidChange.bind(this)
+    this.imgChange = this.imgChange.bind(this)
     this.planChange = this.planChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.viewChange = this.viewChange.bind(this)
@@ -103,6 +107,15 @@ class NewAd extends React.Component {
     });
   }
 
+  imgChange(img) {
+    console.log(img)
+    this.setState({
+      imgHash: img.value,
+      imgUrl: img.src,
+      stage: 'pageId'
+    });
+  }
+
   viewChange(view){
     this.setState({
       stage: view
@@ -141,15 +154,17 @@ class NewAd extends React.Component {
     }
 
     const ad = {
-      vidUrl: this.state.vidUrl,
+      imgHash: this.state.imgHash,
       description: this.state.description,
       plan: this.state.plan,
-      videoId: this.state.videoId,
+      imgUrl: this.state.imgUrl,
       address: this.state.address,
       pageId: this.state.pageId,
       user: this.state.user,
       budget: budget
     }
+
+    console.log(ad)
 
     this.setState({
       loading: true
@@ -199,7 +214,7 @@ class NewAd extends React.Component {
                 <FacebookAd 
                   pageId={this.state.pageId} 
                   description={nl2br(this.state.description)}  
-                  vidUrl={this.state.vidUrl}
+                  imgUrl={this.state.imgUrl}
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
@@ -233,7 +248,7 @@ class NewAd extends React.Component {
                 <FacebookAd 
                   pageId={this.state.pageId} 
                   description={nl2br(this.state.description)}  
-                  vidUrl={this.state.vidUrl}
+                  imgUrl={this.state.imgUrl}
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
@@ -266,7 +281,7 @@ class NewAd extends React.Component {
                 <FacebookAd 
                   pageId={this.state.pageId} 
                   description={nl2br(this.state.description)}  
-                  vidUrl={this.state.vidUrl}
+                  imgUrl={this.state.imgUrl}
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
@@ -276,22 +291,22 @@ class NewAd extends React.Component {
             </Row>
           </div>
         );
-      } else if(this.state.stage == 'video'){
+      } else if(this.state.stage == 'image'){
         return (
           <div className="NewAd">
             <Row>
               <Col xs={12} sm={6}>
                   <Progress width={'20%'}/>
-                  <h3>Video</h3>
+                  <h3>Image</h3>
                   <p>People are watching more than 100 million hours of video on Facebook every day, and you can tap into this market with your own video. This is the most important part of your ad so make your video count!</p>
-                  <NewVideo vidChange={this.vidChange} />
+                  <NewImage imgChange={this.imgChange} />
                   
               </Col>
               <Col xs={12} sm={6}>
                 <FacebookAd 
                   pageId={this.state.pageId} 
                   description={nl2br(this.state.description)}  
-                  vidUrl={this.state.vidUrl}
+                  imgUrl={this.state.imgUrl}
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
@@ -326,7 +341,7 @@ class NewAd extends React.Component {
                 <FacebookAd 
                   pageId={this.state.pageId} 
                   description={nl2br(this.state.description)}  
-                  vidUrl={this.state.vidUrl}
+                  imgUrl={this.state.imgUrl}
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}
@@ -348,7 +363,7 @@ class NewAd extends React.Component {
                 <FacebookAd 
                   pageId={this.state.pageId} 
                   description={nl2br(this.state.description)}  
-                  vidUrl={this.state.vidUrl}
+                  imgUrl={this.state.imgUrl}
                   address={this.state.address}
                   img={img}
                   viewChange={this.viewChange.bind(this)}

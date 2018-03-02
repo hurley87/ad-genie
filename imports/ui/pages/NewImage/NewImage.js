@@ -10,6 +10,8 @@ import validate from '../../../modules/validate';
 import ImagesList from '../ImagesList/ImagesList';
 import Loading from '../../components/Loading/Loading';
 
+import './NewImage.scss'
+
 class NewImage extends React.Component {
   constructor(props) {
     super(props);
@@ -77,9 +79,11 @@ class NewImage extends React.Component {
                       ref={imageFile => (this.imageFile = imageFile)}
                       className="form-control"
                     />
+                    <Button type="submit" bsStyle="success">Create Image</Button>
                   </FormGroup>
-                <Button type="submit" bsStyle="success">Create Image</Button>
               </form>
+              <hr style={{marginTop: '0px'}}/>
+              <ImagesList imgChange={this.props.imgChange} />
             </Col>
           </Row>
           <br />

@@ -16,15 +16,8 @@ import NewImage from '../NewImage/NewImage';
 const ImagesList = ({ images, loading, imgChange, match, history }) => ( !loading ? (
   images.length > 0 ? 
   <div>
-	<div className="page-header clearfix">
-	  <h4>Upload an Image</h4>
-	</div>
-  	<NewImage />
-	<div className="page-header clearfix">
-	  <h4>Choose an Image</h4>
-	</div>
 	<ImagePicker 
-	  images={images.map((image, i) => ({src: image.url, value: i, hash: image.hash }))}
+	  images={images.map((image, i) => ({src: image.url, value: image.hash }))}
 	  onPick={imgChange}
 	/>
   </div> :
@@ -33,7 +26,6 @@ const ImagesList = ({ images, loading, imgChange, match, history }) => ( !loadin
 	  <h4>Upload an Image</h4>
 	</div>
 	<p>TODO: explain importance of using the right image in an ad.</p>
-	<NewImage />
   </div>
 ): <Loading />);
 

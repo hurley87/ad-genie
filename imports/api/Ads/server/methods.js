@@ -125,9 +125,6 @@ Meteor.methods({
 		const Ad = adsSdk.Ad;
 		const AdCreative = adsSdk.AdCreative;
 
-		const vidUrl = ad.vidUrl;
-		const vid_id = Videos.find({ "url": vidUrl}).fetch()[0].videoId
-
 		account
 			.createAd(
 				[],
@@ -139,18 +136,19 @@ Meteor.methods({
 						"name": ad.address,
 						"object_story_spec": {
 						    "page_id": ad.pageId.value, 
-						    "video_data": { 
+						    "link_data": { 
 						      "call_to_action": {
-						        "type": "OPEN_MESSENGER_EXT",
+						        "type": "LEARN_MORE",
 						        "value": {
 						          "app_destination": "MESSENGER",
 						        },
 						      },
-						      "image_hash": "6ce230dd93bf14ea9c9b830998fa7532",
-						      "page_welcome_message": "Welcome message in messenger",
-						      "video_id": vid_id,
-						      "title": ad.address,
-						      "message": ad.description
+						      "image_hash": ad.imgHash,
+						      "page_welcome_message": "Welcome!",
+							  "message": ad.description,
+							  "link": "whispering-tor-56235.herokuapp.com/signup",
+							  "name": ad.address,
+							  "description": 'View this listing today!'
 						    }
 						},
 						"url_tags": "ref=" + ad.user._id
