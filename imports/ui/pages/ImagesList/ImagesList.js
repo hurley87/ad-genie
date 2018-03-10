@@ -22,10 +22,7 @@ const ImagesList = ({ images, loading, imgChange, match, history }) => ( !loadin
 	/>
   </div> :
   <div>
-	<div className="page-header clearfix">
-	  <h4>Upload an Image</h4>
-	</div>
-	<p>TODO: explain importance of using the right image in an ad.</p>
+	<p>Upload an image.</p>
   </div>
 ): <Loading />);
 
